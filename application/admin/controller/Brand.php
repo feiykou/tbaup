@@ -31,7 +31,14 @@ class Brand extends Base
         return view();
     }
 
-    public function edit(){
+    public function edit($id=0){
+        if(intval($id) < 1){
+            $this->error("参数不合法");
+        }
+        $brandData = $this->model->find(['id'=>$id]);
+        $this->assign([
+            'brandData' => $brandData
+        ]);
         return view();
     }
 

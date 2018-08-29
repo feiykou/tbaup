@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\lst.html";i:1535466005;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\lst.html";i:1535557719;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +86,7 @@
                                     <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em></em><i></i></div>
                                 </td>
                                 <td>
-                                    <a class="layui-btn layui-btn-mini tb_edit"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
+                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑品牌','<?php echo url('edit',['id'=>$brand['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
                                     <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" data-id="1"><i class="layui-icon"></i> 删除</a>
                                 </td>
                             </tr>
