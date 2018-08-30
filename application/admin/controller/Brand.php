@@ -83,7 +83,28 @@ class Brand extends Base
         }
     }
 
-    public function del(){
-        return view();
+    //删除
+    public function del($id=-1){
+        if(request()->isPost()){
+            $id = request()->post()['idsArr'];
+            if($id == []){
+                $this->error("无选中的数据！");
+            }
+        }else{
+            if(intval($id)<1){
+                $this->error("参数不合法");
+            }
+        }
+
+        if(!is_array($id)){
+            $id = [$id];
+        }
+        $result = db('brand')->delete($id);
+        // 返回状态码
+        if($result){
+            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
+        }else{
+            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
+        }
     }
 }

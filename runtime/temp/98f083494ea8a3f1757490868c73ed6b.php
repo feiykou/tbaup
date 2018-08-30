@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\lst.html";i:1535557719;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\lst.html";i:1535642379;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,21 +17,13 @@
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
 		
-		<div class="layui-inline">
-		    <div class="layui-input-inline">
-		    	<input value="" placeholder="请输入关键字" class="layui-input search_input" type="text">
-		    </div>
-		    <a class="layui-btn search_btn">查询</a>
-		</div><div class="layui-inline" onclick="add('添加品牌','<?php echo url('add'); ?>')">
+		<div class="layui-inline" onclick="add('添加品牌','<?php echo url('add'); ?>')">
 			<a class="layui-btn layui-btn-normal newsAdd_btn">添加品牌</a>
 		</div>
-		<div class="layui-inline">
-			<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>
-		</div>
-		<div class="layui-inline">
+		<div class="layui-inline" onclick="audit()">
 			<a class="layui-btn audit_btn">审核文章</a>
 		</div>
-		<div class="layui-inline">
+		<div class="layui-inline" onclick="delMore()">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
 		</div>
 		<div class="layui-inline">
@@ -64,10 +56,10 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tbody class="news_content">
+                        <tbody class="news_content list-box-body">
                             <?php if(is_array($brandDatas) || $brandDatas instanceof \think\Collection || $brandDatas instanceof \think\Paginator): $i = 0; $__LIST__ = $brandDatas;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$brand): $mod = ($i % 2 );++$i;?>
                             <tr>
-                                <td align="center"><input name="checked" lay-skin="primary" lay-filter="choose" type="checkbox">
+                                <td align="center"><input name="checked" data-id="<?php echo $brand['id']; ?>" lay-skin="primary" lay-filter="choose" type="checkbox">
                                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
                                 </td>
                                 <td><?php echo $brand['brand_name']; ?></td>
@@ -87,7 +79,7 @@
                                 </td>
                                 <td>
                                     <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑品牌','<?php echo url('edit',['id'=>$brand['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" data-id="1"><i class="layui-icon"></i> 删除</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $brand->id; ?>)"><i class="layui-icon"></i> 删除</a>
                                 </td>
                             </tr>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -110,18 +102,90 @@
 <script src="/static/admin/js/common.js"></script>
 
 <script type="text/javascript">
+    /*产品-删除*/
+    function product_del(obj,id){
+        var url = "<?php echo url('del'); ?>?id="+id;
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+
+    function audit() {
+        var idsArr = getCheckedId().idsArr;
+
+
+    }
+
+    function delMore() {
+        var idsArr = getCheckedId().idsArr;
+        var $checkDoms = getCheckedId().checkDoms;
+        reqChangeStutas({
+            idsArr: idsArr,
+            url:"<?php echo url('del'); ?>",
+            msgTip:'请先选择要删除的产品!',
+            confirmTip:'确认要删除吗？',
+            sCallback: function(data){
+                console.log(data);
+                $checkDoms.each(function(index,item){
+                    $(item).parents('tr').remove();
+                });
+                layer.msg('已删除!',{icon:1,time:1000});
+            }
+        });
+    }
+
+    function getCheckedId() {
+        var $checkDoms = $('.list-box-body').find('input[type="checkbox"][name="checked"]:checked');
+        var idsArr = [];
+        $checkDoms.each(function (index,item) {
+            idsArr.push($(item).data('id'));
+        });
+        return {
+            idsArr:idsArr,
+            checkDoms:$checkDoms
+        };
+    }
+    
+    function reqChangeStutas(opts) {
+        var idsArr = opts.idsArr || [];
+        if(idsArr.length == 0){
+            layer.msg(opts.msgTip||'请先选择',{icon:1,time:1500});
+            return false;
+        }
+        layer.confirm(opts.confirmTip||'确认吗？',function(index){
+            console.log(index);
+            $.ajax({
+                url: opts.url,
+                type: opts.method || "POST",
+                data: {idsArr:idsArr},
+                success: function(data){
+                    opts.sCallback && opts.sCallback(data);
+                },
+                error:function(data) {
+                    opts.eCallback && opts.eCallback(data);
+                }
+            });
+        });
+    }
+    
     layui.config({
         base: '/static/admin/js/'
     }).use(['form','layer','element','laypage'],function(){
         window.layer = layui.layer;
         var element = layui.element,
         form = layui.form;
-        form.on('switch(filter)', function(data){
-            console.log(data.elem); //得到checkbox原始DOM对象
-            console.log(data.elem.checked); //开关是否开启，true或者false
-            console.log(data.value); //开关value值，也可以通过data.elem.value得到
-            console.log(data.othis); //得到美化后的DOM对象
-        });
+
+
     });
 </script>
 </body>
