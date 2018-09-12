@@ -30,6 +30,29 @@ CREATE TABLE `tb_brand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '品牌表';
 
 
+
+-- ----------------------------
+-- Table structure for tb_category
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_category`;
+CREATE TABLE `tb_category` (
+  `id` smallint NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `cate_name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品分类名称',
+  `cate_img` varchar(100) NOT NULL DEFAULT '' COMMENT '商品分类图片',
+  `sort` smallint NOT NULL DEFAULT 50 COMMENT '排序',
+  `pid` smallint NOT NULL DEFAULT 0 COMMENT '父类id',
+  `show_cate` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否展示分类',
+  `keywords` varchar(150) NOT NULL DEFAULT '' COMMENT '商品分类关键词',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '商品分类描述',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品分类';
+
+
+
+
+
 -- ----------------------------
 -- Table structure for bw_banner
 -- ----------------------------

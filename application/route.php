@@ -10,4 +10,4 @@
 // +----------------------------------------------------------------------
 
 use think\Route;
-Route::get('/','admin/index/index');
+//Route::get('/','admin/index/index');

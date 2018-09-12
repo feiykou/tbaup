@@ -48,6 +48,7 @@ class Brand extends Base
         }
         $validate = (new BrandValidate())->goCheck('save');
         if(!$validate['type']){
+            var_dump($validate['msg']);
             $this->result("",'0',implode(',',$validate['msg']));
         }
         // 获取请求数据
