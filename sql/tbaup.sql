@@ -49,7 +49,35 @@ CREATE TABLE `tb_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品分类';
 
+-- ----------------------------
+-- Table structure for tb_type
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_type`;
+CREATE TABLE `tb_type` (
+  `id` smallint NOT NULL AUTO_INCREMENT COMMENT '类型id',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '类型名称',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品分类';
 
+
+
+-- ----------------------------
+-- Table structure for tb_property
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_property`;
+CREATE TABLE `tb_property` (
+  `id` smallint NOT NULL AUTO_INCREMENT COMMENT '商品属性id',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品属性名称',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '商品属性类型,1:单选 2：唯一',
+  `values` varchar(255) NOT NULL DEFAULT '' COMMENT '商品属性值',
+  `type_id` smallint NOT NULL DEFAULT 0 COMMENT '所属类型id',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `type_id` (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性';
 
 
 

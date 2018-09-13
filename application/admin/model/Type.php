@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/8/28
- * Time: 0:07
+ * Date: 2018/9/12 0012
+ * Time: 下午 16:48
  */
 
 namespace app\admin\model;
@@ -11,8 +11,7 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Brand extends Model
+class Type extends Model
 {
-
 
 }

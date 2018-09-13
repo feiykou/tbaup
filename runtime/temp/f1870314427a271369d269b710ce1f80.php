@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1535288840;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1535287813;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1535288840;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1536794933;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
 <link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
-
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>KIT ADMIN</title>
     <link rel="stylesheet" href="/static/admin/css/app.css" media="all">
 </head>
@@ -49,20 +49,20 @@
     <div class="layui-side-scroll">
         <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-        <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+        <ul class="layui-nav layui-nav-tree" kit-navbar>
             <li class="layui-nav-item">
                 <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 品牌</span></a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="javascript:;" data-url="<?php echo url('brand/lst'); ?>" data-icon="&#xe6c6;" data-title="表格" kit-target><i class="layui-icon">&#xe6c6;</i><span> 表格</span></a>
+                        <a href="javascript:;" data-url="<?php echo url('brand/lst'); ?>" data-icon="&#xe6c6;" data-title="品牌分类" data-id="50" kit-target><i class="layui-icon">&#xe6c6;</i><span>品牌分类</span></a>
                     </dd>
                 </dl>
             </li>
             <li class="layui-nav-item layui-nav-itemed">
-                <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 组件</span></a>
+                <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 商品</span></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> Navbar</span></a></dd>
-                    <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> Tab</span></a></dd>
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('category/lst'); ?>"  data-icon="&#xe658;" data-title="商品分类" data-id="51"><i class="layui-icon">&#xe658;</i><span> 商品分类</span></a></dd>
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('type/lst'); ?>"  data-icon="&#xe658;" data-title="商品类型" data-id="52"><i class="layui-icon">&#xe658;</i><span> 商品类型</span></a></dd>
                     <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> OneLevel</span></a></dd>
                     <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> app.js主入口</span></a></dd>
                 </dl>

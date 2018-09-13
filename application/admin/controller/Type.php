@@ -11,38 +11,24 @@ namespace app\admin\controller;
 use app\admin\validate\CategoryValidate;
 use catetree\Catetree;
 
-class Category extends Base
+class Type extends Base
 {
     private $model;
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('category');
+        $this->model = model('type');
     }
 
     public function lst(){
-        $category=new Catetree();
-        if(request()->isPost()){
-            $data=input('post.');
-            $category->cateSort($data['sort'],$this->model);
-            $this->success('排序成功！',url('lst'),'',1);
-        }
-        $categoryRes=$this->model->order('sort DESC')->select();
-
-        $categoryRes=$category->catetree($categoryRes);
+        $typeData=$this->model->select();
         $this->assign([
-            'tbData'=>$categoryRes,
+            'tbData'=>$typeData,
         ]);
         return view('list');
     }
 
     public function add(){
-        $category = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $category->catetree($categoryRes);
-        $this->assign([
-            'CategoryRes' => $categoryRes,
-        ]);
         return view();
     }
 
@@ -50,16 +36,10 @@ class Category extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $catetree = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $catetree->catetree($categoryRes);
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
+
         $editData = $this->model->find(['id'=>$id]);
         $this->assign([
-            'editData' => $editData,
-            'CategoryRes' => $categoryRes,
-            'sonids' => $sonids
+            'editData' => $editData
         ]);
         return view();
     }
@@ -69,19 +49,19 @@ class Category extends Base
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new CategoryValidate())->goCheck('save');
-
-        if(!$validate['type']){
-            $this->result("",'0',$validate['msg']);
-        }
+//        $validate = (new CategoryValidate())->goCheck('save');
+//
+//        if(!$validate['type']){
+//            $this->result("",'0',$validate['msg']);
+//        }
 
         // 获取请求数据
         $data = input('post.');
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
-        $is_unique = $this->is_unique($data['cate_name'], $is_exist_id ? 0 : $data['id'],'cate_name');
+        $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
         if($is_unique){
-            $this->result('','0','存在同名分类名');
+            $this->result('','0','存在同名类型名');
         }
 
         // 更新数据
@@ -108,10 +88,7 @@ class Category extends Base
     }
 
     public function del($id){
-        $catetree = new Catetree();
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
-        $result = db('category')->delete($sonids);
+        $result = db('type')->delete(intval($id));
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');

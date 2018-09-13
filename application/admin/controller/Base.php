@@ -16,18 +16,23 @@ class Base extends Controller
     public function status(){
         // 获取值
         $data = input('param.');
+        $status = 'status';
+        if(isset($data['attr'])){
+            $status =$data['attr'];
+        }
+
         // 利用tp5 validate 去做严格检验
         if(empty($data['id'])){
             $this->error("id不合法");
         }
-        if(!is_numeric($data['status'])){
-            $this->error("status不合法");
+        if(!is_numeric($data[$status])){
+            $this->error($status."不合法");
         }
 
         // 获取控制器
         $model = request()->controller();
         $result = model($model)->save([
-            'status' => $data['status']
+            $status => $data[$status]
         ],['id'=>$data['id']]);
 
 
@@ -36,6 +41,17 @@ class Base extends Controller
         }else{
             $this->result('','0','更新失败');
         }
+    }
+
+
+    public function is_unique($name="",$id=0,$nameAttr='name'){
+        $data = [
+            'id'         => ['neq',$id],
+            $nameAttr => $name
+        ];
+        $model = request()->controller();
+        $result = model($model)->where($data)->find();
+        return $result;
     }
 
     public function uploadImg(){

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:72:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\category\add.html";i:1536745942;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536715219;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\category\add.html";i:1536761233;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
 <link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
-
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
     <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
@@ -24,13 +24,11 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">选择框</label>
                 <div class="layui-inline">
-                    <select name="city" lay-verify="required">
+                    <select name="pid" lay-verify="required">
                         <option value="0">顶级分类</option>
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
+                        <?php if(is_array($CategoryRes) || $CategoryRes instanceof \think\Collection || $CategoryRes instanceof \think\Paginator): $i = 0; $__LIST__ = $CategoryRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                        <option value="<?php echo $resData['id']; ?>"><?php if($resData['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$resData['level']*2); ?><?php echo $resData['cate_name']; ?></option>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
                 </div>
             </div>

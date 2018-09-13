@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\category\edit.html";i:1536767578;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding-top: 30px;}
@@ -15,58 +21,64 @@
 <body>
 <div class="form-container">
     <form class="layui-form" action="">
-        <input type="hidden" value="{$editData.id}" name="id">
+        <input type="hidden" value="<?php echo $editData['id']; ?>" name="id">
         <div class="layui-form-item">
             <label class="layui-form-label">父级分类</label>
             <div class="layui-inline">
                 <select name="pid" lay-verify="required">
                     <option value="0">顶级分类</option>
-                    {volist name='CategoryRes' id='resData'}
-                    <option {if condition="in_array($resData.id,$sonids)"}disabled{/if} {if condition="$editData.pid == $resData.id"}selected {/if}  value='{$resData.id}'>{if condition="$resData.pid != 0"}┞{/if}{$resData.level|str_repeat='┄',###*2}{$resData.cate_name}</option>
-                    {/volist}
+                    <?php if(is_array($CategoryRes) || $CategoryRes instanceof \think\Collection || $CategoryRes instanceof \think\Paginator): $i = 0; $__LIST__ = $CategoryRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                    <option <?php if(in_array($resData['id'],$sonids)): ?>disabled<?php endif; if($editData['pid'] == $resData['id']): ?>selected <?php endif; ?>  value='<?php echo $resData['id']; ?>'><?php if($resData['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$resData['level']*2); ?><?php echo $resData['cate_name']; ?></option>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">分类名称</label>
             <div class="layui-col-md2">
-                <input type="text" value="{$editData.cate_name}" name="cate_name" lay-verify="cate_name" autocomplete="off" placeholder="请输入分类名称" class="layui-input">
+                <input type="text" value="<?php echo $editData['cate_name']; ?>" name="cate_name" lay-verify="cate_name" autocomplete="off" placeholder="请输入分类名称" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">显示到导航</label>
             <div class="layui-input-block">
-                <input type="radio" name="show_cate" value="1" title="是" {if condition="$editData.show_cate eq 1"}checked{/if}>
-                <input type="radio" name="show_cate" value="0" title="否" {if condition="$editData.show_cate eq 0"}checked{/if}>
+                <input type="radio" name="show_cate" value="1" title="是" <?php if($editData['show_cate'] == 1): ?>checked<?php endif; ?>>
+                <input type="radio" name="show_cate" value="0" title="否" <?php if($editData['show_cate'] == 0): ?>checked<?php endif; ?>>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">上传图片</label>
             <div class="layui-input-block upload-img-wrap">
-                {Uploader:webuploader btnVal="上传图片"}
-                {if condition="$editData.cate_img neq ''"}
+                            <div id="uploader" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传图片</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList">
+                <?php if($editData['cate_img'] != ''): ?>
                 <ul class="filelist filelist-exist clearfix">
-                    <li class="state-complete" data-src="{$editData.cate_img}">
-                        <p class="imgWrap"><img src="{$editData.cate_img}" width="110" height="110"></p>
+                    <li class="state-complete" data-src="<?php echo $editData['cate_img']; ?>">
+                        <p class="imgWrap"><img src="<?php echo $editData['cate_img']; ?>" width="110" height="110"></p>
                         <div class="file-panel"><span class="cancel">删除</span></div>
                         <span class="success"></span>
                     </li>
                 </ul>
-                {/if}
-                {/Uploader:webuploader}
+                <?php endif; ?>
+                </div>
+            </div>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">关键词</label>
             <div class="layui-col-md4">
-                <textarea placeholder="请输入关键词内容" name="keywords" class="layui-textarea">{$editData.keywords}</textarea>
+                <textarea placeholder="请输入关键词内容" name="keywords" class="layui-textarea"><?php echo $editData['keywords']; ?></textarea>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述</label>
             <div class="layui-col-md4">
-                <textarea placeholder="请输入描述内容" name="description" class="layui-textarea">{$editData.description}</textarea>
+                <textarea placeholder="请输入描述内容" name="description" class="layui-textarea"><?php echo $editData['description']; ?></textarea>
             </div>
         </div>
 
@@ -80,12 +92,14 @@
     </form>
 </div>
 
-{include file='common/footer'}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 <!--引入webuploaderJS-->
-{Uploader:webuploaderjs/}
+<script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
 <script>
     var config = {
-        "upload_server": "{:url('uploadImg')}"
+        "upload_server": "<?php echo url('uploadImg'); ?>"
     };
 
     feiy_upload.init({
@@ -117,7 +131,7 @@
             var cate_img_url = setUpdateUrl(cate_img_lists);
             var params = "&cate_img="+cate_img_url;
             $.ajax({
-                url: "{:url('save')}",
+                url: "<?php echo url('save'); ?>",
                 type: "post",
                 data: $(formDom).serialize()+params,
                 success: function(res){

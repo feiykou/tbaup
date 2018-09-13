@@ -176,16 +176,14 @@ layui.use(['form','layer','jquery'],function(){
     //是否展示
     form.on('switch(isShow)', function(data){
         var url = $(data.elem).data('url');
+        var status_name = $(data.elem).data('status') || 'status';
         var status = 1;
         if(!data.elem.checked){
             status = 0;
         }
         var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.5});
         $.ajax({
-            url: url,
-            data:{
-                status: status
-            },
+            url: url+'?'+status_name+'='+status+'&attr='+status_name,
             success: function(res){
                 layer.close(index);
                 layer.msg(res.msg);

@@ -57,6 +57,10 @@ h1,h2,h3,h4,h5,h6,a,p,span{font-family: "微软雅黑","Microsoft YaHei","Micros
 .larry-position-clear{
      position: static;
 }
+
+.tc{ text-align: center;}
+.none{ display: none;}
+
 /* layui框架样式定义 */
 .layui-nav-item .layui-icon{position: relative; /*font-size: 20px;*/}
 .layui-nav-item a cite{padding: 0 10px;}
@@ -122,54 +126,6 @@ body .layui-layout-admin .layui-larry-foot .p-admin a{
   padding-right: 0px;
 }
 
-/* 分页 */
-.pagination{ font-size:0; text-align: right; margin: 10px 160px 42px;}
-.pagination li{
-  display: inline-block;
-  vertical-align: middle;
-  border: 1px solid #e2e2e2;
-  margin: 0 -1px 5px 0;
-}
-.pagination li a,.pagination li span{
-  height: 28px;
-  line-height: 28px;
-  background-color: #fff;
-  color: #333;
-  font-size: 12px;
-  padding: 0 15px;
-  display: block;
-}
-.pagination li.active span{
-  background-color: #009688;
-  color: #fff;
-}
-.pagination li.disabled{ cursor: no-drop;}
-.pagination li:hover a{
-  color: #009688;
-}
-
-/*删除和编辑按钮*/
-.layui-btn.tb_edit,.layui-btn.tb_del{
-  padding-right: 12px;
-}
-.layui-btn.tb_edit+.layui-btn{
-  margin-left: 5px;
-}
-
-/*状态按钮*/
-.noCon-btn{
-  display: inline-block;
-  background-color: #ddd;
-  font-size: 12px!important;
-  height:22px;
-  line-height: 22px;
-  padding: 0 5px;
-  color: #999;
-  border-radius: 3px;
-}
-
-/*图片上传wrap*/
-.upload-img-wrap{ padding-top: 3px;}
 
 /* ---------------------------------------------------------------------- */
 /**

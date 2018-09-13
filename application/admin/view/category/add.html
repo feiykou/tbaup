@@ -18,13 +18,11 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">选择框</label>
                 <div class="layui-inline">
-                    <select name="city" lay-verify="required">
+                    <select name="pid" lay-verify="required">
                         <option value="0">顶级分类</option>
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
+                        {volist name='CategoryRes' id='resData'}
+                        <option value="{$resData.id}">{if condition="$resData.pid != 0"}┞{/if}{$resData.level|str_repeat='┄',###*2}{$resData.cate_name}</option>
+                        {/volist}
                     </select>
                 </div>
             </div>

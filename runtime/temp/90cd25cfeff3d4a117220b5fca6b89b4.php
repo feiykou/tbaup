@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\add.html";i:1535465014;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1535288783;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\brand\add.html";i:1535465014;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
 <link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
-
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
     <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">

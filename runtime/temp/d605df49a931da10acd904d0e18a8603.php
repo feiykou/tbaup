@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:72:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\category\lst.html";i:1536742975;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536715219;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\category\list.html";i:1536766580;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
 <link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
-
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
 	<title>个人信息</title>
 	<link rel="stylesheet" type="text/css" href="/static/admin/css/personal.css" media="all">
 </head>
@@ -20,78 +20,56 @@
 		<div class="layui-inline" onclick="add('添加商品分类','<?php echo url('add'); ?>')">
 			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品分类</a>
 		</div>
-		<div class="layui-inline" onclick="audit()">
-			<a class="layui-btn audit_btn">审核文章</a>
-		</div>
-		<div class="layui-inline" onclick="delMore()">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
 		<div class="layui-inline">
 			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 		</div>
 	</blockquote>
-            
+            <form action="" method="post">
 		         <!-- 操作日志 -->
                 <div class="layui-form news_list">
                      <table class="layui-table">
-                        <colgroup>
-                            <col width="10">
-                            <col width="25%">
-                            <col width="25%">
-                            <col width="15%">
-                            <col width="15%">
-                            <col width="6%">
-                            <col width="10%">
-                        </colgroup>
                         <thead>
                             <tr>
-                                <th style="text-align: center;"><input name="" lay-skin="primary" lay-filter="allChoose" id="allChoose" type="checkbox">
-                                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                                </th>
-                                <th>品牌名称</th>
-                                <th>品牌地址</th>
-                                <th style="text-align: center;">品牌logo</th>
-                                <th>品牌描述</th>
-                                <th style="text-align: center;">品牌状态</th>
-                                <th>操作</th>
+                                <th width="30">ID</th>
+                                <th>分类名称</th>
+                                <th width="100">显示到导航栏</th>
+                                <th width="100">排序</th>
+                                <th width="200">操作</th>
                             </tr>
                         </thead>
                         <tbody class="news_content list-box-body">
-                            <?php if(is_array($brandDatas) || $brandDatas instanceof \think\Collection || $brandDatas instanceof \think\Paginator): $i = 0; $__LIST__ = $brandDatas;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$brand): $mod = ($i % 2 );++$i;?>
+                            <?php if(is_array($tbData) || $tbData instanceof \think\Collection || $tbData instanceof \think\Paginator): $i = 0; $__LIST__ = $tbData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?>
                             <tr>
-                                <td align="center"><input name="checked" data-id="<?php echo $brand['id']; ?>" lay-skin="primary" lay-filter="choose" type="checkbox">
-                                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                                </td>
-                                <td><?php echo $brand['brand_name']; ?></td>
-                                <td>
-                                    <a href="<?php echo $brand['brand_url']; ?>" target="_blank"><?php echo $brand['brand_url']; ?></a>
-                                </td>
-                                <td align="center">
-                                    <?php if($brand['brand_img'] != ''): ?>
-                                        <img src="<?php echo $brand['brand_img']; ?>" height="60" alt="">
-                                    <?php else: ?>
-                                        <span class="noCon-btn">暂无图片</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?php echo $brand['brand_description']; ?></td>
-                                <td align="center"><input name="status" data-url="<?php echo url('status',['id'=>$brand->id]); ?>" lay-skin="switch" lay-text="" lay-filter="isShow" type="checkbox" <?php if($brand['status'] == 1): ?>checked<?php endif; ?>>
+                                <td align="center"><?php echo $data['id']; ?></td>
+                                <td><?php if($data['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$data['level']*2); ?><?php echo $data['cate_name']; ?></td>
+                                <td align="center"><input data-url="<?php echo url('status',['id'=>$data->id]); ?>" data-status="show_cate" lay-skin="switch" lay-text="" lay-filter="isShow" type="checkbox" <?php if($data['show_cate'] == 1): ?>checked<?php endif; ?>>
                                     <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em></em><i></i></div>
                                 </td>
-                                <td>
-                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑品牌','<?php echo url('edit',['id'=>$brand['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $brand->id; ?>)"><i class="layui-icon"></i> 删除</a>
+                                <td align="center" class="tc tb-sort">
+                                    <input type="input" data-url="<?php echo url('status',['id'=>$data->id]); ?>" name="sort[<?php echo $data['id']; ?>]" value="<?php echo $data['sort']; ?>" autocomplete="off" class="layui-input">
+                                </td>
+                                <td align="center">
+                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','<?php echo url('edit',['id'=>$data['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $data->id; ?>)"><i class="layui-icon"></i> 删除</a>
                                 </td>
                             </tr>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
+                            <tr class="sort-tr-wrap none">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="center"><button type="submit" class="layui-btn layui-btn-mini">排序</button></td>
+                                <td></td>
+                            </tr>
                         </tbody>
                      </table>
+
                      <div class="larry-table-page clearfix">
                           <div class="paging">
-                              <?php echo $brandDatas->render(); ?>
                           </div>
                      </div>
 			    </div>
-
+            </form>
 		    </div>
 		</div>
 	
@@ -102,6 +80,16 @@
 <script src="/static/admin/js/common.js"></script>
 
 <script type="text/javascript">
+
+    $(function(){
+        if($(".list-box-body tr").length <= 1){
+            $(".sort-tr-wrap").hide();
+        }else{
+            $(".sort-tr-wrap").show();
+        }
+    });
+
+
     /*产品-删除*/
     function product_del(obj,id){
         var url = "<?php echo url('del'); ?>?id="+id;
@@ -110,8 +98,12 @@
                 type: 'get',
                 url: url,
                 success: function(data){
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
+                    console.log(data);
+                    if(data.code == 1){
+                        layer.close(index);
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        window.location = "<?php echo url('lst'); ?>";
+                    }
                 },
                 error:function(data) {
                     console.log(data.msg);
@@ -120,11 +112,6 @@
         });
     }
 
-    function audit() {
-        var idsArr = getCheckedId().idsArr;
-
-
-    }
 
     function delMore() {
         var idsArr = getCheckedId().idsArr;
@@ -135,7 +122,6 @@
             msgTip:'请先选择要删除的产品!',
             confirmTip:'确认要删除吗？',
             sCallback: function(data){
-                console.log(data);
                 $checkDoms.each(function(index,item){
                     $(item).parents('tr').remove();
                 });
