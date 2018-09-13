@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\type\list.html";i:1536795427;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:77:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\member_level\list.html";i:1536821363;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +17,8 @@
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
 		
-		<div class="layui-inline" onclick="add('添加商品类型','<?php echo url('add'); ?>')">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品类型</a>
+		<div class="layui-inline" onclick="add('添加会员级别','<?php echo url('add'); ?>')">
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加会员级别</a>
 		</div>
 		<div class="layui-inline">
 			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
@@ -31,15 +31,21 @@
                         <thead>
                             <tr>
                                 <th width="30">ID</th>
-                                <th>分类名称</th>
-                                <th width="200">操作</th>
+                                <th>会员级别名称</th>
+                                <th>级别积分下限</th>
+                                <th>级别积分上限</th>
+                                <th>级别折扣率</th>
+                                <th width="300">操作</th>
                             </tr>
                         </thead>
                         <tbody class="news_content list-box-body">
                             <?php if(is_array($tbData) || $tbData instanceof \think\Collection || $tbData instanceof \think\Paginator): $i = 0; $__LIST__ = $tbData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?>
                             <tr>
                                 <td align="center"><?php echo $data['id']; ?></td>
-                                <td><?php echo $data['name']; ?></td>
+                                <td align="center"><?php echo $data['name']; ?></td>
+                                <td align="center"><?php echo $data['bom_point']; ?></td>
+                                <td align="center"><?php echo $data['top_point']; ?></td>
+                                <td align="center"><?php echo $data['rate']; ?></td>
                                 <td align="center">
                                     <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','<?php echo url('edit',['id'=>$data['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
                                     <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $data->id; ?>)"><i class="layui-icon"></i> 删除</a>

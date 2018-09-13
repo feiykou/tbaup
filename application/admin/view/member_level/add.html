@@ -1,17 +1,11 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:77:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\type\add.html";i:1536795667;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
-<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
+    {include file='common/header'}
     <title>layui</title>
     <!--引入webuploaderCss-->
-    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
+    {Uploader:webuploadercss /}
 
     <style>
         .form-container{ padding-top: 30px;}
@@ -22,9 +16,27 @@
     <div class="form-container">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">类型名称</label>
+                <label class="layui-form-label">级别名称</label>
                 <div class="layui-col-md2">
-                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入类型名称" class="layui-input">
+                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="级别名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">积分下限</label>
+                <div class="layui-col-md2">
+                    <input type="text" name="bom_point" lay-verify="required|number" autocomplete="off" placeholder="积分下限" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">积分上限</label>
+                <div class="layui-col-md2">
+                    <input type="text" name="top_point" lay-verify="required|number" autocomplete="off" placeholder="积分上限" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">折扣率</label>
+                <div class="layui-col-md2">
+                    <input type="text" name="rate" lay-verify="required|number" autocomplete="off" placeholder="折扣率" class="layui-input">
                 </div>
             </div>
 
@@ -37,11 +49,9 @@
         </form>
     </div>
 
-    <script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
-<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
-<script src="/static/admin/js/common.js"></script>
+    {include file='common/footer'}
     <!--引入webuploaderJS-->
-    <script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
+    {Uploader:webuploaderjs/}
 
     <script>
         layui.use(['form', 'layedit', 'laydate'], function() {
@@ -50,11 +60,11 @@
 
             //自定义验证规则
             form.verify({
-                cate_name: function(value) {
+                name: function(value) {
                    if (value.length < 2) {
                        return '标题至少得2个字符啊';
                    }
-               },
+                },
                 content: function(value) {
 
                 }
@@ -64,7 +74,7 @@
             form.on('submit(demo1)', function(data) {
                 var formDom = data.form;
                 $.ajax({
-                    url: "<?php echo url('save'); ?>",
+                    url: "{:url('save')}",
                     type: "post",
                     data: $(formDom).serialize(),
                     success: function(res){

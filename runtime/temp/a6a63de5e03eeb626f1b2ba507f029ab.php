@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:68:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\type\add.html";i:1536803034;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding-top: 30px;}
@@ -31,9 +37,11 @@
         </form>
     </div>
 
-    {include file='common/footer'}
+    <script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
     <!--引入webuploaderJS-->
-    {Uploader:webuploaderjs/}
+    <script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
 
     <script>
         layui.use(['form', 'layedit', 'laydate'], function() {
@@ -56,7 +64,7 @@
             form.on('submit(demo1)', function(data) {
                 var formDom = data.form;
                 $.ajax({
-                    url: "{:url('save')}",
+                    url: "<?php echo url('save'); ?>",
                     type: "post",
                     data: $(formDom).serialize(),
                     success: function(res){

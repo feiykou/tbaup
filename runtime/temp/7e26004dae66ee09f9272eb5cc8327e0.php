@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1535288840;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1536794933;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\index\index.html";i:1536715219;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:61:"F:\phpStudy\WWW\tbaup\application\admin\view\common\left.html";i:1536821157;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -58,13 +58,21 @@
                     </dd>
                 </dl>
             </li>
-            <li class="layui-nav-item layui-nav-itemed">
+            <li class="layui-nav-item">
                 <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 商品</span></a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('category/lst'); ?>"  data-icon="&#xe658;" data-title="商品分类" data-id="51"><i class="layui-icon">&#xe658;</i><span> 商品分类</span></a></dd>
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('type/lst'); ?>"  data-icon="&#xe658;" data-title="商品类型" data-id="52"><i class="layui-icon">&#xe658;</i><span> 商品类型</span></a></dd>
-                    <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> OneLevel</span></a></dd>
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('property/lst'); ?>"  data-icon="&#xe658;" data-title="商品属性" data-id="53"><i class="layui-icon">&#xe658;</i><span> 商品属性</span></a></dd>
+                    <dd><a href="javascript:;" kit-target data-url="<?php echo url('product/lst'); ?>"  data-icon="&#xe658;" data-title="商品" data-id="54"><i class="layui-icon">&#xe658;</i><span> 商品</span></a></dd>
                     <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> app.js主入口</span></a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 会员管理</span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('category/lst'); ?>"  data-icon="&#xe658;" data-title="会员列表" data-id="61"><i class="layui-icon">&#xe658;</i><span> 会员列表</span></a></dd>
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('MemberLevel/lst'); ?>"  data-icon="&#xe658;" data-title="会员级别" data-id="62"><i class="layui-icon">&#xe658;</i><span> 会员级别</span></a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">

@@ -82,6 +82,113 @@ CREATE TABLE `tb_property` (
 
 
 -- ----------------------------
+-- Table structure for tb_product
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_product`;
+CREATE TABLE `tb_product` (
+  `id` smallint NOT NULL AUTO_INCREMENT COMMENT '产品id',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '产品名称',
+  `product_code` CHAR (16) NOT NULL DEFAULT '' COMMENT '产品编号',
+  `main_img_url` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `product_imgs` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '产品图',
+  `market_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
+  `pirce`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
+  `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',
+  `categroy_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属栏目分类',
+  `theme_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属主题',
+  `type_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属类型',
+  `description` longtext NOT NULL DEFAULT '' COMMENT '产品描述',
+  `weight` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '重量',
+  `unit` varchar(10) NOT NULL DEFAULT 'kg' COMMENT '单位',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `categroy_id` (`categroy_id`),
+  KEY `theme_id` (`theme_id`),
+  KEY `type_id` (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '产品表';
+
+-- ----------------------------
+-- Table structure for tb_member_level
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_member_level`;
+CREATE TABLE `tb_member_level` (
+  `id` smallint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '级别名称',
+  `bom_point` INT NOT NULL DEFAULT 0 COMMENT '积分下限',
+  `top_point` INT NOT NULL DEFAULT 0 COMMENT '积分上限',
+  `rate` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '折扣率',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '会员级别';
+
+
+-- ----------------------------
+-- Table structure for tb_member_price
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_member_price`;
+CREATE TABLE `tb_member_price` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `mbprice` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '会员价格',
+  `mlevel_id` smallint NOT NULL DEFAULT 0 COMMENT '会员级别',
+  `product_id` int NOT NULL DEFAULT 0 COMMENT '产品id',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '会员价格';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ----------------------------
 -- Table structure for bw_banner
 -- ----------------------------
 DROP TABLE IF EXISTS `bw_banner`;

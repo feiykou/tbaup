@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 
 use think\Controller;
+use think\Request;
 
 class Base extends Controller
 {
@@ -55,6 +56,7 @@ class Base extends Controller
     }
 
     public function uploadImg(){
+//        var_dump($file = Request::instance()->file('file'));die;
         if($_FILES['file']['tmp_name']){
             $file = request()->file('file');
             $info = $file->move('upload');

@@ -58,7 +58,8 @@ h1,h2,h3,h4,h5,h6,a,p,span{font-family: "微软雅黑","Microsoft YaHei","Micros
      position: static;
 }
 
-.tc{ text-align: center;}
+.tc{ text-align: center!important;}
+.tl{ text-align: left!important;}
 .none{ display: none;}
 
 /* layui框架样式定义 */

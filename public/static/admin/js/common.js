@@ -1,12 +1,12 @@
 
-function edit(title,url) {
-    var index = layer.open({
-        type: 2,
-        title: title,
-        content: url
-    });
-    layer.full(index);
-}
+// function edit(title,url) {
+//     var index = layer.open({
+//         type: 2,
+//         title: title,
+//         content: url
+//     });
+//     layer.full(index);
+// }
 
 function editFull(title,url){
     var index = layer.open({
@@ -19,7 +19,16 @@ function editFull(title,url){
 
 
 function edit(title,url,w,h){
-    layer_show(title,url,w,h);
+
+
+    layer.open({
+        type: 2,
+        area: [w, h],
+        fixed: false, //不固定
+        maxmin: true,
+        content: url,
+        title:title
+    });
 }
 
 function del(obj, url){

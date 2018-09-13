@@ -12,24 +12,41 @@ use app\admin\validate\CategoryValidate;
 use app\admin\validate\ShopTypeAttr;
 use catetree\Catetree;
 
-class Type extends Base
+class Property extends Base
 {
     private $model;
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('type');
+        $this->model = model('property');
     }
 
     public function lst(){
-        $typeData=$this->model->select();
+        $typeId = input('id');
+        if($typeId){
+            $map['type_id'] = ['=',$typeId];
+        }else{
+            $map = 1;
+        }
+
+        $propertyData = db('property')->alias('p')
+            ->field('p.*,t.name as type_name')
+            ->join('type t','p.type_id = t.id')
+            ->where($map)
+            ->order('p.id DESC')
+            ->paginate(6);
+//        var_dump($propertyData);
         $this->assign([
-            'tbData'=>$typeData,
+            'tbData'=>$propertyData,
         ]);
         return view('list');
     }
 
     public function add(){
+        $categoryRes = db('type')->select();
+        $this->assign([
+            'CategoryRes' => $categoryRes,
+        ]);
         return view();
     }
 
@@ -37,10 +54,11 @@ class Type extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-
-        $editData = $this->model->find(['id'=>$id]);
+        $categoryRes = db('type')->select();
+        $editData = $this->model->find(intval($id));
         $this->assign([
-            'editData' => $editData
+            'editData' => $editData,
+            'categoryRes' => $categoryRes
         ]);
         return view();
     }
@@ -50,19 +68,29 @@ class Type extends Base
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new ShopTypeAttr())->goCheck('type');
+        $validate = (new ShopTypeAttr())->goCheck('property');
 
         if(!$validate['type']){
-            $this->result("",'0',$validate['msg']);
+            $msg = '';
+            if(is_array($validate['msg'])){
+                foreach ($validate['msg'] as $key=>$value){
+                    $msg.=$value;
+                }
+            }else{
+                $msg = $validate['msg'];
+            }
+
+            $this->result("",'0',$msg);
         }
 
         // 获取请求数据
         $data = input('post.');
+        $data['values'] = str_replace('，',',',$data['values']);
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
         $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
         if($is_unique){
-            $this->result('','0','存在同名类型名');
+            $this->result('','0','存在同名分类名');
         }
 
         // 更新数据
@@ -73,7 +101,7 @@ class Type extends Base
         // 添加数据
         $result = $this->model->save($data);
         if($result){
-            $this->result(url('lst'),'1','添加成功');
+            $this->result(url('lst',['id'=>$data['type_id']]),'1','添加成功');
         }else{
             $this->result('','0','添加失败');
         }
@@ -82,22 +110,27 @@ class Type extends Base
     public function update($data){
         $result = $this->model->save($data,['id' => intval($data['id'])]);
         if($result){
-            $this->result(url('lst'),'1','更新成功');
+            $this->result(url('lst',['id'=>$data['type_id']]),'1','更新成功');
         }else{
             $this->result('','0','更新失败');
         }
     }
 
     public function del($id){
-        $result = db('type')->delete(intval($id));
-        // 删除商品类型下面的商品属性
-        db('property')->where(['type_id'=>$id])->delete();
+        $result = db('property')->delete(intval($id));
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
         }else{
             $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
         }
+    }
+
+    // 异步获取指定属性下的属性
+    public function ajaxGetAttr(){
+        $typeId = input('type_id');
+        $attrRes = $this->model->where(['type_id'=>$typeId])->select();
+        return $attrRes;
     }
 //
 //

@@ -1,9 +1,15 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:73:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\category\list.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {include file="common/header" /}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
 	<title>个人信息</title>
-	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/personal.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/personal.css" media="all">
 </head>
 <body>
 <section class="layui-larry-box">
@@ -11,8 +17,8 @@
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
 		
-		<div class="layui-inline" onclick="add('添加商品类型','{:url('add')}')">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品类型</a>
+		<div class="layui-inline" onclick="add('添加商品分类','<?php echo url('add'); ?>')">
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品分类</a>
 		</div>
 		<div class="layui-inline">
 			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
@@ -26,21 +32,35 @@
                             <tr>
                                 <th width="30">ID</th>
                                 <th>分类名称</th>
-                                <th width="300">操作</th>
+                                <th width="100">显示到导航栏</th>
+                                <th width="100">排序</th>
+                                <th width="200">操作</th>
                             </tr>
                         </thead>
                         <tbody class="news_content list-box-body">
-                            {volist name="tbData" id="data"}
+                            <?php if(is_array($tbData) || $tbData instanceof \think\Collection || $tbData instanceof \think\Paginator): $i = 0; $__LIST__ = $tbData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?>
                             <tr>
-                                <td align="center">{$data.id}</td>
-                                <td>{$data.name}</td>
+                                <td align="center"><?php echo $data['id']; ?></td>
+                                <td><?php if($data['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$data['level']*2); ?><?php echo $data['cate_name']; ?></td>
+                                <td align="center"><input data-url="<?php echo url('status',['id'=>$data->id]); ?>" data-status="show_cate" lay-skin="switch" lay-text="" lay-filter="isShow" type="checkbox" <?php if($data['show_cate'] == 1): ?>checked<?php endif; ?>>
+                                    <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em></em><i></i></div>
+                                </td>
+                                <td align="center" class="tc tb-sort">
+                                    <input type="input" data-url="<?php echo url('status',['id'=>$data->id]); ?>" name="sort[<?php echo $data['id']; ?>]" value="<?php echo $data['sort']; ?>" autocomplete="off" class="layui-input">
+                                </td>
                                 <td align="center">
-                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="edit('商品属性','{:url('property/lst',['id'=>$data['id']])}','800px','463px')"><i class="fa fa-id-card-o fa-fw"></i> 属性列表</a>
-                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','{:url('edit',['id'=>$data['id']])}')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,{$data->id})"><i class="layui-icon"></i> 删除</a>
+                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','<?php echo url('edit',['id'=>$data['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $data->id; ?>)"><i class="layui-icon"></i> 删除</a>
                                 </td>
                             </tr>
-                            {/volist}
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                            <tr class="sort-tr-wrap none">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="center"><button type="submit" class="layui-btn layui-btn-mini">排序</button></td>
+                                <td></td>
+                            </tr>
                         </tbody>
                      </table>
 
@@ -55,7 +75,9 @@
 	
 </section>
 
-{include file="common/footer" /}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 
 <script type="text/javascript">
 
@@ -70,7 +92,7 @@
 
     /*产品-删除*/
     function product_del(obj,id){
-        var url = "{:url('del')}?id="+id;
+        var url = "<?php echo url('del'); ?>?id="+id;
         layer.confirm('确认要删除吗？',function(index){
             $.ajax({
                 type: 'get',
@@ -80,7 +102,7 @@
                     if(data.code == 1){
                         layer.close(index);
                         layer.msg('已删除!',{icon:1,time:1000});
-                        window.location = "{:url('lst')}";
+                        window.location = "<?php echo url('lst'); ?>";
                     }
                 },
                 error:function(data) {
@@ -96,7 +118,7 @@
         var $checkDoms = getCheckedId().checkDoms;
         reqChangeStutas({
             idsArr: idsArr,
-            url:"{:url('del')}",
+            url:"<?php echo url('del'); ?>",
             msgTip:'请先选择要删除的产品!',
             confirmTip:'确认要删除吗？',
             sCallback: function(data){
@@ -143,7 +165,7 @@
     }
     
     layui.config({
-        base: '__STATIC__/admin/js/'
+        base: '/static/admin/js/'
     }).use(['form','layer','element','laypage'],function(){
         window.layer = layui.layer;
         var element = layui.element,

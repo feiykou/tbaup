@@ -8,23 +8,25 @@
 
 namespace app\admin\controller;
 
-use app\admin\validate\BrandValidate;
+use app\admin\validate\CategoryValidate;
+use app\admin\validate\ShopTypeAttr;
+use catetree\Catetree;
 
-class Brand extends Base
+class MemberLevel extends Base
 {
     private $model;
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('brand');
+        $this->model = model('member_level');
     }
 
     public function lst(){
-        $brandDatas = $this->model->paginate();
+        $typeData=$this->model->order('id DESC')->select();
         $this->assign([
-            'brandDatas' => $brandDatas
+            'tbData'=>$typeData,
         ]);
-        return view();
+        return view('list');
     }
 
     public function add(){
@@ -35,29 +37,32 @@ class Brand extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $brandData = $this->model->find(['id'=>$id]);
+
+        $editData = $this->model->find(['id'=>$id]);
         $this->assign([
-            'brandData' => $brandData
+            'editData' => $editData
         ]);
         return view();
     }
 
     public function save(){
+
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new BrandValidate())->goCheck('save');
+        $validate = (new ShopTypeAttr())->goCheck('type');
+
         if(!$validate['type']){
-            $this->result("",'0',implode(',',$validate['msg']));
+            $this->result("",'0',$validate['msg']);
         }
+
         // 获取请求数据
         $data = input('post.');
         $is_exist_id = empty($data['id']);
-
         // 判断是否存在同名
-        $is_unique = $this->is_unique($data['brand_name'], $is_exist_id ? 0 : $data['id'],'brand_name');
+        $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
         if($is_unique){
-            $this->result('','0','存在同名品牌');
+            $this->result('','0','存在同名类型名');
         }
 
         // 更新数据
@@ -83,23 +88,8 @@ class Brand extends Base
         }
     }
 
-    //删除
-    public function del($id=-1){
-        if(request()->isPost()){
-            $id = request()->post()['idsArr'];
-            if($id == []){
-                $this->error("无选中的数据！");
-            }
-        }else{
-            if(intval($id)<1){
-                $this->error("参数不合法");
-            }
-        }
-
-        if(!is_array($id)){
-            $id = [$id];
-        }
-        $result = db('brand')->delete($id);
+    public function del($id){
+        $result = db('member_level')->delete(intval($id));
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
@@ -107,4 +97,30 @@ class Brand extends Base
             $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
         }
     }
+//
+//
+//    //删除
+//    public function del($id=-1){
+//        if(request()->isPost()){
+//            $id = request()->post()['idsArr'];
+//            if($id == []){
+//                $this->error("无选中的数据！");
+//            }
+//        }else{
+//            if(intval($id)<1){
+//                $this->error("参数不合法");
+//            }
+//        }
+//
+//        if(!is_array($id)){
+//            $id = [$id];
+//        }
+//        $result = db('brand')->delete($id);
+//        // 返回状态码
+//        if($result){
+//            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
+//        }else{
+//            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
+//        }
+//    }
 }
