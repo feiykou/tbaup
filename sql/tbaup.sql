@@ -90,7 +90,6 @@ CREATE TABLE `tb_product` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '产品名称',
   `product_code` CHAR (16) NOT NULL DEFAULT '' COMMENT '产品编号',
   `main_img_url` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `product_imgs` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '产品图',
   `market_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
   `price`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
   `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',

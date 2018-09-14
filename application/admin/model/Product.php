@@ -58,7 +58,7 @@ class Product extends Model
                     if(is_array($v)){
                         if(!empty($v)){
                             foreach ($v as $k1 => $v1){
-                                if(!empty($v)){
+                                if(empty($v1)){
                                     $prop_i++;
                                     continue;
                                 }
@@ -82,8 +82,40 @@ class Product extends Model
                     }
                 }
             }
+        });
 
+        Product::beforeDelete(function($products){
+//            $productId = $products->id;
+            var_dump($products);
 
+//            // 删除内存中的主图
+//            if($products->main_img_url){
+//                if(file_exists($products->main_img_url)){
+//                    @unlink($products->main_img_url);
+//                }
+//            }
+//
+//            // 删除关联的会员价格
+//            db('member_price')->where('product_id','=',$productId)
+//                ->delete();
+//
+//            // 删除关联的商品属性
+//            db('product_prop')->where('product_id','=',$productId)
+//                ->delete();
+//
+//            // 删除关联的商品相册
+//            $product_imgs = db('product_image')->where('product_id','=',$productId)
+//                ->select();
+//
+//            if(!empty($product_imgs)){
+//                foreach ($product_imgs as $k => $v){
+//                    if(file_exists($v['img_url'])){
+//                        @unlink($v['img_url']);
+//                    }
+//                }
+//            }
+//            db('product_image')->where('product_id','=',$productId)
+//                ->delete();
         });
     }
 

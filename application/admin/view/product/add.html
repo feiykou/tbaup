@@ -189,7 +189,7 @@
 
 
 
-        layui.use(['form', 'layedit', 'element', 'laydate','jquery'], function() {
+        layui.use(['form', 'layedit', 'element', 'laydate', 'jquery'], function() {
             var form = layui.form,
                 layer = layui.layer,
                 layedit = layui.layedit,
@@ -299,6 +299,7 @@
 
             //监听提交
             form.on('submit(demo1)', function(data) {
+                layedit.sync(editIndex);
                 var formDom = data.form;
                 var main_img_lists = $("#uploader .filelist > li");
                 var product_img_lists = $("#productImgs .filelist > li");

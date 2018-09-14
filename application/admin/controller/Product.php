@@ -23,21 +23,19 @@ class Product extends Base
     }
 
     public function lst(){
-        $typeId = input('id');
-        if($typeId){
-            $map['type_id'] = ['=',$typeId];
-        }else{
-            $map = 1;
-        }
 
-        $propertyData = db('property')->alias('p')
-            ->field('p.*,t.name as type_name')
-            ->join('type t','p.type_id = t.id')
-            ->where($map)
+        $join = [
+            ['category c','p.category_id=c.id','LEFT'],
+            ['type t', 'p.type_id=t.id','LEFT']
+        ];
+        $productRes = db('product')->alias('p')
+            ->field('p.*,c.cate_name,t.name as type_name')
+            ->join($join)
             ->order('p.id DESC')
             ->paginate(6);
+
         $this->assign([
-            'tbData'=>$propertyData,
+            'productRes'=>$productRes,
         ]);
         return view('list');
     }
@@ -124,16 +122,15 @@ class Product extends Base
     }
 
     public function del($id){
-        $catetree = new Catetree();
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
-        $result = db('category')->delete($sonids);
+//        $result = model('product')->where('id','=',$id)->delete();
+
+        $result = model('product')->destroy($id);
         // 返回状态码
-        if($result){
-            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
-        }else{
-            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
-        }
+//        if($result){
+//            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
+//        }else{
+//            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
+//        }
     }
 
     public function edituploadImg(){
@@ -149,7 +146,8 @@ class Product extends Base
                 "code"=> 0, //0表示成功，其它失败
                 "msg" => "上传成功", //提示信息 //一般上传失败后返回
                 "data" =>[
-                   "src"=>$img_url
+                   "src"=>$img_url,
+                    "title" => '图片'
                 ]
             ];
             return $json;

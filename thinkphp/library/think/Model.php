@@ -129,6 +129,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      */
     public function __construct($data = [])
     {
+
         if (is_object($data)) {
             $this->data = get_object_vars($data);
         } else {
@@ -259,7 +260,6 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             // 创建模型查询对象
             self::$links[$this->class] = $this->buildQuery();
         }
-
         return self::$links[$this->class];
     }
 
@@ -1474,7 +1474,6 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
 
         // 删除条件
         $where = $this->getWhere();
-
         // 删除当前模型数据
         $result = $this->getQuery()->where($where)->delete();
 
@@ -1753,7 +1752,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             call_user_func_array($data, [ & $query]);
             $data = null;
         }
+
         $resultSet = $query->select($data);
+
         $count     = 0;
         if ($resultSet) {
             foreach ($resultSet as $data) {
