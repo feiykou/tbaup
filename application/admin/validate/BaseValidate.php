@@ -14,7 +14,7 @@ use think\Validate;
 
 class BaseValidate extends Validate
 {
-    public function goCheck($scene){
+    public function goCheck($scene=''){
         $request = Request::instance();
         $params = $request->param();
 

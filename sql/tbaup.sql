@@ -92,9 +92,9 @@ CREATE TABLE `tb_product` (
   `main_img_url` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
   `product_imgs` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '产品图',
   `market_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
-  `pirce`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
+  `price`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
   `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',
-  `categroy_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属栏目分类',
+  `category_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属栏目分类',
   `theme_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属主题',
   `type_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属类型',
   `description` longtext NOT NULL DEFAULT '' COMMENT '产品描述',
@@ -103,7 +103,7 @@ CREATE TABLE `tb_product` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `categroy_id` (`categroy_id`),
+  KEY `category_id` (`category_id`),
   KEY `theme_id` (`theme_id`),
   KEY `type_id` (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '产品表';
@@ -130,7 +130,7 @@ CREATE TABLE `tb_member_level` (
 DROP TABLE IF EXISTS `tb_member_price`;
 CREATE TABLE `tb_member_price` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `mbprice` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '会员价格',
+  `mprice` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '会员价格',
   `mlevel_id` smallint NOT NULL DEFAULT 0 COMMENT '会员级别',
   `product_id` int NOT NULL DEFAULT 0 COMMENT '产品id',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
@@ -139,10 +139,31 @@ CREATE TABLE `tb_member_price` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '会员价格';
 
 
+-- ----------------------------
+-- Table structure for tb_product_image
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_product_image`;
+CREATE TABLE `tb_product_image` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `img_url` varchar(100) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `product_id` mediumint(9) NOT NULL DEFAULT 0 COMMENT '产品id',
+  `sort` smallint NOT NULL DEFAULT 50 COMMENT '图片排序序号',
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '产品图片';
 
 
-
-
+-- ----------------------------
+-- Table structure for tb_product_prop
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_product_prop`;
+CREATE TABLE `tb_product_prop` (
+  `id` int(11) NOT NULL,
+  `prop_id` mediumint(9) NOT NULL COMMENT '属性id',
+  `prop_value` varchar(60) NOT NULL COMMENT '属性值',
+  `prop_price` decimal(10,2) NOT NULL COMMENT '属性价格',
+  `product_id` mediumint(9) NOT NULL COMMENT '所属商品'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
 
 
 

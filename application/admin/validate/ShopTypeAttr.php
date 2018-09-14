@@ -20,6 +20,6 @@ class ShopTypeAttr extends BaseValidate
 
     protected $scene = [
         'type' => ['name'],
-        'property' => ['name','values','type_id']
+        'property' => ['name','type_id']
     ];
 }

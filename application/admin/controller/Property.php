@@ -89,8 +89,10 @@ class Property extends Base
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
         $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
-        if($is_unique){
-            $this->result('','0','存在同名分类名');
+        $type_is_unique = $this->is_unique($data['type_id'], $is_exist_id ? 0 : $data['id'],'type_id');
+
+        if($is_unique && $type_is_unique){
+            $this->result('','0','存在同类型属性名');
         }
 
         // 更新数据

@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\validate\CategoryValidate;
+use app\admin\validate\ProductValidate;
 use app\admin\validate\ShopTypeAttr;
 use catetree\Catetree;
 
@@ -18,7 +19,7 @@ class Product extends Base
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('property');
+        $this->model = model('product');
     }
 
     public function lst(){
@@ -73,11 +74,10 @@ class Product extends Base
     }
 
     public function save(){
-
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new ShopTypeAttr())->goCheck('property');
+        $validate = (new ProductValidate())->goCheck();
 
         if(!$validate['type']){
             $msg = '';
@@ -94,19 +94,17 @@ class Product extends Base
 
         // 获取请求数据
         $data = input('post.');
-        $data['values'] = str_replace('，',',',$data['values']);
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
         $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
         if($is_unique){
-            $this->result('','0','存在同名分类名');
+            $this->result('','0','存在同名产品名');
         }
 
         // 更新数据
         if(!$is_exist_id){
             return $update = $this->update($data);
         }
-
         // 添加数据
         $result = $this->model->save($data);
         if($result){
@@ -121,7 +119,7 @@ class Product extends Base
         if($result){
             $this->result(url('lst'),'1','更新成功');
         }else{
-            $this->result('','0','更新失败');
+            $this->result(url('lst'),'0','无更新');
         }
     }
 
