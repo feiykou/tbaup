@@ -8,6 +8,49 @@
 //     layer.full(index);
 // }
 
+//设置上传个数
+function setNoDrop($dom,num){
+    var num = num?num:1;
+    var length = $dom.length;
+    if(length >=num){
+        $dom.parents(".queueList").prev().find(".webuploader-pick").css({
+            'position': 'relative',
+            'zIndex': 1,
+            'background': '#f0f0f0',
+            'cursor': 'no-drop'
+        });
+    }
+}
+/**
+ * 编辑图片
+ */
+$(function () {
+    $(".filelist-exist").parents(".queueList").css({
+        'display': 'block',
+        'opacity': 1
+    });
+    $(".filelist-exist").find("li").hover(function(){
+        $(this).find(".file-panel").stop(true).animate({height:"30px"},300);
+    },function(){
+        $(this).find(".file-panel").stop(true).animate({height:0},300);
+    });
+
+    $(".filelist-exist").on("click","span.cancel",function(){
+        $btnDom = $(this).parents(".queueList").prev().find(".webuploader-pick");
+        $btnDom.css({
+            'background': "none",
+            'cursor': 'pointer',
+            'z-index': 0});
+        $li = $(this).parents("li");
+        $parents = $li.parents('.filelist-exist');
+        $li.remove();
+        if($parents.find("li").length == 0){
+            $parents.remove();
+        }
+    });
+});
+
+
 function editFull(title,url){
     var index = layer.open({
         type: 2,

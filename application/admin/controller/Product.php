@@ -23,17 +23,17 @@ class Product extends Base
     }
 
     public function lst(){
-
         $join = [
             ['category c','p.category_id=c.id','LEFT'],
-            ['type t', 'p.type_id=t.id','LEFT']
+            ['type t', 'p.type_id=t.id','LEFT'],
+            ['product_stock ps', 'p.id=ps.product_id','LEFT']
         ];
         $productRes = db('product')->alias('p')
-            ->field('p.*,c.cate_name,t.name as type_name')
+            ->field('p.*,c.cate_name,t.name as type_name,SUM(ps.stock_num) gn')
             ->join($join)
+            ->group('p.id')
             ->order('p.id DESC')
             ->paginate(6);
-
         $this->assign([
             'productRes'=>$productRes,
         ]);
@@ -62,11 +62,28 @@ class Product extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $categoryRes = db('type')->select();
-        $editData = $this->model->find(intval($id));
+        $product_id = intval($id);
+        // 获取当前产品基本信息
+        $productData = $this->model->find($product_id);
+        // 获取相册
+        $productImgData = db('product_image')->where('product_id','=',$product_id)->select();
+        // 会员级别数据
+        $mlRes = db('member_level')->field('id,name')->select();
+        // 获取产品类型
+        $typeRes = db('type')->select();
+        // 会员价格
+        $_mbRes = db('member_price')->where('product_id','=',$product_id)->select();
+        // 商品分类
+        $Category=new Catetree();
+        $CategoryObj=db('Category');
+        $CategoryRes=$CategoryObj->order('sort DESC')->select();
+        $CategoryRes=$Category->Catetree($CategoryRes);
         $this->assign([
-            'editData' => $editData,
-            'categoryRes' => $categoryRes
+            'productData' => $productData,
+            'productImgData' => $productImgData,
+            'typeRes' => $typeRes,
+            'mlRes' => $mlRes,
+            'CategoryRes'=>$CategoryRes,
         ]);
         return view();
     }
@@ -122,15 +139,13 @@ class Product extends Base
     }
 
     public function del($id){
-//        $result = model('product')->where('id','=',$id)->delete();
-
         $result = model('product')->destroy($id);
         // 返回状态码
-//        if($result){
-//            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
-//        }else{
-//            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
-//        }
+        if($result){
+            $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
+        }else{
+            $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
+        }
     }
 
     public function edituploadImg(){
@@ -162,9 +177,59 @@ class Product extends Base
             return $json;
         }
     }
-//
-//
-//    //删除
+
+    /**
+     *
+     * 功能重点：
+     * 1、提交前端页面name=name名称[属性id][] 的方式添加多个属性id下的多个值
+     * 2、对于只要有一个属性没有值，则相对应的数据无效，不会添加到数据库
+     * 3、库存对应的属性会以属性id逗号分隔的状态存进数据库
+     *
+     *
+     * @param $id
+     * @return \think\response\View|void
+     *
+     */
+    public function stock($id){
+        if(request()->isPost()){
+            $stock = db('product_stock');
+            $stock->where('product_id','=',$id)->delete();
+            $data = input('post.');
+            $productProp = isset($data['product_prop']) ? $data['product_prop'] : [];
+            $stock_num = $data['stock_num'];
+            foreach ($stock_num as $k=>$v){
+                $strArr = [];
+                foreach ($productProp as $k1=>$v1){
+                    if(intval($v1[$k]) <= 0){
+                        continue 2;
+                    }
+                    $strArr[] = $v1[$k];
+                }
+                sort($strArr);
+                $strArr = implode(',',$strArr);
+                $stock->insert([
+                    'product_id' => $id,
+                    'stock_num' => $v,
+                    'product_prop' => $strArr
+                ]);
+            }
+            $this->result(url('lst'),'1','添加成功');
+        }
+
+        // 获取产品对应的属性
+        $radioAttrRes = $this->model->getProductPropArr($id);
+        // 获取商品的库存信息
+        $stockDatas = db('product_stock')->where('product_id','=',$id)->select();
+        $this->assign([
+            'radioAttrRes' => $radioAttrRes,
+            'stockDatas' => $stockDatas,
+            'product_id' => $id
+        ]);
+        return view();
+    }
+
+
+//    // 删除
 //    public function del($id=-1){
 //        if(request()->isPost()){
 //            $id = request()->post()['idsArr'];

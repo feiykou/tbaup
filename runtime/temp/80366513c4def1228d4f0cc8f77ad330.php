@@ -1,9 +1,15 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\property\list.html";i:1536849200;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {include file="common/header" /}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
 	<title>个人信息</title>
-	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/personal.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/personal.css" media="all">
 </head>
 <body>
 <section class="layui-larry-box">
@@ -11,8 +17,8 @@
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
 		
-		<div class="layui-inline" onclick="add('添加商品','{:url('add')}')">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品</a>
+		<div class="layui-inline" onclick="add('添加商品属性','<?php echo url('add'); ?>')">
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加商品属性</a>
 		</div>
 		<div class="layui-inline">
 			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
@@ -25,49 +31,33 @@
                         <thead>
                             <tr>
                                 <th width="30">ID</th>
-                                <th>产品名称</th>
-                                <th>编号</th>
-                                <th>缩略图</th>
-                                <th>市场价</th>
-                                <th>本店价</th>
-                                <th>上架</th>
-                                <th>分类</th>
-                                <th>主题</th>
-                                <th>类型</th>
-                                <th>重量</th>
-                                <th>单位</th>
-                                <th>库存</th>
-                                <th width="240">操作</th>
+                                <th class="tl">属性名称</th>
+                                <th width="100">属性类型</th>
+                                <th width="100">所属类型</th>
+                                <th width="100">值</th>
+                                <th width="200">操作</th>
                             </tr>
                         </thead>
                         <tbody class="news_content list-box-body">
-                            {volist name="productRes" id="data"}
+                            <?php if(is_array($tbData) || $tbData instanceof \think\Collection || $tbData instanceof \think\Paginator): $i = 0; $__LIST__ = $tbData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?>
                             <tr>
-                                <td align="center">{$data.id}</td>
-                                <td align="center">{$data.name}</td>
-                                <td align="center">{$data.product_code}</td>
-                                <td align="center">{if condition="$data['main_img_url'] neq ''"}<a target="_blank" href="{$data.main_img_url}"><img src="{$data.main_img_url}" height="30"></a>{else /}暂无主图{/if}</td>
-                                <td align="center">{$data.market_price}</td>
-                                <td align="center">{$data.price}</td>
-                                <td align="center">{if condition="$data['on_sale'] eq 1"}已上架{else /}未上架{/if}</td>
-                                <td align="center">{if condition="$data['cate_name']"}{$data.cate_name}{else /}未设置{/if}</td>
-                                <td align="center">{if condition="$data['theme_id']"}{$data.theme_id}{else /}未设置{/if}</td>
-                                <td align="center">{if condition="$data['type_name']"}{$data.type_name}{else /}未设置{/if}</td>
-                                <td align="center">{$data.weight}</td>
-                                <td align="center">{$data.unit}</td>
-                                <td align="center">{if condition='$data.gn'}{$data.gn}{else/}0{/if}</td>
+                                <td align="center"><?php echo $data['id']; ?></td>
+                                <td><?php echo $data['name']; ?></td>
+                                <td align="center"><?php if($data['type'] == 1): ?>单选<?php else: ?>唯一<?php endif; ?></td>
+                                <td align="center"><?php echo $data['type_name']; ?></td>
+                                <td align="center"><?php echo $data['values']; ?></td>
                                 <td align="center">
-                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="edit('库存','{:url('stock',['id'=>$data['id']])}','800px','463px')"><i class="fa fa-id-card-o fa-fw"></i> 库存</a>
-                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑产品','{:url('edit',['id'=>$data.id])}')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,{$data.id})"><i class="layui-icon"></i> 删除</a>
+                                    <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','<?php echo url('edit',['id'=>$data['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $data['id']; ?>)"><i class="layui-icon"></i> 删除</a>
                                 </td>
                             </tr>
-                            {/volist}
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </tbody>
                      </table>
 
                      <div class="larry-table-page clearfix">
                           <div class="paging">
+                              <?php echo $tbData->render(); ?>
                           </div>
                      </div>
 			    </div>
@@ -77,7 +67,9 @@
 	
 </section>
 
-{include file="common/footer" /}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 
 <script type="text/javascript">
 
@@ -92,7 +84,7 @@
 
     /*产品-删除*/
     function product_del(obj,id){
-        var url = "{:url('del')}?id="+id;
+        var url = "<?php echo url('del'); ?>?id="+id;
         layer.confirm('确认要删除吗？',function(index){
             $.ajax({
                 type: 'get',
@@ -102,7 +94,7 @@
                     if(data.code == 1){
                         layer.close(index);
                         layer.msg('已删除!',{icon:1,time:1000});
-                        window.location = "{:url('lst')}";
+                        window.location = "<?php echo url('lst'); ?>";
                     }
                 },
                 error:function(data) {
@@ -118,7 +110,7 @@
         var $checkDoms = getCheckedId().checkDoms;
         reqChangeStutas({
             idsArr: idsArr,
-            url:"{:url('del')}",
+            url:"<?php echo url('del'); ?>",
             msgTip:'请先选择要删除的产品!',
             confirmTip:'确认要删除吗？',
             sCallback: function(data){
@@ -165,7 +157,7 @@
     }
     
     layui.config({
-        base: '__STATIC__/admin/js/'
+        base: '/static/admin/js/'
     }).use(['form','layer','element','laypage'],function(){
         window.layer = layui.layer;
         var element = layui.element,

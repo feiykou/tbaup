@@ -85,37 +85,36 @@ class Product extends Model
         });
 
         Product::beforeDelete(function($products){
-//            $productId = $products->id;
-            var_dump($products);
+            $productId = $products->id;
 
-//            // 删除内存中的主图
-//            if($products->main_img_url){
-//                if(file_exists($products->main_img_url)){
-//                    @unlink($products->main_img_url);
-//                }
-//            }
-//
-//            // 删除关联的会员价格
-//            db('member_price')->where('product_id','=',$productId)
-//                ->delete();
-//
-//            // 删除关联的商品属性
-//            db('product_prop')->where('product_id','=',$productId)
-//                ->delete();
-//
-//            // 删除关联的商品相册
-//            $product_imgs = db('product_image')->where('product_id','=',$productId)
-//                ->select();
-//
-//            if(!empty($product_imgs)){
-//                foreach ($product_imgs as $k => $v){
-//                    if(file_exists($v['img_url'])){
-//                        @unlink($v['img_url']);
-//                    }
-//                }
-//            }
-//            db('product_image')->where('product_id','=',$productId)
-//                ->delete();
+            // 删除内存中的主图
+            if($products->main_img_url){
+                if(file_exists($products->main_img_url)){
+                    @unlink($products->main_img_url);
+                }
+            }
+
+            // 删除关联的会员价格
+            db('member_price')->where('product_id','=',$productId)
+                ->delete();
+
+            // 删除关联的商品属性
+            db('product_prop')->where('product_id','=',$productId)
+                ->delete();
+
+            // 删除关联的商品相册
+            $product_imgs = db('product_image')->where('product_id','=',$productId)
+                ->select();
+
+            if(!empty($product_imgs)){
+                foreach ($product_imgs as $k => $v){
+                    if(file_exists($v['img_url'])){
+                        @unlink($v['img_url']);
+                    }
+                }
+            }
+            db('product_image')->where('product_id','=',$productId)
+                ->delete();
         });
     }
 
@@ -127,5 +126,23 @@ class Product extends Model
         $productSn =
             $yCode[intval(date('Y')) - 2017] . time() .rand(11111,99999);
         return $productSn;
+    }
+
+    /*
+     * 获取产品属性数组
+     */
+    public function getProductPropArr($id){
+        $_radioAttrRes = db('product_prop')->alias('pp')
+            ->field('pp.id,pp.prop_id,pp.prop_value,p.name as prop_name')
+            ->join('property p','pp.prop_id = p.id')
+            ->where([
+                'pp.product_id' => $id,
+                'p.type' => 1
+            ])->select();
+        $radioAttrRes = [];
+        foreach ($_radioAttrRes as $k => $v){
+            $radioAttrRes[$v['prop_name']][] = $v;
+        }
+        return $radioAttrRes;
     }
 }

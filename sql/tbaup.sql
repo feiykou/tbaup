@@ -157,13 +157,27 @@ CREATE TABLE `tb_product_image` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_product_prop`;
 CREATE TABLE `tb_product_prop` (
-  `id` int(11) NOT NULL,
-  `prop_id` mediumint(9) NOT NULL COMMENT '属性id',
-  `prop_value` varchar(60) NOT NULL COMMENT '属性值',
-  `prop_price` decimal(10,2) NOT NULL COMMENT '属性价格',
-  `product_id` mediumint(9) NOT NULL COMMENT '所属商品'
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `prop_id` mediumint NOT NULL DEFAULT 0 COMMENT '属性id',
+  `prop_value` varchar(60) NOT NULL DEFAULT '' COMMENT '属性值',
+  `prop_price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '属性价格',
+  `product_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属商品',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
 
+
+
+-- ----------------------------
+-- Table structure for tb_product_stock
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_product_stock`;
+CREATE TABLE `tb_product_stock` (
+  `id` mediumint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `product_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属商品',
+  `stock_num` int NOT NULL DEFAULT 0 COMMENT '库存量',
+  `product_prop` varchar(20) NOT NULL DEFAULT '' COMMENT '属性值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
 
 
 

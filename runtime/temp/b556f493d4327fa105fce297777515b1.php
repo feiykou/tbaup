@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\edit.html";i:1537108609;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding: 30px 60px;}
@@ -30,48 +36,60 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品名称</label>
                         <div class="layui-col-md2">
-                            <input type="text" name="name" value="{$productData.name}" lay-verify="name" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
+                            <input type="text" name="name" value="<?php echo $productData['name']; ?>" lay-verify="name" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传主图</label>
                         <div class="layui-input-block upload-img-wrap">
-                            {Uploader:webuploader btnVal="上传图片"}
-                            {if condition="$productData.main_img_url neq ''"}
+                                        <div id="uploader" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传图片</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList">
+                            <?php if($productData['main_img_url'] != ''): ?>
                             <ul class="filelist filelist-exist clearfix">
-                                <li class="state-complete" data-src="{$productData.main_img_url}">
-                                    <p class="imgWrap"><img src="{$productData.main_img_url}" width="110" height="110"></p>
+                                <li class="state-complete" data-src="<?php echo $productData['main_img_url']; ?>">
+                                    <p class="imgWrap"><img src="<?php echo $productData['main_img_url']; ?>" width="110" height="110"></p>
                                     <div class="file-panel"><span class="cancel">删除</span></div>
                                     <span class="success"></span>
                                 </li>
                             </ul>
-                            {/if}
-                            {/Uploader:webuploader}
+                            <?php endif; ?>
+                            </div>
+            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传产品图（多图）</label>
                         <div class="layui-input-block upload-img-wrap">
-                            {Uploader:webuploader btnVal="上传产品图" uploadId='productImgs'}
-                            {if condition="$productImgData"}
+                                        <div id="productImgs" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传产品图</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList">
+                            <?php if($productImgData): ?>
                             <ul class="filelist filelist-exist clearfix">
                                 <?php foreach($productImgData as $k=>$v): if($v['img_url']):?>
-                                <li class="state-complete" data-src="{$v.img_url}">
-                                    <p class="imgWrap"><img src="{$v.img_url}" width="110" height="110"></p>
+                                <li class="state-complete" data-src="<?php echo $v['img_url']; ?>">
+                                    <p class="imgWrap"><img src="<?php echo $v['img_url']; ?>" width="110" height="110"></p>
                                     <div class="file-panel"><span class="cancel">删除</span></div>
                                     <span class="success"></span>
                                 </li>
                                 <?php endif; endforeach;?>
                             </ul>
-                            {/if}
-                            {/Uploader:webuploader}
+                            <?php endif; ?>
+                            </div>
+            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">上架</label>
                         <div class="layui-input-block">
-                            <input type="radio" name="on_sale" value="1" title="上架" {if condition="$productData.on_sale eq 1"}checked{/if}>
-                            <input type="radio" name="on_sale" value="0" title="下架" {if condition="$productData.on_sale eq 0"}checked{/if}>
+                            <input type="radio" name="on_sale" value="1" title="上架" <?php if($productData['on_sale'] == 1): ?>checked<?php endif; ?>>
+                            <input type="radio" name="on_sale" value="0" title="下架" <?php if($productData['on_sale'] == 0): ?>checked<?php endif; ?>>
                         </div>
                         </div>
                     <div class="layui-form-item">
@@ -79,9 +97,9 @@
                         <div class="layui-inline">
                             <select name="category_id">
                                 <option value="0">顶级分类</option>
-                                {volist name='CategoryRes' id='resData'}
-                                <option {if condition="$productData.category_id eq $resData.id"}selected{/if} value="{$resData.id}">{if condition="$resData.pid != 0"}┞{/if}{$resData.level|str_repeat='┄',###*2}{$resData.cate_name}</option>
-                                {/volist}
+                                <?php if(is_array($CategoryRes) || $CategoryRes instanceof \think\Collection || $CategoryRes instanceof \think\Paginator): $i = 0; $__LIST__ = $CategoryRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                                <option <?php if($productData['category_id'] == $resData['id']): ?>selected<?php endif; ?> value="<?php echo $resData['id']; ?>"><?php if($resData['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$resData['level']*2); ?><?php echo $resData['cate_name']; ?></option>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                             </select>
                         </div>
                     </div>
@@ -96,22 +114,22 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">市场价</label>
                         <div class="layui-col-md2">
-                            <input type="text" name="market_price" value="{$productData.market_price}" lay-verify="market_price" autocomplete="off" placeholder="请输入市场价" class="layui-input">
+                            <input type="text" name="market_price" value="<?php echo $productData['market_price']; ?>" lay-verify="market_price" autocomplete="off" placeholder="请输入市场价" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">本店价</label>
                         <div class="layui-col-md2">
-                            <input type="text" name="price" value="{$productData.price}" lay-verify="price" autocomplete="off" placeholder="请输入本店价" class="layui-input">
+                            <input type="text" name="price" value="<?php echo $productData['price']; ?>" lay-verify="price" autocomplete="off" placeholder="请输入本店价" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">重量</label>
                         <div class="layui-col-md1">
-                            <input type="text" name="weight" value="{$productData.weight}" lay-verify="weight" autocomplete="off" placeholder="请输入重量" class="layui-input">
+                            <input type="text" name="weight" value="<?php echo $productData['weight']; ?>" lay-verify="weight" autocomplete="off" placeholder="请输入重量" class="layui-input">
                         </div>
                         <div class="layui-inline" style="width: 50px; margin-left: 6px; text-align: center;">
-                            <input type="text" name="unit" value="{$productData.unit}" lay-verify="unit" autocomplete="off" class="layui-input" value="kg">
+                            <input type="text" name="unit" value="<?php echo $productData['unit']; ?>" lay-verify="unit" autocomplete="off" class="layui-input" value="kg">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -125,7 +143,7 @@
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">编辑器</label>
                         <div class="layui-input-block">
-                            <textarea class="layui-textarea layui-hide" name="description" lay-verify="description" id="LAY_demo_editor">{$productData.description}</textarea>
+                            <textarea class="layui-textarea layui-hide" name="description" lay-verify="description" id="LAY_demo_editor"><?php echo $productData['description']; ?></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -137,14 +155,14 @@
                 </div>
 
                 <div class="layui-tab-item">
-                    {volist name="mlRes" id="mlData"}
+                    <?php if(is_array($mlRes) || $mlRes instanceof \think\Collection || $mlRes instanceof \think\Paginator): $i = 0; $__LIST__ = $mlRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$mlData): $mod = ($i % 2 );++$i;?>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">{$mlData.name}</label>
+                        <label class="layui-form-label"><?php echo $mlData['name']; ?></label>
                         <div class="layui-col-md2">
-                            <input type="text" name="mp[{$mlData.id}]" autocomplete="off" placeholder="级别价格" class="layui-input">
+                            <input type="text" name="mp[<?php echo $mlData['id']; ?>]" autocomplete="off" placeholder="级别价格" class="layui-input">
                         </div>
                     </div>
-                    {/volist}
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
@@ -160,9 +178,9 @@
                         <div class="layui-inline">
                             <select name="type_id" lay-filter="type_id">
                                 <option value="0">请选择</option>
-                                {volist name='typeRes' id='resData'}
-                                <option value="{$resData.id}">{$resData.name}</option>
-                                {/volist}
+                                <?php if(is_array($typeRes) || $typeRes instanceof \think\Collection || $typeRes instanceof \think\Paginator): $i = 0; $__LIST__ = $typeRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                                <option value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                             </select>
                         </div>
                     </div>
@@ -185,12 +203,14 @@
     </form>
 </div>
 
-{include file='common/footer'}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 <!--引入webuploaderJS-->
-{Uploader:webuploaderjs/}
+<script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
 <script>
     var config = {
-        "upload_server": "{:url('uploadImg')}"
+        "upload_server": "<?php echo url('uploadImg'); ?>"
     };
 
     feiy_upload.init({
@@ -233,7 +253,7 @@
             $ = layui.jquery;
         layedit.set({
             uploadImage: {
-                url: "{:url('edituploadImg')}", //接口url
+                url: "<?php echo url('edituploadImg'); ?>", //接口url
                 type: 'post'
             },
             height: 560
@@ -269,7 +289,7 @@
             var type_id = $(data.elem).val();
             $.ajax({
                 type:"POST",
-                url:"{:url('property/ajaxGetAttr')}",
+                url:"<?php echo url('property/ajaxGetAttr'); ?>",
                 data:{type_id:type_id},
                 dataType:"json",
                 success:function(res){
@@ -343,7 +363,7 @@
             var product_img_url = setUpdateUrl(product_img_lists);
             var params = "&main_img_url="+main_img_url+'&product_img_url='+product_img_url;
             $.ajax({
-                url: "{:url('save')}",
+                url: "<?php echo url('save'); ?>",
                 type: "post",
                 data: $(formDom).serialize()+params,
                 success: function(res){

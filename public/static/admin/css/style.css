@@ -58,3 +58,6 @@
 .layui-form-switch i{ top: 2px; width: 14px; height: 14px;}
 
 .tb-sort input{ display: inline-block; width: 60px; height: 28px; text-align: center; padding: 0; color:#666;}
+.sel-size-wrap input{ width: 120px;}
+
+.layui-larry-box{ box-sizing: border-box;}
