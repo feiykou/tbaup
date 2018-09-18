@@ -21,6 +21,29 @@ function setNoDrop($dom,num){
         });
     }
 }
+// 删除图片
+function cancelImg(callback) {
+    $(".filelist-exist").on("click","span.cancel",function(){
+        $this = $(this);
+        layer.confirm('确定要删除图片吗？', {icon: 3, title:'提示'}, function(index){
+            $btnDom = $this.parents(".queueList").prev().find(".webuploader-pick");
+            $btnDom.css({
+                'background': "none",
+                'cursor': 'pointer',
+                'z-index': 0});
+            $li = $this.parents("li");
+            $parents = $li.parents('.filelist-exist');
+            $li.remove();
+            if($parents.find("li").length == 0){
+                $parents.remove();
+            }
+            callback && callback($this);
+            layer.close(index);
+        });
+    });
+}
+
+
 /**
  * 编辑图片
  */
@@ -35,19 +58,8 @@ $(function () {
         $(this).find(".file-panel").stop(true).animate({height:0},300);
     });
 
-    $(".filelist-exist").on("click","span.cancel",function(){
-        $btnDom = $(this).parents(".queueList").prev().find(".webuploader-pick");
-        $btnDom.css({
-            'background': "none",
-            'cursor': 'pointer',
-            'z-index': 0});
-        $li = $(this).parents("li");
-        $parents = $li.parents('.filelist-exist');
-        $li.remove();
-        if($parents.find("li").length == 0){
-            $parents.remove();
-        }
-    });
+
+
 });
 
 

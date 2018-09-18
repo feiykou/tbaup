@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:71:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\product\add.html";i:1537165221;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding: 30px 60px;}
@@ -36,13 +42,25 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传主图</label>
                         <div class="layui-input-block upload-img-wrap">
-                            {Uploader:webuploader btnVal="上传图片"}{/Uploader:webuploader}
+                                        <div id="uploader" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传图片</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList"></div>
+            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传产品图（多图）</label>
                         <div class="layui-input-block upload-img-wrap">
-                            {Uploader:webuploader btnVal="上传产品图" uploadId='productImgs'}{/Uploader:webuploader}
+                                        <div id="productImgs" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传产品图</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList"></div>
+            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -57,9 +75,9 @@
                         <div class="layui-inline">
                             <select name="category_id">
                                 <option value="0">顶级分类</option>
-                                {volist name='CategoryRes' id='resData'}
-                                <option value="{$resData.id}">{if condition="$resData.pid != 0"}┞{/if}{$resData.level|str_repeat='┄',###*2}{$resData.cate_name}</option>
-                                {/volist}
+                                <?php if(is_array($CategoryRes) || $CategoryRes instanceof \think\Collection || $CategoryRes instanceof \think\Paginator): $i = 0; $__LIST__ = $CategoryRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                                <option value="<?php echo $resData['id']; ?>"><?php if($resData['pid'] != 0): ?>┞<?php endif; ?><?php echo str_repeat('┄',$resData['level']*2); ?><?php echo $resData['cate_name']; ?></option>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                             </select>
                         </div>
                     </div>
@@ -115,14 +133,14 @@
                 </div>
 
                 <div class="layui-tab-item">
-                    {volist name="mlRes" id="mlData"}
+                    <?php if(is_array($mlRes) || $mlRes instanceof \think\Collection || $mlRes instanceof \think\Paginator): $i = 0; $__LIST__ = $mlRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$mlData): $mod = ($i % 2 );++$i;?>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">{$mlData.name}</label>
+                        <label class="layui-form-label"><?php echo $mlData['name']; ?></label>
                         <div class="layui-col-md2">
-                            <input type="text" name="mp[{$mlData.id}]" autocomplete="off" placeholder="级别价格" class="layui-input">
+                            <input type="text" name="mp[<?php echo $mlData['id']; ?>]" autocomplete="off" placeholder="级别价格" class="layui-input">
                         </div>
                     </div>
-                    {/volist}
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
@@ -138,9 +156,9 @@
                         <div class="layui-inline">
                             <select name="type_id" lay-filter="type_id">
                                 <option value="0">请选择</option>
-                                {volist name='typeRes' id='resData'}
-                                <option value="{$resData.id}">{$resData.name}</option>
-                                {/volist}
+                                <?php if(is_array($typeRes) || $typeRes instanceof \think\Collection || $typeRes instanceof \think\Paginator): $i = 0; $__LIST__ = $typeRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                                <option value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                             </select>
                         </div>
                     </div>
@@ -163,12 +181,14 @@
         </form>
     </div>
 
-    {include file='common/footer'}
+    <script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
     <!--引入webuploaderJS-->
-    {Uploader:webuploaderjs/}
+    <script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
     <script>
         var config = {
-            "upload_server": "{:url('uploadImg')}"
+            "upload_server": "<?php echo url('uploadImg'); ?>"
         };
 
         feiy_upload.init({
@@ -197,7 +217,7 @@
                 $ = layui.jquery;
             layedit.set({
                 uploadImage: {
-                    url: "{:url('edituploadImg')}", //接口url
+                    url: "<?php echo url('edituploadImg'); ?>", //接口url
                     type: 'post'
                 },
                 height: 560
@@ -233,7 +253,7 @@
                 var type_id = $(data.elem).val();
                 $.ajax({
                     type:"POST",
-                    url:"{:url('property/ajaxGetAttr')}",
+                    url:"<?php echo url('property/ajaxGetAttr'); ?>",
                     data:{type_id:type_id},
                     dataType:"json",
                     success:function(res){
@@ -307,7 +327,7 @@
                 var product_img_url = setUpdateUrl(product_img_lists);
                 var params = "&main_img_url="+main_img_url+'&product_img_url='+product_img_url;
                 $.ajax({
-                    url: "{:url('save')}",
+                    url: "<?php echo url('save'); ?>",
                     type: "post",
                     data: $(formDom).serialize()+params,
                     success: function(res){

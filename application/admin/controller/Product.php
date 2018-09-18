@@ -73,6 +73,20 @@ class Product extends Base
         $typeRes = db('type')->select();
         // 会员价格
         $_mbRes = db('member_price')->where('product_id','=',$product_id)->select();
+        $mbArr = [];
+        foreach ($_mbRes as $k=>$v){
+            $mbArr[$v['mlevel_id']] = $v;
+        }
+        // 查询当前产品类型所有的属性信息
+        $propRes = db('property')->where('type_id','=',$productData['type_id'])->select();
+        // 查询当前产品拥有的产品属性product_prop
+        $_ppropRes = db('product_prop')->where('product_id','=',$productData['id'])->select();
+        $ppropRes = [];
+        foreach ($_ppropRes as $k => $v){
+            $ppropRes[$v['prop_id']][] = $v;
+        }
+
+
         // 商品分类
         $Category=new Catetree();
         $CategoryObj=db('Category');
@@ -83,6 +97,9 @@ class Product extends Base
             'productImgData' => $productImgData,
             'typeRes' => $typeRes,
             'mlRes' => $mlRes,
+            'mbArr' => $mbArr,
+            'propRes' => $propRes,
+            'ppropRes' => $ppropRes,
             'CategoryRes'=>$CategoryRes,
         ]);
         return view();
@@ -195,9 +212,12 @@ class Product extends Base
             $stock = db('product_stock');
             $stock->where('product_id','=',$id)->delete();
             $data = input('post.');
+
             $productProp = isset($data['product_prop']) ? $data['product_prop'] : [];
             $stock_num = $data['stock_num'];
+
             foreach ($stock_num as $k=>$v){
+
                 $strArr = [];
                 foreach ($productProp as $k1=>$v1){
                     if(intval($v1[$k]) <= 0){
@@ -205,8 +225,10 @@ class Product extends Base
                     }
                     $strArr[] = $v1[$k];
                 }
+
                 sort($strArr);
                 $strArr = implode(',',$strArr);
+
                 $stock->insert([
                     'product_id' => $id,
                     'stock_num' => $v,
@@ -226,6 +248,15 @@ class Product extends Base
             'product_id' => $id
         ]);
         return view();
+    }
+
+
+    /* 删除图片 */
+    public function ajaxDelPic($id){
+        $productImage = db('product_image');
+        $product_img = $productImage->find($id);
+        @unlink($product_img.img_url);
+        $del = $productImage->delete($id);
     }
 
 

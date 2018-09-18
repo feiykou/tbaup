@@ -1,9 +1,15 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:73:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\product\stock.html";i:1537164524;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {include file="common/header" /}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
 	<title>个人信息</title>
-	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/personal.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/personal.css" media="all">
 </head>
 <body>
 <section class="layui-larry-box">
@@ -13,9 +19,9 @@
              <table class="layui-table">
                 <thead>
                     <tr>
-                        {volist name="radioAttrRes" id="radioAttr"}
-                        <th>{$key}</th>
-                        {/volist}
+                        <?php if(is_array($radioAttrRes) || $radioAttrRes instanceof \think\Collection || $radioAttrRes instanceof \think\Paginator): $i = 0; $__LIST__ = $radioAttrRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$radioAttr): $mod = ($i % 2 );++$i;?>
+                        <th><?php echo $key; ?></th>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                         <th>库存量</th>
                         <th width="60">操作</th>
                     </tr>
@@ -28,7 +34,7 @@
                         <?php foreach($radioAttrRes as $k=>$v):?>
                         <td align="center" class="tc">
                             <div class="layui-inline sel-size-wrap">
-                                <select name="product_prop[{$k}][]">
+                                <select name="product_prop[<?php echo $k; ?>][]">
                                     <option value="0">请选择</option>
                                     <?php foreach($v as $k1=>$v1):
                                         $arr = explode(',',$v0['product_prop']);
@@ -67,7 +73,7 @@
                             <?php foreach($radioAttrRes as $k=>$v):?>
                             <td align="center" class="tc">
                                 <div class="layui-inline sel-size-wrap">
-                                    <select name="product_prop[{$k}][]">
+                                    <select name="product_prop[<?php echo $k; ?>][]">
                                         <option value="">请选择</option>
                                         <?php foreach($v as $k1=>$v1):?>
                                         <option value="<?php echo $v1['id']?>"><?php echo $v1['prop_value'];?></option>
@@ -94,7 +100,7 @@
              </table>
             <div class="layui-form-item tr">
                 <div class="layui-inline">
-                    <button class="layui-btn" data-id="{$product_id}"  lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button class="layui-btn" data-id="<?php echo $product_id; ?>"  lay-submit="" lay-filter="demo1">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -107,12 +113,14 @@
     </form>
 </section>
 
-{include file="common/footer" /}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 
 <script type="text/javascript">
 
     layui.config({
-        base: '__STATIC__/admin/js/'
+        base: '/static/admin/js/'
     }).use(['form','layer','element','laypage'],function(){
         window.layer = layui.layer;
         var element = layui.element,
@@ -135,7 +143,7 @@
             var formDom = data.form;
             var product_id = $(data.elem).data('id');
             $.ajax({
-                url: "{:url('stock')}",
+                url: "<?php echo url('stock'); ?>",
                 type: "post",
                 data: $(formDom).serialize()+'&id='+product_id,
                 success: function(res){

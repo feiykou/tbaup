@@ -46,16 +46,19 @@ class Product extends Model
             }
             // 处理产品图片
             $img_url_arr = explode(';',$products->product_img_url);
-            foreach ($img_url_arr as $k=>$v){
-                $data[$k]['img_url'] = $v;
-                $data[$k]['product_id'] = $productsId;
+            if(isset($img_url_arr[0]) && $img_url_arr[0]){
+                foreach ($img_url_arr as $k=>$v){
+                    $data[$k]['img_url'] = $v;
+                    $data[$k]['product_id'] = $productsId;
+                }
+                db('product_image')->insertAll($data);
             }
-            db('product_image')->insertAll($data);
             // 处理产品属性
             $prop_i = 0;
             if(isset($productData['product_prop'])){
                 foreach ($productData['product_prop'] as $k => $v){
                     if(is_array($v)){
+                        // 添加单独属性
                         if(!empty($v)){
                             foreach ($v as $k1 => $v1){
                                 if(empty($v1)){
@@ -72,12 +75,107 @@ class Product extends Model
                             }
                         }
                     }else{
+                        // 添加唯一属性
                         if(!empty($v)) {
                             db('product_prop')->insert([
                                 'prop_id' => $k,
                                 'prop_value' => $v,
                                 'product_id' => $productsId
                             ]);
+                        }
+                    }
+                }
+            }
+        });
+
+        Product::beforeUpdate(function ($products){
+            $productId = $products->id;
+            // 获取新增商品
+            $productData = input('post.');
+            // 处理会员价格
+            $mpriceArr = $products->mp;
+            // 删除原有会员价格
+            db('member_price')->where('product_id','=',$productId)->delete();
+            if($mpriceArr){
+                foreach ($mpriceArr as $k => $v){
+                    if(!trim($v)){
+                        continue;
+                    }else{
+                        db('member_price')->insert([
+                            'mlevel_id' => $k,
+                            'mprice' => $v,
+                            'product_id' =>$productId
+                        ]);
+                    }
+                }
+            }
+
+
+            // 处理产品新增属性
+            if(isset($productData['product_prop'])){
+                $prop_i = 0;
+                foreach ($productData['product_prop'] as $k => $v){
+                    if(is_array($v)){
+                        // 添加单独属性
+                        if(!empty($v)){
+                            foreach ($v as $k1 => $v1){
+                                if(empty($v1)){
+                                    $prop_i++;
+                                    continue;
+                                }
+                                db('product_prop')->insert([
+                                    'prop_id' => $k,
+                                    'prop_value' => $v1,
+                                    'product_id' => $productId,
+                                    'prop_price' => $productData['prop_price'][$prop_i]
+                                ]);
+                                $prop_i++;
+                            }
+                        }
+                    }else{
+                        // 添加唯一属性
+                        if(!empty($v)) {
+                            db('product_prop')->insert([
+                                'prop_id' => $k,
+                                'prop_value' => $v,
+                                'product_id' => $productId
+                            ]);
+                        }
+                    }
+                }
+            }
+
+
+            // 处理产品更新属性
+            if(isset($productData['old_product_prop'])){
+                $prop_i = 0;
+                $propPrice = $productData['old_prop_price'];
+                $idsArr = array_keys($propPrice);
+                $valuesArr = array_values($propPrice);
+                foreach ($productData['old_product_prop'] as $k => $v){
+                    if(is_array($v)){
+                        // 添加单独属性
+                        if(!empty($v)){
+                            foreach ($v as $k1 => $v1){
+                                if(empty($v1)){
+                                    $prop_i++;
+                                    continue;
+                                }
+                                db('product_prop')->where('id','=',$idsArr[$prop_i])->update([
+                                    'prop_value' => $v1,
+                                    'prop_price' => $valuesArr[$prop_i]
+                                ]);
+                                $prop_i++;
+                            }
+                        }
+                    }else{
+                        // 添加唯一属性
+                        if(!empty($v)) {
+                            db('product_prop')->where('id','=',$idsArr[$prop_i])->update([
+                                'prop_value' => $v,
+                                'prop_price' => $valuesArr[$prop_i]
+                            ]);
+                            $prop_i++;
                         }
                     }
                 }
