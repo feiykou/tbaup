@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\index\index.html";i:1536715219;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:61:"F:\phpStudy\WWW\tbaup\application\admin\view\common\left.html";i:1536821157;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1535288840;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1537365868;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -76,7 +76,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;" data-url="/components/table/table.html" data-name="table" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 表格(page)</span></a>
+                <a href="javascript:;" data-url="<?php echo url('recpos/lst'); ?>" data-name="table"  data-icon="&#xe658;" data-title="推荐位" data-id="81" kit-target><i class="fa fa-plug" aria-hidden="true"></i><span> 推荐位</span></a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;" data-url="/views/form.html" data-name="form" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 表单(page)</span></a>

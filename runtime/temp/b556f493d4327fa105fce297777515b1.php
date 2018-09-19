@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\edit.html";i:1537108609;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\edit.html";i:1537272373;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -32,7 +32,7 @@
             </ul>
             <div class="layui-tab-content product-add-content">
                 <div class="layui-tab-item layui-show">
-                    <input type="hidden" name="id" value="">
+                    <input type="hidden" name="id" value="<?php echo $productData['id']; ?>">
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品名称</label>
                         <div class="layui-col-md2">
@@ -75,7 +75,7 @@
                                 <?php foreach($productImgData as $k=>$v): if($v['img_url']):?>
                                 <li class="state-complete" data-src="<?php echo $v['img_url']; ?>">
                                     <p class="imgWrap"><img src="<?php echo $v['img_url']; ?>" width="110" height="110"></p>
-                                    <div class="file-panel"><span class="cancel">删除</span></div>
+                                    <div class="file-panel"><span class="cancel" data-imgid="<?php echo $v['id']; ?>">删除</span></div>
                                     <span class="success"></span>
                                 </li>
                                 <?php endif; endforeach;?>
@@ -159,7 +159,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"><?php echo $mlData['name']; ?></label>
                         <div class="layui-col-md2">
-                            <input type="text" name="mp[<?php echo $mlData['id']; ?>]" autocomplete="off" placeholder="级别价格" class="layui-input">
+                            <input type="text" name="mp[<?php echo $mlData['id']; ?>]" autocomplete="off" placeholder="级别价格" class="layui-input" value="<?php if(isset($mbArr[$mlData['id']]['mprice'])){ echo $mbArr[$mlData['id']]['mprice']; } else{ echo ''; } ?>">
                         </div>
                     </div>
                     <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -176,15 +176,113 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品类型</label>
                         <div class="layui-inline">
-                            <select name="type_id" lay-filter="type_id">
+                            <select name="type_id" lay-filter="type_id" <?php if($productData['type_id'] != 0): ?>disabled<?php endif; ?>>
                                 <option value="0">请选择</option>
                                 <?php if(is_array($typeRes) || $typeRes instanceof \think\Collection || $typeRes instanceof \think\Paginator): $i = 0; $__LIST__ = $typeRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
-                                <option value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
+                                <option <?php if($productData['type_id'] == $resData['id']): ?>selected<?php endif; ?> value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
                                 <?php endforeach; endif; else: echo "" ;endif; ?>
                             </select>
                         </div>
                     </div>
-                    <div id="prop_list"></div>
+                    <div id="prop_list">
+                        <!-- 显示属性 -->
+                        <?php foreach($propRes as $k => $v):if($v['type'] == 1):
+                                $propRadio = explode(',', $v['values']);
+                            ?>
+                                <!-- 单选 start -->
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><?php echo $v['name']; ?></label>
+                                    <div class="layui-col-md6">
+                                        <?php if(isset($ppropRes[$v['id']])):foreach($ppropRes[$v['id']] as $k0 => $v0):?>
+                                        <div data-propid="<?php echo $v0['id']; ?>">
+                                            <a href="javascript:;" class="btn-add-reduce" onclick="addrow(this);"><?php if($k0==0){ echo '[+]';}else{ echo '[-]';}?></a>
+                                            <div class="layui-inline" style="width: 160px; margin-left: 6px;">
+                                                <select name="old_product_prop[<?php echo $v['id']; ?>][]" lay-filter="ss">
+                                                    <option value="">请选择</option>
+                                                    <?php foreach($propRadio as $k1=>$v1):?>
+                                                    <option <?php if($v1 == $v0['prop_value']): ?>selected<?php endif; ?> value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <input type="text" name="old_prop_price[<?php echo $v0['id']; ?>]" value="<?php echo $v0['prop_price']; ?>" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <?php endforeach;else:?>
+                                            <div>
+                                                <a href="javascript:;" class="btn-add-reduce" onclick="addrow(this);">[+]</a>
+                                                <div class="layui-inline" style="width: 160px; margin-left: 6px;">
+                                                    <select name="product_prop[<?php echo $v['id']; ?>][]" lay-filter="ss">
+                                                        <option value="">请选择</option>
+                                                        <?php foreach($propRadio as $k1=>$v1):?>
+                                                        <option value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                        <?php endforeach;?>
+                                                    </select>
+                                                </div>
+                                                <div class="layui-inline">
+                                                    <input type="text" name="prop_price[]" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">
+                                                </div>
+                                            </div>
+                                        <?php endif;?>
+                                    </div>
+                                </div>
+                                <!-- 单选 end -->
+
+
+                            <?php else:if(isset($ppropRes[$v['id']])):?>
+                                    <!-- 唯一 start -->
+                                    <?php if($v['values'] == ''):?>
+                                    <!-- 无值 input -->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><?php echo $v['name']; ?></label>
+                                        <div class="layui-col-md2">
+                                            <input type="text" name="old_product_prop[<?php echo $v['id']; ?>]" value="<?php echo $ppropRes[$v['id']][0]['prop_value']; ?>" autocomplete="off" placeholder="请输入自定义属性值" class="layui-input">
+                                            <input type="hidden" name="old_prop_price[<?php echo $ppropRes[$v['id']][0]['id']?>]">
+                                        </div>
+                                    </div>
+                                    <?php else:
+                                        $propRadio = explode(',', $v['values']);
+                                    ?>
+                                    <!-- 有值 select -->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><?php echo $v['name']; ?></label>
+                                        <div class="layui-inline" style="width: 160px; margin-left: 6px;">
+                                            <select name="old_product_prop[<?php echo $v['id']; ?>]" lay-filter="ss">
+                                                <option value="">请选择</option>
+                                                <?php foreach($propRadio as $k1=>$v1):?>
+                                                <option <?php if($v1 == $ppropRes[$v['id']][0]['prop_value']): ?>selected<?php endif; ?> value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <input type="hidden" name="old_prop_price[<?php echo $ppropRes[$v['id']][0]['id']?>]">
+                                        </div>
+                                    </div>
+                                    <?php endif;else:?>
+                                    <!-- 唯一 start -->
+                                    <?php if($v['values'] == ''):?>
+                                    <!-- 无值 input -->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><?php echo $v['name']; ?></label>
+                                        <div class="layui-col-md2">
+                                            <input type="text" name="product_prop[<?php echo $v['id']; ?>]" autocomplete="off" placeholder="请输入自定义属性值" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <?php else:
+                                        $propRadio = explode(',', $v['values']);
+                                    ?>
+                                    <!-- 有值 select -->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><?php echo $v['name']; ?></label>
+                                        <div class="layui-inline" style="width: 160px; margin-left: 6px;">
+                                            <select name="product_prop[<?php echo $v['id']; ?>]" lay-filter="ss">
+                                                <option value="">请选择</option>
+                                                <?php foreach($propRadio as $k1=>$v1):?>
+                                                <option value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?php endif;endif;endif;endforeach;?>
+                    </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
@@ -230,6 +328,7 @@
 <script>
     $(function () {
         checkUpload();
+
     });
 
     function checkUpload(){
@@ -261,14 +360,59 @@
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');
 
+        // 删除上传图片
+        cancelImg(function ($obj) {
+            var imgId = $obj.data('imgid');
+            if(imgId){
+                $.ajax({
+                    url: '<?php echo url("ajaxDelPic"); ?>',
+                    type: 'POST',
+                    data: {
+                        id: imgId
+                    },
+                });
+            }
+
+        });
+
         window.addrow = function(o){
-            var div=$(o).parent();
+            var $div=$(o).parent();
             if($(o).html() == '[+]'){
-                var newdiv=div.clone();
+                var newdiv=$div.clone();
                 newdiv.find('a').html('[-]');
-                div.after(newdiv);
+                // 修改价格old_prop_price[]为prop_price[]
+                newdiv.find('input[type=text]').attr('name','prop_price[]');
+                // 修改old_product_prop[$v.id][]为product_prop[$v.id][]
+                var sel = newdiv.find('select');
+                var oldname = sel.attr('name');
+                var newname = oldname.replace('old_','');
+                sel.attr('name',newname);
+                $div.after(newdiv);
             }else{
-                div.remove();
+                var propid = $div.data('propid');
+                layer.confirm('确定要删除图片吗？', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        url: '<?php echo url("ProductProp/ajaxDelProductProp"); ?>',
+                        type: 'POST',
+                        data: {
+                            id: propid
+                        },
+                        success: function(res){
+                            var msgParams = {
+                                iconNum: 6,
+                                anim: 0
+                            };
+                            if(res.code == 0){
+                                msgParams.iconNum = 5;
+                                msgParams.anim = 6;
+                            }else{
+                                $div.remove();
+                            }
+                            layer.msg(res.msg, {icon: msgParams.iconNum,time:1000,anim:msgParams.anim});
+                        }
+                    });
+                });
+
             }
             form.render('select');
         }
@@ -294,7 +438,6 @@
                 dataType:"json",
                 success:function(res){
                     var html = '';
-                    console.log(res);
                     res.forEach(function(data){
                         if(data.type == 1){
                             html+='<div class="layui-form-item">';

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:73:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\product\stock.html";i:1537164524;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\stock.html";i:1537272373;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

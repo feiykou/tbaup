@@ -180,6 +180,16 @@ CREATE TABLE `tb_product_stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
 
 
+-- ----------------------------
+-- Table structure for tb_product_stock
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_recpos`;
+CREATE TABLE `tb_recpos` (
+  `id` SMALLINT(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` VARCHAR(60) NOT NULL DEFAULT '' COMMENT '推荐位名称',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '推荐位类型 1：商品  2：分类',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '推荐位表';
 
 
 

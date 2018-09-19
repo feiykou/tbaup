@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:72:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\property\add.html";i:1536815507;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:79:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\recpos\add.html";i:1537369367;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -22,34 +22,16 @@
     <div class="form-container">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">所属类型</label>
-                <div class="layui-inline">
-                    <select name="type_id" lay-verify="required">
-                        <option value="0">顶级分类</option>
-                        <?php if(is_array($CategoryRes) || $CategoryRes instanceof \think\Collection || $CategoryRes instanceof \think\Paginator): $i = 0; $__LIST__ = $CategoryRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
-                        <option value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </select>
+                <label class="layui-form-label">推荐位名称</label>
+                <div class="layui-col-md2">
+                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入推荐位名称" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">属性名称</label>
-                <div class="layui-col-md2 layui-col-sm3">
-                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入属性名称" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">属性类型</label>
+                <label class="layui-form-label">推荐位类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="type" value="1" title="单选">
-                    <input type="radio" name="type" value="2" title="唯一" checked="">
-                </div>
-            </div>
-
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">属性值列表</label>
-                <div class="layui-col-md4 layui-col-sm6">
-                    <textarea placeholder="请输入属性值" name="values" class="layui-textarea"></textarea>
+                    <input type="radio" name="type" value="1" title="商品" checked>
+                    <input type="radio" name="type" value="2" title="类型">
                 </div>
             </div>
 
@@ -65,6 +47,7 @@
     <script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
 <script type="text/javascript" src="/static/admin/js/jquery.js"></script>
 <script src="/static/admin/js/common.js"></script>
+
     <script>
         layui.use(['form', 'layedit', 'laydate'], function() {
             var form = layui.form,

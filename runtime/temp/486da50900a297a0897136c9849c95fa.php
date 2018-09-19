@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\type\edit.html";i:1536803045;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\recpos\edit.html";i:1537369400;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -21,11 +21,18 @@
 <body>
 <div class="form-container">
     <form class="layui-form" action="">
-        <input type="hidden" value="<?php echo $editData['id']; ?>" name="id">
+        <input type="hidden" name="id" value="<?php echo $editData['id']; ?>">
         <div class="layui-form-item">
-            <label class="layui-form-label">类型名称</label>
+            <label class="layui-form-label">推荐位名称</label>
             <div class="layui-col-md2">
-                <input type="text" value="<?php echo $editData['name']; ?>" name="name" lay-verify="name" autocomplete="off" placeholder="请输入类型名称" class="layui-input">
+                <input type="text" name="name" value="<?php echo $editData['name']; ?>" lay-verify="name" autocomplete="off" placeholder="请输入推荐位名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">推荐位类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="1" <?php if($editData['type'] == 1): ?>checked<?php endif; ?> title="商品">
+                <input type="radio" name="type" value="2" <?php if($editData['type'] == 2): ?>checked<?php endif; ?> title="类型">
             </div>
         </div>
 
@@ -62,6 +69,7 @@
         //监听提交
         form.on('submit(demo1)', function(data) {
             var formDom = data.form;
+            console.log($(formDom).serialize());
             $.ajax({
                 url: "<?php echo url('save'); ?>",
                 type: "post",
