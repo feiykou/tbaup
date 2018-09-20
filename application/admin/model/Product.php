@@ -26,8 +26,18 @@ class Product extends Model
             $productData = input('post.');
 
             $mpriceArr = $products->mp;
-            $productsId = $products->id;
+            $productId = $products->id;
 
+            // 处理推荐位
+            if(isset($productData['recpos'])){
+                foreach ($productData['recpos'] as $k=>$v){
+                    db('rec_item')->insert([
+                        'recpos_id' => $v,
+                        'value_id' => $productId,
+                        'value_type' => 1,
+                    ]);
+                }
+            }
 
             // 处理会员价格
             if($mpriceArr){
@@ -39,20 +49,23 @@ class Product extends Model
                         db('member_price')->insert([
                             'mlevel_id' => $k,
                             'mprice' => $v,
-                            'product_id' =>$productsId
+                            'product_id' =>$productId
                         ]);
                     }
                 }
             }
+
             // 处理产品图片
             $img_url_arr = explode(';',$products->product_img_url);
             if(isset($img_url_arr[0]) && $img_url_arr[0]){
                 foreach ($img_url_arr as $k=>$v){
                     $data[$k]['img_url'] = $v;
-                    $data[$k]['product_id'] = $productsId;
+                    $data[$k]['product_id'] = $productId;
                 }
                 db('product_image')->insertAll($data);
             }
+
+
             // 处理产品属性
             $prop_i = 0;
             if(isset($productData['product_prop'])){
@@ -68,7 +81,7 @@ class Product extends Model
                                 db('product_prop')->insert([
                                     'prop_id' => $k,
                                     'prop_value' => $v1,
-                                    'product_id' => $productsId,
+                                    'product_id' => $productId,
                                     'prop_price' => $productData['prop_price'][$prop_i]
                                 ]);
                                 $prop_i++;
@@ -80,7 +93,7 @@ class Product extends Model
                             db('product_prop')->insert([
                                 'prop_id' => $k,
                                 'prop_value' => $v,
-                                'product_id' => $productsId
+                                'product_id' => $productId
                             ]);
                         }
                     }
@@ -92,6 +105,21 @@ class Product extends Model
             $productId = $products->id;
             // 获取新增商品
             $productData = input('post.');
+            // 处理推荐位
+            db('rec_item')->where([
+                'value_id' => $productId,
+                'value_type' => 1
+            ])->delete();
+            if(isset($productData['recpos'])){
+                foreach ($productData['recpos'] as $k=>$v){
+                    db('rec_item')->insert([
+                        'recpos_id' => $v,
+                        'value_id' => $productId,
+                        'value_type' => 1,
+                    ]);
+                }
+            }
+
             // 处理会员价格
             $mpriceArr = $products->mp;
             // 删除原有会员价格

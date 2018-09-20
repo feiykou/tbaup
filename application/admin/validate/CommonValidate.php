@@ -13,10 +13,12 @@ class CommonValidate extends BaseValidate
 {
 
     protected $rule = [
-        ['name','require|max:30','名称必须填写|名称不能超过30个字']
+        ['name','require|max:30','名称必须填写|名称不能超过30个字'],
+        ['description','max:255','名称不能超过255个字'],
     ];
 
     protected $scene = [
-        'name' => ['name']
+        'name' => ['name'],
+        'name_desc' => ['name','description']
     ];
 }

@@ -11,13 +11,13 @@ namespace app\admin\controller;
 use app\admin\validate\CategoryValidate;
 use catetree\Catetree;
 
-class Category extends Base
+class BannerItem extends Base
 {
     private $model;
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('category');
+        $this->model = model('banner_item');
     }
 
     public function lst(){
@@ -29,7 +29,6 @@ class Category extends Base
         }
         $categoryRes=$this->model->order('sort DESC')->select();
 
-        $categoryRes=$category->catetree($categoryRes);
         $this->assign([
             'tbData'=>$categoryRes,
         ]);

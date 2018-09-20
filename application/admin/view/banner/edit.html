@@ -15,18 +15,17 @@
 <body>
 <div class="form-container">
     <form class="layui-form" action="">
-        <input type="hidden" name="id" value="{$editData.id}">
+        <input type="hidden" value="{$editData.id}" name="id">
         <div class="layui-form-item">
-            <label class="layui-form-label">推荐位名称</label>
+            <label class="layui-form-label">类型名称</label>
             <div class="layui-col-md2">
-                <input type="text" name="name" value="{$editData.name}" lay-verify="name" autocomplete="off" placeholder="请输入推荐位名称" class="layui-input">
+                <input type="text" value="{$editData.name}" name="name" lay-verify="name" autocomplete="off" placeholder="请输入类型名称" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">推荐位类型</label>
-            <div class="layui-input-block">
-                <input type="radio" name="type" value="1" {if condition="$editData.type eq 1"}checked{/if} title="商品">
-                <input type="radio" name="type" value="2" {if condition="$editData.type eq 2"}checked{/if} title="商品分类">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-col-md4">
+                <textarea placeholder="请输入描述内容" name="description" class="layui-textarea">{$editData.description}</textarea>
             </div>
         </div>
 
@@ -61,7 +60,6 @@
         //监听提交
         form.on('submit(demo1)', function(data) {
             var formDom = data.form;
-            console.log($(formDom).serialize());
             $.ajax({
                 url: "{:url('save')}",
                 type: "post",

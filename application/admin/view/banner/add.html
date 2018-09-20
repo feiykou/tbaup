@@ -16,16 +16,15 @@
     <div class="form-container">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">推荐位名称</label>
+                <label class="layui-form-label">名称</label>
                 <div class="layui-col-md2">
-                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入推荐位名称" class="layui-input">
+                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入名称" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">推荐位类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="type" value="1" title="商品" checked>
-                    <input type="radio" name="type" value="2" title="商品分类">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-col-md4">
+                    <textarea placeholder="请输入描述内容" name="description" class="layui-textarea"></textarea>
                 </div>
             </div>
 
@@ -39,6 +38,8 @@
     </div>
 
     {include file='common/footer'}
+    <!--引入webuploaderJS-->
+    {Uploader:webuploaderjs/}
 
     <script>
         layui.use(['form', 'layedit', 'laydate'], function() {

@@ -192,9 +192,48 @@ CREATE TABLE `tb_recpos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '推荐位表';
 
 
+-- ----------------------------
+-- Table structure for tb_rec_item
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_rec_item`;
+CREATE TABLE `tb_rec_item` (
+  `recpos_id` SMALLINT(5) unsigned NOT NULL DEFAULT 0 COMMENT '推荐位id',
+  `value_id` mediumint(8) unsigned NOT NULL DEFAULT 0 COMMENT '商品或商品分类id',
+  `value_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '推荐位类型 1：商品  2：分类'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '推荐位中间表';
+
+-- ----------------------------
+-- Table structure for tb_banner
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_banner`;
+CREATE TABLE `tb_banner` (
+  `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL COMMENT 'Banner名称，通常作为标识',
+  `description` varchar(255) DEFAULT NULL COMMENT 'Banner描述',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='banner管理表';
 
 
-
+-- ----------------------------
+-- Table structure for tb_banner_item
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_banner_item`;
+CREATE TABLE `tb_banner_item` (
+  `id` mediumint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `url` VARCHAR (60) NOT NULL DEFAULT '' COMMENT '图片链接',
+  `video_url` VARCHAR(60) NOT NULL DEFAULT '' COMMENT '视频链接',
+  `url_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'url类型，1、图片 2、视频',
+  `key_word` varchar(100) NOT NULL DEFAULT 0 COMMENT '执行关键字，根据不同的type含义不同',
+  `type` tinyint(4) NOT NULL DEFAULT 1 COMMENT '跳转类型，可能导向商品，可能导向专题，可能导向其他。0，无导向；1：导向商品;2:导向专题',
+  `banner_id` SMALLINT(5) NOT NULL DEFAULT 0 COMMENT '外键，关联banner表',
+  `sort` smallint NOT NULL DEFAULT 50 COMMENT 'bannerItem排序',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='banner子项表';
 
 
 

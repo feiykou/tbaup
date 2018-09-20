@@ -8,46 +8,27 @@
 
 namespace app\admin\controller;
 
-use app\admin\validate\CategoryValidate;
-use catetree\Catetree;
+use app\admin\validate\CommonValidate;
+use app\admin\validate\ShopTypeAttr;
 
-class Category extends Base
+class Banner extends Base
 {
     private $model;
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('category');
+        $this->model = model('banner');
     }
 
     public function lst(){
-        $category=new Catetree();
-        if(request()->isPost()){
-            $data=input('post.');
-            $category->cateSort($data['sort'],$this->model);
-            $this->success('排序成功！',url('lst'),'',1);
-        }
-        $categoryRes=$this->model->order('sort DESC')->select();
-
-        $categoryRes=$category->catetree($categoryRes);
+        $typeData=$this->model->select();
         $this->assign([
-            'tbData'=>$categoryRes,
+            'tbData'=>$typeData,
         ]);
         return view('list');
     }
 
     public function add(){
-        // 分类
-        $category = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $category->catetree($categoryRes);
-
-        // 商品推荐位
-        $productRecposRes = db('recpos')->where('type','=',2)->select();
-        $this->assign([
-            'CategoryRes' => $categoryRes,
-            'productRecposRes' => $productRecposRes
-        ]);
         return view();
     }
 
@@ -55,30 +36,10 @@ class Category extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $catetree = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $catetree->catetree($categoryRes);
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
-        $editData = $this->model->find(['id'=>$id]);
 
-        // 产品推荐位
-        $categoryRecposRes = db('recpos')->where('type','=',2)->select();
-        // 当前产品相关推荐位
-        $_curCategoryRecposRes = db('rec_item')->where([
-            'value_id' => intval($id),
-            'value_type' => 2
-        ])->select();
-        $curCategoryRecposRes = [];
-        foreach ($_curCategoryRecposRes as $k=>$v){
-            $curCategoryRecposRes[] = $v['recpos_id'];
-        }
+        $editData = $this->model->find(['id'=>$id]);
         $this->assign([
-            'editData' => $editData,
-            'CategoryRes' => $categoryRes,
-            'sonids' => $sonids,
-            'curCategoryRecposRes' => $curCategoryRecposRes,
-            'categoryRecposRes' => $categoryRecposRes
+            'editData' => $editData
         ]);
         return view();
     }
@@ -88,7 +49,7 @@ class Category extends Base
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new CategoryValidate())->goCheck('save');
+        $validate = (new CommonValidate())->goCheck('name_desc');
 
         if(!$validate['type']){
             $this->result("",'0',$validate['msg']);
@@ -98,9 +59,9 @@ class Category extends Base
         $data = input('post.');
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
-        $is_unique = $this->is_unique($data['cate_name'], $is_exist_id ? 0 : $data['id'],'cate_name');
+        $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id']);
         if($is_unique){
-            $this->result('','0','存在同名分类名');
+            $this->result('','0','存在同名轮播位');
         }
 
         // 更新数据
@@ -127,10 +88,10 @@ class Category extends Base
     }
 
     public function del($id){
-        $catetree = new Catetree();
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
-        $result = db('category')->delete($sonids);
+        $result = db('banner')->delete(intval($id));
+
+        // 删除轮播位下面的轮播图
+//        db('banner_item')->where(['banner_id'=>$id])->delete();
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');

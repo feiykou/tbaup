@@ -45,6 +45,8 @@ class Product extends Base
         $mlRes = db('member_level')->field('id,name')->select();
         // 获取类型
         $typeRes=db('type')->select();
+        // 商品推荐位
+        $productRecposRes = db('recpos')->where('type','=',1)->select();
         // 商品分类
         $Category=new Catetree();
         $CategoryObj=db('Category');
@@ -54,6 +56,7 @@ class Product extends Base
             'mlRes' => $mlRes,
             'typeRes'=>$typeRes,
             'CategoryRes'=>$CategoryRes,
+            'productRecposRes' => $productRecposRes
         ]);
         return view();
     }
@@ -67,6 +70,17 @@ class Product extends Base
         $productData = $this->model->find($product_id);
         // 获取相册
         $productImgData = db('product_image')->where('product_id','=',$product_id)->select();
+        // 产品推荐位
+        $productRecposRes = db('recpos')->where('type','=',1)->select();
+        // 当前产品相关推荐位
+        $_curProductRecposRes = db('rec_item')->where([
+            'value_id' => $product_id,
+            'value_type' => 1
+        ])->select();
+        $curProductRecposRes = [];
+        foreach ($_curProductRecposRes as $k=>$v){
+            $curProductRecposRes[] = $v['recpos_id'];
+        }
         // 会员级别数据
         $mlRes = db('member_level')->field('id,name')->select();
         // 获取产品类型
@@ -77,6 +91,7 @@ class Product extends Base
         foreach ($_mbRes as $k=>$v){
             $mbArr[$v['mlevel_id']] = $v;
         }
+
         // 查询当前产品类型所有的属性信息
         $propRes = db('property')->where('type_id','=',$productData['type_id'])->select();
         // 查询当前产品拥有的产品属性product_prop
@@ -101,6 +116,8 @@ class Product extends Base
             'propRes' => $propRes,
             'ppropRes' => $ppropRes,
             'CategoryRes'=>$CategoryRes,
+            'productRecposRes' => $productRecposRes,
+            'curProductRecposRes' => $curProductRecposRes
         ]);
         return view();
     }

@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:71:"F:\phpStudy\WWW\tbaup\public/../application/admin\view\banner\edit.html";i:1537437549;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\header.html";i:1536800929;s:63:"F:\phpStudy\WWW\tbaup\application\admin\view\common\footer.html";i:1536715219;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding-top: 30px;}
@@ -15,18 +21,17 @@
 <body>
 <div class="form-container">
     <form class="layui-form" action="">
-        <input type="hidden" name="id" value="{$editData.id}">
+        <input type="hidden" value="<?php echo $editData['id']; ?>" name="id">
         <div class="layui-form-item">
-            <label class="layui-form-label">推荐位名称</label>
+            <label class="layui-form-label">类型名称</label>
             <div class="layui-col-md2">
-                <input type="text" name="name" value="{$editData.name}" lay-verify="name" autocomplete="off" placeholder="请输入推荐位名称" class="layui-input">
+                <input type="text" value="<?php echo $editData['name']; ?>" name="name" lay-verify="name" autocomplete="off" placeholder="请输入类型名称" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">推荐位类型</label>
-            <div class="layui-input-block">
-                <input type="radio" name="type" value="1" {if condition="$editData.type eq 1"}checked{/if} title="商品">
-                <input type="radio" name="type" value="2" {if condition="$editData.type eq 2"}checked{/if} title="商品分类">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-col-md4">
+                <textarea placeholder="请输入描述内容" name="description" class="layui-textarea"><?php echo $editData['description']; ?></textarea>
             </div>
         </div>
 
@@ -39,7 +44,9 @@
     </form>
 </div>
 
-{include file='common/footer'}
+<script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
 
 <script>
     layui.use(['form', 'layedit', 'laydate'], function() {
@@ -61,9 +68,8 @@
         //监听提交
         form.on('submit(demo1)', function(data) {
             var formDom = data.form;
-            console.log($(formDom).serialize());
             $.ajax({
-                url: "{:url('save')}",
+                url: "<?php echo url('save'); ?>",
                 type: "post",
                 data: $(formDom).serialize(),
                 success: function(res){
