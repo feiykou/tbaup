@@ -1,4 +1,4 @@
-console.log(2);
+
 var feiy_upload = {
     upload_time: 0,
     plugObj: jQuery,

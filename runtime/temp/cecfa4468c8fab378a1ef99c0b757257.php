@@ -1,11 +1,17 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html";i:1538447970;s:76:"D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\view\common\header.html";i:1537854431;s:76:"D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\view\common\footer.html";i:1537854431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    {include file='common/header'}
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
+<link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/static/admin/css/style.css" media="all">
     <title>layui</title>
     <!--引入webuploaderCss-->
-    {Uploader:webuploadercss /}
+    <link href="/static/admin/plugins/webuploader/webuploader.css" rel="stylesheet">
 
     <style>
         .form-container{ padding-top: 30px;}
@@ -20,9 +26,9 @@
                 <div class="layui-inline">
                     <select name="banner_id" lay-verify="required">
                         <option value="0">请选择</option>
-                        {volist name='bannerBit' id='resData'}
-                        <option value="{$resData.id}">{$resData.name}</option>
-                        {/volist}
+                        <?php if(is_array($bannerBit) || $bannerBit instanceof \think\Collection || $bannerBit instanceof \think\Paginator): $i = 0; $__LIST__ = $bannerBit;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$resData): $mod = ($i % 2 );++$i;?>
+                        <option value="<?php echo $resData['id']; ?>"><?php echo $resData['name']; ?></option>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
                 </div>
             </div>
@@ -35,7 +41,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">上传轮播图</label>
                 <div class="layui-input-block upload-img-wrap">
-                    {Uploader:webuploader btnVal="上传轮播图"}{/Uploader:webuploader}
+                                <div id="uploader" class="uploader-item">
+                <div class="uploader_btns">
+                    <div class="filePicker"></div><div class="uploadBtn">上传轮播图</div>
+                </div>
+                <!--用来存放item-->
+                <div class="queueList"></div>
+            </div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -60,9 +72,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">跳转类型</label>
                 <div class="layui-input-block">
-                    {volist name="typeArr" id="type"}
-                    <input type="radio" {if condition="$key eq 0"}checked{/if} name="show_cate" value="{$key}" title="{$type}">
-                    {/volist}
+                    <?php if(is_array($typeArr) || $typeArr instanceof \think\Collection || $typeArr instanceof \think\Paginator): $i = 0; $__LIST__ = $typeArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?>
+                    <input type="radio" <?php if($key == 0): ?>checked<?php endif; ?> name="show_cate" value="<?php echo $key; ?>" title="<?php echo $type; ?>">
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
 
@@ -83,13 +95,15 @@
         </form>
     </div>
 
-    {include file='common/footer'}
+    <script type="text/javascript" src="/static/admin/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/common.js"></script>
     <!--引入webuploaderJS-->
-    {Uploader:webuploaderjs/}
+    <script type="text/javascript" src="/static/admin/plugins/webuploader/webuploader.js"></script><script type="text/javascript" src="/static/admin/plugins/webuploader/feiy_upload.js"></script>
     <script>
         var config = {
-            "upload_server": "{:url('uploadImg')}",
-            'video_upload_server': "{:url('uploadVideo')}"
+            "upload_server": "<?php echo url('uploadImg'); ?>",
+            'video_upload_server': "<?php echo url('uploadVideo'); ?>"
         };
 
         feiy_upload.init({
@@ -106,7 +120,7 @@
 
             upload.render({
                 elem: '#test1'
-                ,url: "{:url('uploadVideo')}"
+                ,url: "<?php echo url('uploadVideo'); ?>"
                 ,method: 'post'
                 ,size: 10000000
                 ,done: function(res,index,upload){
@@ -118,7 +132,7 @@
             //执行实例
 //            var uploadInst = upload.render({
 //                elem: '#test1' //绑定元素
-//                ,url: "{:url('uploadVideo')}" //上传接口
+//                ,url: "<?php echo url('uploadVideo'); ?>" //上传接口
 //                ,done: function(res){
 //                    //上传完毕回调
 //                    console.log(res);
@@ -150,7 +164,7 @@
                 var cate_img_url = setUpdateUrl(cate_img_lists);
                 var params = "&cate_img="+cate_img_url;
                 $.ajax({
-                    url: "{:url('save')}",
+                    url: "<?php echo url('save'); ?>",
                     type: "post",
                     data: $(formDom).serialize()+params,
                     success: function(res){

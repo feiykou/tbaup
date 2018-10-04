@@ -223,7 +223,7 @@ DROP TABLE IF EXISTS `tb_banner_item`;
 CREATE TABLE `tb_banner_item` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `url` VARCHAR (60) NOT NULL DEFAULT '' COMMENT '图片链接',
+  `img_url` VARCHAR (60) NOT NULL DEFAULT '' COMMENT '图片链接',
   `video_url` VARCHAR(60) NOT NULL DEFAULT '' COMMENT '视频链接',
   `url_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'url类型，1、图片 2、视频',
   `key_word` varchar(100) NOT NULL DEFAULT 0 COMMENT '执行关键字，根据不同的type含义不同',

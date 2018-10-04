@@ -9,7 +9,9 @@
 namespace app\admin\controller;
 
 use app\admin\validate\CategoryValidate;
+use app\common\taglib\Uploader;
 use catetree\Catetree;
+use think\Request;
 
 class BannerItem extends Base
 {
@@ -36,16 +38,12 @@ class BannerItem extends Base
     }
 
     public function add(){
-        // 分类
-        $category = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $category->catetree($categoryRes);
+        $typeArr = config('BannerItem.type');
+        $bannerBit = db('banner')->select();
 
-        // 商品推荐位
-        $productRecposRes = db('recpos')->where('type','=',2)->select();
         $this->assign([
-            'CategoryRes' => $categoryRes,
-            'productRecposRes' => $productRecposRes
+            'typeArr' => $typeArr,
+            'bannerBit' => $bannerBit
         ]);
         return view();
     }
@@ -136,6 +134,13 @@ class BannerItem extends Base
         }else{
             $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
         }
+    }
+
+
+    public function uploadVideo(Request $request){
+
+
+        return input('post.');
     }
 //
 //
