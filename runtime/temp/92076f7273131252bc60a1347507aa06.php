@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\add.html";i:1537272373;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\product\add.html";i:1537455869;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -61,6 +61,14 @@
                 <!--用来存放item-->
                 <div class="queueList"></div>
             </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">推荐位</label>
+                        <div class="layui-input-block">
+                            <?php if(is_array($productRecposRes) || $productRecposRes instanceof \think\Collection || $productRecposRes instanceof \think\Paginator): $i = 0; $__LIST__ = $productRecposRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$recpos): $mod = ($i % 2 );++$i;?>
+                            <input type="checkbox" name="recpos[]" value="<?php echo $recpos['id']; ?>" lay-skin="primary" title="<?php echo $recpos['name']; ?>"><div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary"><span><?php echo $recpos['name']; ?></span><i class="layui-icon"></i></div>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
                     <div class="layui-form-item">

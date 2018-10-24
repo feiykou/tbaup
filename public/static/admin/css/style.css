@@ -61,3 +61,12 @@
 .sel-size-wrap input{ width: 120px;}
 
 .layui-larry-box{ box-sizing: border-box;}
+
+
+/* 上传视频 删除按钮 */
+.video-wrap .video-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #999;
+}

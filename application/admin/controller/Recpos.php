@@ -22,13 +22,16 @@ class Recpos extends Base
 
     public function lst(){
         $recposData = $this->model->select();
+        $rescBitArr = config('RescBit');
         return view('list',[
-            'recposData' => $recposData
+            'recposData' => $recposData,
+            'rescBitArr' => $rescBitArr
         ]);
     }
 
     public function add(){
-        return view();
+        $rescBitArr = config('RescBit');
+        return view('',['rescBitArr' => $rescBitArr]);
     }
 
     public function edit($id=0){
@@ -36,8 +39,10 @@ class Recpos extends Base
             $this->error("参数不合法");
         }
         $editData = $this->model->find(['id'=>$id]);
+        $rescBitArr = config('RescBit');
         $this->assign([
             'editData' => $editData,
+            'rescBitArr' => $rescBitArr
         ]);
         return view();
     }

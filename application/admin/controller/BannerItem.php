@@ -8,7 +8,7 @@
 
 namespace app\admin\controller;
 
-use app\admin\validate\CategoryValidate;
+use app\admin\validate\BannerValidate;
 use catetree\Catetree;
 
 class BannerItem extends Base
@@ -21,31 +21,55 @@ class BannerItem extends Base
     }
 
     public function lst(){
-        $category=new Catetree();
+
+        /*
+         * 获取轮播图位和id
+         * */
+        $bannerBitData = model('banner')->select();
+        $banner_default_id = isset($bannerBitData[0]) ? $bannerBitData[0]['id'] : 0;
+        // 获取轮播图位id
+        $banner_id = input('param.banner_id',$banner_default_id,'intval');
+        $bannerBitArr = [];
+        foreach ($bannerBitData as $val){
+            if($banner_id == $val['id']){
+                $bannerBitArr = $val;
+            }
+        }
+        // 如果没有轮播位，则$bannerId默认为0
+        if(!isset($banner_id)){
+            $banner_id = 0;
+        };
+
+        /*
+         * 获取跳转类型数组
+         */
+        $typeArr = config('BannerItem.type');
+
         if(request()->isPost()){
+            $category=new Catetree();
             $data=input('post.');
             $category->cateSort($data['sort'],$this->model);
-            $this->success('排序成功！',url('lst'),'',1);
+            $this->success('排序成功！',url('lst',['banner_id'=>$data['banner_id']]),'',1);
         }
-        $categoryRes=$this->model->order('sort DESC')->select();
-
-        $this->assign([
-            'tbData'=>$categoryRes,
+        /*
+         * 获取轮播图数据
+         */
+        $bannerItemData = $this->model->getBannerData($banner_id);
+        return view('list',[
+            'bannerBitDatas' => $bannerBitData,
+            'bannerBitArr'  => $bannerBitArr,
+            'bannerItemData' => $bannerItemData,
+            'typeArr'        => $typeArr
         ]);
-        return view('list');
     }
 
     public function add(){
-        // 分类
-        $category = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $category->catetree($categoryRes);
+        $typeArr = config('BannerItem.type');
+        $bannerBit = db('banner')->select();
 
-        // 商品推荐位
-        $productRecposRes = db('recpos')->where('type','=',2)->select();
         $this->assign([
-            'CategoryRes' => $categoryRes,
-            'productRecposRes' => $productRecposRes
+            'typeArr' => $typeArr,
+            'bannerBit' => $bannerBit
         ]);
         return view();
     }
@@ -54,30 +78,14 @@ class BannerItem extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $catetree = new Catetree();
-        $categoryRes = $this->model->order('sort DESC')->select();
-        $categoryRes = $catetree->catetree($categoryRes);
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
         $editData = $this->model->find(['id'=>$id]);
+        $typeArr = config('BannerItem.type');
+        $bannerBit = db('banner')->select();
 
-        // 产品推荐位
-        $categoryRecposRes = db('recpos')->where('type','=',2)->select();
-        // 当前产品相关推荐位
-        $_curCategoryRecposRes = db('rec_item')->where([
-            'value_id' => intval($id),
-            'value_type' => 2
-        ])->select();
-        $curCategoryRecposRes = [];
-        foreach ($_curCategoryRecposRes as $k=>$v){
-            $curCategoryRecposRes[] = $v['recpos_id'];
-        }
         $this->assign([
             'editData' => $editData,
-            'CategoryRes' => $categoryRes,
-            'sonids' => $sonids,
-            'curCategoryRecposRes' => $curCategoryRecposRes,
-            'categoryRecposRes' => $categoryRecposRes
+            'typeArr' => $typeArr,
+            'bannerBit' => $bannerBit
         ]);
         return view();
     }
@@ -87,7 +95,7 @@ class BannerItem extends Base
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new CategoryValidate())->goCheck('save');
+        $validate = (new BannerValidate())->goCheck('save');
 
         if(!$validate['type']){
             $this->result("",'0',$validate['msg']);
@@ -97,7 +105,7 @@ class BannerItem extends Base
         $data = input('post.');
         $is_exist_id = empty($data['id']);
         // 判断是否存在同名
-        $is_unique = $this->is_unique($data['cate_name'], $is_exist_id ? 0 : $data['id'],'cate_name');
+        $is_unique = $this->is_unique($data['name'], $is_exist_id ? 0 : $data['id'],'name');
         if($is_unique){
             $this->result('','0','存在同名分类名');
         }
@@ -126,16 +134,37 @@ class BannerItem extends Base
     }
 
     public function del($id){
-        $catetree = new Catetree();
-        $sonids = $catetree->childrenids($id,$this->model);
-        $sonids[] = intval($id);
-        $result = db('category')->delete($sonids);
+        $result = $this->model->where('id','=',$id)->delete();
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
         }else{
             $this->result($_SERVER['HTTP_REFERER'], 0, '删除失败');
         }
+    }
+
+
+    public function uploadVideo()
+    {
+        if($_FILES['file']['tmp_name']){
+            $file = request()->file('file');
+            $info = $file->move('upload/videos');
+            if($info){
+                $video_url = DS . $info->getSaveName();
+            }
+        }
+        if(!empty($video_url)){
+            return $this->result($video_url,'1','上传成功','json');
+        }else{
+            return $this->result('','2','上传失败','json');
+        }
+
+//        return [
+//            "code" => 0
+//            , "msg" => ""
+//            , "data" => $_FILES
+//        ];
+
     }
 //
 //

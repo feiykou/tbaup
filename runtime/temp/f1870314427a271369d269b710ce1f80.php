@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1535288840;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1537365868;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\index\index.html";i:1537455869;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:70:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\left.html";i:1540213758;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -9,21 +9,20 @@
 <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css" media="all">
 <link rel="stylesheet" href="/static/admin/plugins/layui/css/layui.css" media="all">
 <link rel="stylesheet" href="/static/admin/css/style.css" media="all">
-    <title>KIT ADMIN</title>
+    <title>TBAUP</title>
     <link rel="stylesheet" href="/static/admin/css/app.css" media="all">
 </head>
 
 <body>
     <div class="layui-layout layui-layout-admin kit-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">KIT ADMIN</div>
+            <div class="layui-logo">BIGWU TBAUP</div>
             <div class="layui-logo kit-logo-mobile">K</div>
             <ul class="layui-nav layui-layout-left kit-nav">
-                <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo url('product/lst'); ?>" data-title="商品分类" data-id="101" data-icon="&#xe658;" kit-target>控制台</a></li>
                 <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">其它系统</a>
+                    <a href="javascript:;">设置</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">邮件管理</a></dd>
                         <dd><a href="javascript:;">消息管理</a></dd>
@@ -59,16 +58,23 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
+                <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>主题</span></a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" data-url="<?php echo url('theme/lst'); ?>" data-icon="&#xe6c6;" data-title="主题" data-id="20" kit-target><i class="layui-icon">&#xe6c6;</i><span>主题</span></a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
                 <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 商品</span></a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('category/lst'); ?>"  data-icon="&#xe658;" data-title="商品分类" data-id="51"><i class="layui-icon">&#xe658;</i><span> 商品分类</span></a></dd>
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('type/lst'); ?>"  data-icon="&#xe658;" data-title="商品类型" data-id="52"><i class="layui-icon">&#xe658;</i><span> 商品类型</span></a></dd>
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('property/lst'); ?>"  data-icon="&#xe658;" data-title="商品属性" data-id="53"><i class="layui-icon">&#xe658;</i><span> 商品属性</span></a></dd>
                     <dd><a href="javascript:;" kit-target data-url="<?php echo url('product/lst'); ?>"  data-icon="&#xe658;" data-title="商品" data-id="54"><i class="layui-icon">&#xe658;</i><span> 商品</span></a></dd>
-                    <dd><a href="javascript:;" kit-target data-options="<?php echo url("","",true,false);?>"><i class="layui-icon">&#xe658;</i><span> app.js主入口</span></a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item layui-nav-itemed">
+            <li class="layui-nav-item">
                 <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 会员管理</span></a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" kit-target  data-url="<?php echo url('category/lst'); ?>"  data-icon="&#xe658;" data-title="会员列表" data-id="61"><i class="layui-icon">&#xe658;</i><span> 会员列表</span></a></dd>
@@ -78,8 +84,12 @@
             <li class="layui-nav-item">
                 <a href="javascript:;" data-url="<?php echo url('recpos/lst'); ?>" data-name="table"  data-icon="&#xe658;" data-title="推荐位" data-id="81" kit-target><i class="fa fa-plug" aria-hidden="true"></i><span> 推荐位</span></a>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;" data-url="/views/form.html" data-name="form" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 表单(page)</span></a>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 轮播</span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('banner/lst'); ?>"  data-icon="&#xe658;" data-title="轮播位" data-id="101"><i class="layui-icon">&#xe658;</i><span> 轮播位</span></a></dd>
+                    <dd><a href="javascript:;" kit-target  data-url="<?php echo url('banner_item/lst'); ?>"  data-icon="&#xe658;" data-title="轮播" data-id="52"><i class="layui-icon">&#xe658;</i><span> 轮播</span></a></dd>
+                </dl>
             </li>
         </ul>
     </div>

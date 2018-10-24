@@ -24,8 +24,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">推荐位类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="type" value="1" title="商品" checked>
-                    <input type="radio" name="type" value="2" title="商品分类">
+                    {volist name="rescBitArr" id="rescData"}
+                    <input type="radio" name="type" value="{$key}" {if condition="$key eq 1"}checked{/if} title="{$rescData}">
+                    {/volist}
                 </div>
             </div>
 

@@ -223,7 +223,7 @@ DROP TABLE IF EXISTS `tb_banner_item`;
 CREATE TABLE `tb_banner_item` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `url` VARCHAR (60) NOT NULL DEFAULT '' COMMENT '图片链接',
+  `img_url` VARCHAR (60) NOT NULL DEFAULT '' COMMENT '图片链接',
   `video_url` VARCHAR(60) NOT NULL DEFAULT '' COMMENT '视频链接',
   `url_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'url类型，1、图片 2、视频',
   `key_word` varchar(100) NOT NULL DEFAULT 0 COMMENT '执行关键字，根据不同的type含义不同',
@@ -232,14 +232,42 @@ CREATE TABLE `tb_banner_item` (
   `sort` smallint NOT NULL DEFAULT 50 COMMENT 'bannerItem排序',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `banner_id` (`banner_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='banner子项表';
 
 
 
+-- ----------------------------
+-- Table structure for tb_theme
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_theme`;
+CREATE TABLE `tb_theme` (
+  `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '专题名称',
+  `description` varchar(255) DEFAULT NULL COMMENT '专题描述',
+  `main_img_url` VARCHAR(60) NOT NULL COMMENT '封面图',
+  `head_img_url` VARCHAR(60) NOT NULL COMMENT '专题列表页，头图',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `content` longtext NOT NULL DEFAULT '' COMMENT '主题内容',
+  `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='主题信息表';
 
 
-
+-- ----------------------------
+-- Table structure for tb_theme_product
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_theme_product`;
+CREATE TABLE `tb_theme_product` (
+  `theme_id` int(11) NOT NULL COMMENT '主题外键',
+  `product_id` int(11) NOT NULL COMMENT '商品外键',
+  `position` VARCHAR(10) NOT NULL COMMENT '产品在主题头图的位置坐标',
+  `sort` smallint NOT NULL DEFAULT 50 COMMENT '主题产品排序',
+  PRIMARY KEY (`theme_id`,`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='主题所包含的商品';
 
 
 

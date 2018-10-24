@@ -59,15 +59,29 @@ class Base extends Controller
 //        var_dump($file = Request::instance()->file('file'));die;
         if($_FILES['file']['tmp_name']){
             $file = request()->file('file');
-            $info = $file->move('upload');
+            $info = $file->move('upload/images');
             if($info){
-                $img_url = DS . 'upload' . DS . $info->getSaveName();
+                $img_url = DS . $info->getSaveName();
             }
         }
         if(!empty($img_url)){
             return $this->result($img_url,'1','上传成功','json');
         }else{
             return $this->result('','2','上传失败','json');
+        }
+    }
+
+    public function delFile(){
+        $delsrc = input('delsrc');
+        $delsrc = DEL_FILE_URL . $delsrc;
+        if(file_exists($delsrc)){
+            if(@unlink($delsrc)){
+                return $this->result('','1','删除文件成功','json');
+            }else{
+                return $this->result('','2','删除文件失败','json');
+            }
+        }else{
+            return $this->result('','3','删除的文件不存在','json');
         }
     }
 }

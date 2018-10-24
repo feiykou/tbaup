@@ -1,4 +1,3 @@
-console.log(2);
 var feiy_upload = {
     upload_time: 0,
     plugObj: jQuery,
@@ -236,10 +235,8 @@ var feiy_upload = {
             if (!this.trigger('beforeFileQueuedCheckfileNumLimit', file, fileCount)) {
                 return false;
             }
-            console.log(max + "===" + fileCount);
             if (fileCount >= max-1 && flag) {
                 flag = false;
-                console.log(opts.filePicker);
                 opts.filePicker.find('.webuploader-pick').css({
                     'position': 'relative',
                     'zIndex': 1,
@@ -434,7 +431,6 @@ var feiy_upload = {
         // 负责view的销毁
         function removeFile(file) {
             var $li = $('#' + file.id);
-
             delete percentages[file.id];
             updateTotalProgress();
             $li.off().find('.file-panel').off().end().remove();

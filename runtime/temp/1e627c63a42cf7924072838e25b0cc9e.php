@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\recpos\list.html";i:1537368867;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\SoftDownload\wamp\www\tbaup\public/../application/admin\view\recpos\list.html";i:1540268773;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\header.html";i:1536755456;s:72:"D:\SoftDownload\wamp\www\tbaup\application\admin\view\common\footer.html";i:1535296431;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +41,9 @@
                             <tr>
                                 <td align="center"><?php echo $data['id']; ?></td>
                                 <td align="center"><?php echo $data['name']; ?></td>
-                                <td align="center"><?php if($data['type'] == 1): ?>商品<?php else: ?>分类<?php endif; ?></td>
+                                <td align="center">
+                                    <?php if(is_array($rescBitArr) || $rescBitArr instanceof \think\Collection || $rescBitArr instanceof \think\Paginator): $i = 0; $__LIST__ = $rescBitArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$rescData): $mod = ($i % 2 );++$i;if($data['type'] == $key): ?><?php echo $rescData; endif; endforeach; endif; else: echo "" ;endif; ?>
+                                </td>
                                 <td align="center">
                                     <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','<?php echo url('edit',['id'=>$data['id']]); ?>')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
                                     <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,<?php echo $data['id']; ?>)"><i class="layui-icon"></i> 删除</a>

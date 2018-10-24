@@ -35,7 +35,11 @@
                             <tr>
                                 <td align="center">{$data.id}</td>
                                 <td align="center">{$data.name}</td>
-                                <td align="center">{if condition="$data.type eq 1"}商品{else/}分类{/if}</td>
+                                <td align="center">
+                                    {volist name="rescBitArr" id="rescData"}
+                                        {if condition="$data.type eq $key"}{$rescData}{/if}
+                                    {/volist}
+                                </td>
                                 <td align="center">
                                     <a class="layui-btn layui-btn-mini tb_edit" onclick="editFull('编辑分类','{:url('edit',['id'=>$data.id])}')"><i class="fa fa-pencil fa-fw"></i> 编辑</a>
                                     <a class="layui-btn layui-btn-danger layui-btn-mini tb_del" onclick="product_del(this,{$data.id})"><i class="layui-icon"></i> 删除</a>

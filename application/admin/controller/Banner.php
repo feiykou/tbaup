@@ -91,7 +91,7 @@ class Banner extends Base
         $result = db('banner')->delete(intval($id));
 
         // 删除轮播位下面的轮播图
-//        db('banner_item')->where(['banner_id'=>$id])->delete();
+        db('banner_item')->where(['banner_id'=>$id])->delete();
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');
