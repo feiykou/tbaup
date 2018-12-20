@@ -15,241 +15,138 @@ class Theme extends Model
 {
     protected $field = true;
 
+
+    public function recpos(){
+        return $this->belongsToMany('recpos','rec_item','recpos_id','value_id')->field('id,name');
+    }
+
     public function product(){
-        return $this->belongsToMany('Product','theme_product','product_id','id');
+        return $this->belongsToMany('product','theme_product','product_id','theme_id')->field('id,name');
     }
 
     public function getAllProduct(){
         return db('product')->select();
     }
 
+    public function getRescData($theme_id){
+        $themeData = self::get($theme_id);
+        $rescData = $themeData->recpos;
+        return $rescData;
+    }
+
+    public function getSelProduct($theme_id){
+        $themeData = self::get($theme_id);
+        $productData = $themeData->product;
+        return $productData;
+    }
+
+    public function getAllTheme(){
+        $order = [
+            'sort' => 'desc',
+            'id'   => 'desc'
+        ];
+        $result = $this->order($order)->select();
+        foreach ($result as &$v){
+            $v['recpos'] = self::get($v['id'])->recpos;
+        }
+        return $result;
+    }
 
     protected static function init(){
-        Product::beforeInsert(function($products){
-            $products->product_code = Product::makeProductNo();
-        });
-
-        Product::afterInsert(function ($products){
-
+        Theme::afterInsert(function ($themes){
             // 接收表单数据
-            $productData = input('post.');
-
-            $mpriceArr = $products->mp;
-            $productId = $products->id;
-
+            $themeData = input('post.');
+            $themeId = $themes->id;
             // 处理推荐位
-            if(isset($productData['recpos'])){
-                foreach ($productData['recpos'] as $k=>$v){
+            if(isset($themeData['recpos'])){
+                foreach ($themeData['recpos'] as $k=>$v){
                     db('rec_item')->insert([
                         'recpos_id' => $v,
-                        'value_id' => $productId,
-                        'value_type' => 1,
+                        'value_id' => $themeId,
+                        'value_type' => 2,
                     ]);
                 }
             }
 
-            // 处理会员价格
-            if($mpriceArr){
-                foreach ($mpriceArr as $k => $v){
-
-                    if(!trim($v)){
-                       continue;
-                    }else{
-                        db('member_price')->insert([
-                            'mlevel_id' => $k,
-                            'mprice' => $v,
-                            'product_id' =>$productId
-                        ]);
-                    }
-                }
-            }
-
-            // 处理产品图片
-            $img_url_arr = explode(';',$products->product_img_url);
-            if(isset($img_url_arr[0]) && $img_url_arr[0]){
-                foreach ($img_url_arr as $k=>$v){
-                    $data[$k]['img_url'] = $v;
-                    $data[$k]['product_id'] = $productId;
-                }
-                db('product_image')->insertAll($data);
-            }
-
-
-            // 处理产品属性
-            $prop_i = 0;
-            if(isset($productData['product_prop'])){
-                foreach ($productData['product_prop'] as $k => $v){
-                    if(is_array($v)){
-                        // 添加单独属性
-                        if(!empty($v)){
-                            foreach ($v as $k1 => $v1){
-                                if(empty($v1)){
-                                    $prop_i++;
-                                    continue;
-                                }
-                                db('product_prop')->insert([
-                                    'prop_id' => $k,
-                                    'prop_value' => $v1,
-                                    'product_id' => $productId,
-                                    'prop_price' => $productData['prop_price'][$prop_i]
-                                ]);
-                                $prop_i++;
-                            }
-                        }
-                    }else{
-                        // 添加唯一属性
-                        if(!empty($v)) {
-                            db('product_prop')->insert([
-                                'prop_id' => $k,
-                                'prop_value' => $v,
-                                'product_id' => $productId
-                            ]);
-                        }
-                    }
-                }
-            }
-        });
-
-        Product::beforeUpdate(function ($products){
-            $productId = $products->id;
-            // 获取新增商品
-            $productData = input('post.');
-            // 处理推荐位
-            db('rec_item')->where([
-                'value_id' => $productId,
-                'value_type' => 1
-            ])->delete();
-            if(isset($productData['recpos'])){
-                foreach ($productData['recpos'] as $k=>$v){
-                    db('rec_item')->insert([
-                        'recpos_id' => $v,
-                        'value_id' => $productId,
-                        'value_type' => 1,
+            // 处理主题和产品关联
+            if(isset($themeData['product_id'])){
+                foreach ($themeData['product_id'] as $k=>$v){
+                    $position = str_replace('，',',',$themeData['position'][$k]);
+                    db('theme_product')->insert([
+                        'product_id' => $v,
+                        'theme_id'   => $themeId,
+                        'sort'       => $themeData['sort'][$k],
+                        'position'   => $position
                     ]);
-                }
+                };
             }
 
-            // 处理会员价格
-            $mpriceArr = $products->mp;
-            // 删除原有会员价格
-            db('member_price')->where('product_id','=',$productId)->delete();
-            if($mpriceArr){
-                foreach ($mpriceArr as $k => $v){
-                    if(!trim($v)){
-                        continue;
-                    }else{
-                        db('member_price')->insert([
-                            'mlevel_id' => $k,
-                            'mprice' => $v,
-                            'product_id' =>$productId
+        });
+
+        Theme::beforeUpdate(function ($themes){
+            // 接收表单数据
+            $themeData = input('post.');
+            $themeId = $themes->id;
+            if(!isset($themeData['req_type']) || $themeData['req_type'] != 'lst'){
+                // 处理推荐位
+                db('rec_item')->where([
+                    'value_id' => $themeId,
+                    'value_type' => 2
+                ])->delete();
+                if(isset($themeData['recpos'])){
+                    foreach ($themeData['recpos'] as $k=>$v){
+                        db('rec_item')->insert([
+                            'recpos_id' => $v,
+                            'value_id' => $themeId,
+                            'value_type' => 2,
                         ]);
                     }
                 }
             }
-
-
-            // 处理产品新增属性
-            if(isset($productData['product_prop'])){
-                $prop_i = 0;
-                foreach ($productData['product_prop'] as $k => $v){
-                    if(is_array($v)){
-                        // 添加单独属性
-                        if(!empty($v)){
-                            foreach ($v as $k1 => $v1){
-                                if(empty($v1)){
-                                    $prop_i++;
-                                    continue;
-                                }
-                                db('product_prop')->insert([
-                                    'prop_id' => $k,
-                                    'prop_value' => $v1,
-                                    'product_id' => $productId,
-                                    'prop_price' => $productData['prop_price'][$prop_i]
-                                ]);
-                                $prop_i++;
-                            }
-                        }
-                    }else{
-                        // 添加唯一属性
-                        if(!empty($v)) {
-                            db('product_prop')->insert([
-                                'prop_id' => $k,
-                                'prop_value' => $v,
-                                'product_id' => $productId
-                            ]);
-                        }
-                    }
-                }
-            }
-
-
-            // 处理产品更新属性
-            if(isset($productData['old_product_prop'])){
-                $prop_i = 0;
-                $propPrice = $productData['old_prop_price'];
-                $idsArr = array_keys($propPrice);
-                $valuesArr = array_values($propPrice);
-                foreach ($productData['old_product_prop'] as $k => $v){
-                    if(is_array($v)){
-                        // 添加单独属性
-                        if(!empty($v)){
-                            foreach ($v as $k1 => $v1){
-                                if(empty($v1)){
-                                    $prop_i++;
-                                    continue;
-                                }
-                                db('product_prop')->where('id','=',$idsArr[$prop_i])->update([
-                                    'prop_value' => $v1,
-                                    'prop_price' => $valuesArr[$prop_i]
-                                ]);
-                                $prop_i++;
-                            }
-                        }
-                    }else{
-                        // 添加唯一属性
-                        if(!empty($v)) {
-                            db('product_prop')->where('id','=',$idsArr[$prop_i])->update([
-                                'prop_value' => $v,
-                                'prop_price' => $valuesArr[$prop_i]
-                            ]);
-                            $prop_i++;
-                        }
-                    }
-                }
+            if(isset($themeData['product_id'])){
+                // 处理产品
+                db('theme_product')->where([
+                    'theme_id' => $themeId,
+                ])->delete();
+                foreach ($themeData['product_id'] as $k=>$v){
+                    $position = str_replace('，',',',$themeData['position'][$k]);
+                    db('theme_product')->insert([
+                        'product_id' => $v,
+                        'theme_id'   => $themeId,
+                        'sort'       => $themeData['sort'][$k],
+                        'position'   => $position
+                    ]);
+                };
             }
         });
 
-        Product::beforeDelete(function($products){
-            $productId = $products->id;
+        Theme::beforeDelete(function($theme){
+            $themeId = $theme->id;
 
             // 删除内存中的主图
-            if($products->main_img_url){
-                if(file_exists($products->main_img_url)){
-                    @unlink($products->main_img_url);
+            if($theme->main_img_url){
+                $delsrc = DEL_FILE_URL . '/upload/images/' . $theme->main_img_url;
+                if(file_exists($delsrc)){
+                    @unlink($delsrc);
                 }
             }
 
-            // 删除关联的会员价格
-            db('member_price')->where('product_id','=',$productId)
-                ->delete();
-
-            // 删除关联的商品属性
-            db('product_prop')->where('product_id','=',$productId)
-                ->delete();
-
-            // 删除关联的商品相册
-            $product_imgs = db('product_image')->where('product_id','=',$productId)
-                ->select();
-
-            if(!empty($product_imgs)){
-                foreach ($product_imgs as $k => $v){
-                    if(file_exists($v['img_url'])){
-                        @unlink($v['img_url']);
-                    }
+            if($theme->head_img_url){
+                $delurl = DEL_FILE_URL . '/upload/images/' . $theme->head_img_url;
+                if(file_exists($delurl)){
+                    @unlink($delurl);
                 }
             }
-            db('product_image')->where('product_id','=',$productId)
-                ->delete();
+            // 处理推荐位
+            db('rec_item')->where([
+                'value_id' => $themeId,
+                'value_type' => 2
+            ])->delete();
+
+            // 处理产品
+            db('theme_product')->where([
+                'theme_id' => $themeId,
+            ])->delete();
         });
     }
 

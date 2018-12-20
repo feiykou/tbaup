@@ -78,11 +78,18 @@ class Product extends Model
                                     $prop_i++;
                                     continue;
                                 }
+                                $img_url = '';
+                                if(isset($productData['propImage'][$k])){
+                                    $img_url = $productData['propImage'][$k][$k1];
+                                }
+
                                 db('product_prop')->insert([
                                     'prop_id' => $k,
                                     'prop_value' => $v1,
+                                    'prop_name' => $productData['prop_name'][$prop_i],
                                     'product_id' => $productId,
-                                    'prop_price' => $productData['prop_price'][$prop_i]
+                                    'prop_price' => $productData['prop_price'][$prop_i],
+                                    'img_url' => $img_url
                                 ]);
                                 $prop_i++;
                             }
@@ -120,6 +127,17 @@ class Product extends Model
                 }
             }
 
+            // 处理产品图片
+            db('product_image')->where('product_id','=',$productId)->delete();
+            $img_url_arr = explode(';',$products->product_img_url);
+            if(isset($img_url_arr[0]) && $img_url_arr[0]){
+                foreach ($img_url_arr as $k=>$v){
+                    $data[$k]['img_url'] = $v;
+                    $data[$k]['product_id'] = $productId;
+                }
+                db('product_image')->insertAll($data);
+            }
+
             // 处理会员价格
             $mpriceArr = $products->mp;
             // 删除原有会员价格
@@ -138,7 +156,6 @@ class Product extends Model
                 }
             }
 
-
             // 处理产品新增属性
             if(isset($productData['product_prop'])){
                 $prop_i = 0;
@@ -151,11 +168,17 @@ class Product extends Model
                                     $prop_i++;
                                     continue;
                                 }
+                                $img_url = '';
+                                if(isset($productData['propImage'][$k])){
+                                    $img_url = $productData['propImage'][$k][$k1];
+                                }
                                 db('product_prop')->insert([
                                     'prop_id' => $k,
                                     'prop_value' => $v1,
                                     'product_id' => $productId,
-                                    'prop_price' => $productData['prop_price'][$prop_i]
+                                    'prop_name' => $productData['prop_name'][$prop_i],
+                                    'prop_price' => $productData['prop_price'][$prop_i],
+                                    'img_url' => $img_url
                                 ]);
                                 $prop_i++;
                             }
@@ -173,13 +196,13 @@ class Product extends Model
                 }
             }
 
-
             // 处理产品更新属性
             if(isset($productData['old_product_prop'])){
                 $prop_i = 0;
                 $propPrice = $productData['old_prop_price'];
                 $idsArr = array_keys($propPrice);
                 $valuesArr = array_values($propPrice);
+
                 foreach ($productData['old_product_prop'] as $k => $v){
                     if(is_array($v)){
                         // 添加单独属性
@@ -189,9 +212,14 @@ class Product extends Model
                                     $prop_i++;
                                     continue;
                                 }
+                                $img_url = '';
+                                if(isset($productData['old_propImage'][$k])){
+                                    $img_url = $productData['old_propImage'][$k][$k1];
+                                }
                                 db('product_prop')->where('id','=',$idsArr[$prop_i])->update([
                                     'prop_value' => $v1,
-                                    'prop_price' => $valuesArr[$prop_i]
+                                    'prop_price' => $valuesArr[$prop_i],
+                                    'img_url' => $img_url
                                 ]);
                                 $prop_i++;
                             }

@@ -9,13 +9,12 @@
 namespace app\admin\validate;
 
 
-class ProductValidate extends BaseValidate
+class ThemeValidate extends BaseValidate
 {
 
     protected $rule = [
-        ['name','require|unique:product', '商品名称不能为空！|商品名称不能重复'],
-        ['category_id','require','商品所属栏目不能为空！'],
-        ['market_price','require','商品市场价格不能为空！'],
-        ['price','require','商品本店价格不能为空！']
+        ['name','require|unique:theme', '主题名称不能为空！|主题名称不能重复'],
+        ['main_img_url','require','主题封面图不能为空！'],
+        ['content','require','主题内容不能为空！']
     ];
 }

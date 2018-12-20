@@ -33,6 +33,12 @@
                             <input type="text" name="name" value="{$productData.name}" lay-verify="name" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
                         </div>
                     </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">商品描述</label>
+                        <div class="layui-col-md4">
+                            <textarea placeholder="请输入描述内容" name="description" class="layui-textarea">{$productData.description}</textarea>
+                        </div>
+                    </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传主图</label>
                         <div class="layui-input-block upload-img-wrap">
@@ -40,7 +46,7 @@
                             {if condition="$productData.main_img_url neq ''"}
                             <ul class="filelist filelist-exist clearfix">
                                 <li class="state-complete" data-src="{$productData.main_img_url}">
-                                    <p class="imgWrap"><img src="{$productData.main_img_url}" width="110" height="110"></p>
+                                    <p class="imgWrap"><img src="__IMGSRC__{$productData.main_img_url}" width="110" height="110"></p>
                                     <div class="file-panel"><span class="cancel">删除</span></div>
                                     <span class="success"></span>
                                 </li>
@@ -57,7 +63,7 @@
                             <ul class="filelist filelist-exist clearfix">
                                 <?php foreach($productImgData as $k=>$v): if($v['img_url']):?>
                                 <li class="state-complete" data-src="{$v.img_url}">
-                                    <p class="imgWrap"><img src="{$v.img_url}" width="110" height="110"></p>
+                                    <p class="imgWrap"><img src="__IMGSRC__{$v.img_url}" width="110" height="110"></p>
                                     <div class="file-panel"><span class="cancel" data-imgid="{$v.id}">删除</span></div>
                                     <span class="success"></span>
                                 </li>
@@ -136,9 +142,9 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">编辑器</label>
+                        <label class="layui-form-label">商品详情</label>
                         <div class="layui-input-block">
-                            <textarea class="layui-textarea layui-hide" name="description" lay-verify="description" id="LAY_demo_editor">{$productData.description}</textarea>
+                            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor">{$productData.content}</textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -204,7 +210,30 @@
                                             </div>
                                             <div class="layui-inline">
                                                 <input type="text" name="old_prop_price[{$v0.id}]" value="{$v0.prop_price}" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">
+                                                <input class="prop_name" type="hidden" name="old_prop_name[{$v0.id}]" value="{$v0.prop_name}" autocomplete="off" class="layui-input">
                                             </div>
+                                            <?php if($v['is_add_img'] == 1):?>
+                                            <div class="layui-inline upload-file-wrap">点击上传图片
+                                                <input type="file" onclick="sfile_upload(this)" class="file-input-inline" name="image" />
+                                                <input class="propImage" type="hidden" name="old_propImage[{$v.id}][]" value="{$v0.img_url}" />
+                                            </div>
+                                            <?php if(isset($v0['img_url']) && $v0['img_url']):?>
+                                                <div class="layui-inline file-img-wrap">
+                                                    <div class="img" data-src="{$v0.img_url}">
+                                                        <img src="__IMGSRC__{$v0.img_url}" alt="">
+                                                    </div>
+                                                    <div class="file-img-mask">删除</div>
+                                                </div>
+                                            <?php else:?>
+                                                <div class="layui-inline file-img-wrap none">
+                                                    <div class="img">
+                                                        <img alt="">
+                                                    </div>
+                                                    <div class="file-img-mask">删除</div>
+                                                </div>
+                                            <?php endif;?>
+
+                                            <?php endif;?>
                                         </div>
                                         <?php endforeach;?>
                                         <?php else:?>
@@ -221,6 +250,13 @@
                                                 <div class="layui-inline">
                                                     <input type="text" name="prop_price[]" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">
                                                 </div>
+                                                <?php if($v['is_add_img'] == 1):?>
+                                                <div class="layui-inline upload-file-wrap">点击上传图片
+                                                    <input type="file" onclick="sfile_upload(this)" class="file-input-inline" name="image" />
+                                                    <input type="hidden" name="propImage[{$v.id}][]" />
+                                                </div>
+                                                <div class="layui-inline file-img-wrap"><div class="img"></div><div class="file-img-mask">删除</div></div>
+                                                <?php endif;?>
                                             </div>
                                         <?php endif;?>
                                     </div>
@@ -345,6 +381,68 @@
     }
 
 
+    function sfile_upload(obj) {
+        var mark = true;
+        $(obj).on('change',function(){
+            if(mark){
+                var formData = new FormData();
+                formData.append('file',$(obj)[0].files[0]);
+                $.ajax({
+                    url: "{:url('uploadImg')}",
+                    data: formData,
+                    type: "POST",
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success: function (res) {
+                        if(res.code == 1){
+                            $(obj).next().val(res.data);
+                            var imgBox = $(obj).parent().next();
+                            var $imgWrap = imgBox.find('.img');
+                            $imgWrap.data('src',res.data);
+
+                            var img = new Image();
+                            img.src = "__IMGSRC__"+res.data;
+                            $imgWrap.html(img);
+                            imgBox.css('display','inline-block');
+                            mark = false;
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    // 删除属性图片
+    $("#prop_list").on('click','.file-img-mask',function(){
+        $delsrc = $(this).prev().data('src');
+        var $this = $(this);
+        layer.confirm('确定要删除图片吗？', {icon: 3, title:'提示'}, function(index){
+            $.ajax({
+                url: "{:url('delFile')}",
+                type: "post",
+                data: {
+                    delsrc: "__IMGSRC__"+$delsrc
+                },
+                success: function(res){
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1,time:1000,anim:1});
+                        $this.prev().data('src','');
+                        $this.parent().prev().find('input[type="hidden"]').val('');
+                        $this.parent().prev().find('input[type="file"]').val('');
+                        $this.prev().html('');
+                        $this.parent().hide();
+                    }else{
+                        layer.msg(res.msg, {icon: 5,time:1000,anim:6});
+                    }
+                }
+            });
+            layer.close(index);
+        });
+    });
+
+
 
 
 
@@ -373,49 +471,62 @@
                     type: 'POST',
                     data: {
                         id: imgId
-                    },
+                    }
                 });
             }
-
         });
 
         window.addrow = function(o){
             var $div=$(o).parent();
             if($(o).html() == '[+]'){
                 var newdiv=$div.clone();
+                newdiv.attr('data-propid','');
                 newdiv.find('a').html('[-]');
                 // 修改价格old_prop_price[]为prop_price[]
                 newdiv.find('input[type=text]').attr('name','prop_price[]');
+                newdiv.find('.prop_name').attr('name','prop_name[]');
                 // 修改old_product_prop[$v.id][]为product_prop[$v.id][]
                 var sel = newdiv.find('select');
                 var oldname = sel.attr('name');
                 var newname = oldname.replace('old_','');
                 sel.attr('name',newname);
-                $div.after(newdiv);
+                // 清空缩略图
+                newdiv.find('.img').html('');
+                var fileDom = newdiv.find('input[type="file"]');
+                fileDom.next().val('');
+                var filenewname = fileDom.next().attr('name').replace('old_','');
+                console.log(filenewname);
+                fileDom.next().attr('name',filenewname);
+                fileDom.val('');
+                $div.parent().append(newdiv);
             }else{
                 var propid = $div.data('propid');
-                layer.confirm('确定要删除图片吗？', {icon: 3, title:'提示'}, function(index){
-                    $.ajax({
-                        url: '{:url("ProductProp/ajaxDelProductProp")}',
-                        type: 'POST',
-                        data: {
-                            id: propid
-                        },
-                        success: function(res){
-                            var msgParams = {
-                                iconNum: 6,
-                                anim: 0
-                            };
-                            if(res.code == 0){
-                                msgParams.iconNum = 5;
-                                msgParams.anim = 6;
-                            }else{
-                                $div.remove();
+                if(propid){
+                    layer.confirm('确定要删除吗？', {icon: 3, title:'提示'}, function(index){
+                        $.ajax({
+                            url: '{:url("ProductProp/ajaxDelProductProp")}',
+                            type: 'POST',
+                            data: {
+                                id: propid
+                            },
+                            success: function(res){
+                                var msgParams = {
+                                    iconNum: 6,
+                                    anim: 0
+                                };
+                                if(res.code == 0){
+                                    msgParams.iconNum = 5;
+                                    msgParams.anim = 6;
+                                }else{
+                                    $div.remove();
+                                }
+                                layer.msg(res.msg, {icon: msgParams.iconNum,time:1000,anim:msgParams.anim});
                             }
-                            layer.msg(res.msg, {icon: msgParams.iconNum,time:1000,anim:msgParams.anim});
-                        }
+                        });
                     });
-                });
+                }else{
+                    $div.remove();
+                }
 
             }
             form.render('select');
@@ -427,9 +538,6 @@
                 if (value.length < 2) {
                     return '标题至少得2个字符啊';
                 }
-            },
-            content: function(value) {
-
             }
         });
 
@@ -449,8 +557,7 @@
                             html+='<div class="layui-col-md6">';
                             html+='<div>';
                             var attrValuesArr = data.values.split(',');
-                            html+='<a href="#" class="btn-add-reduce" onclick="addrow(this);">[+]</a>';
-
+                            html+='<a href="javascript:;" class="btn-add-reduce" onclick="addrow(this);">[+]</a>';
                             html+='<div class="layui-inline" style="width: 160px; margin-left: 6px;">';
                             html+='<select name="product_prop['+data.id+'][]" lay-filter="ss">';
                             html+='<option value="">请选择</option>';
@@ -461,7 +568,15 @@
                             html+='</div>';
                             html+='<div class="layui-inline">';
                             html+='<input type="text" name="prop_price[]" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">';
+                            html+='<input class="prop_name" type="hidden" name="prop_name[]" value="'+data.name+'" autocomplete="off" class="layui-input">';
                             html+='</div>';
+                            if(data.is_add_img == 1){
+                                html+='<div class="layui-inline upload-file-wrap">点击上传图片';
+                                html+='<input type="file" onclick="sfile_upload(this)" class="file-input-inline" name="image" />';
+                                html+='<input class="propImage" type="hidden" name="propImage['+data.id+'][]" />';
+                                html+='</div>';
+                                html+='<div class="layui-inline file-img-wrap"><div class="img"></div><div class="file-img-mask">删除</div></div>';
+                            }
                             html+='</div>';
                             html+='</div>';
                             html+='</div>';

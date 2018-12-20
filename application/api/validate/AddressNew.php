@@ -24,5 +24,6 @@ class AddressNew extends BaseValidate
         'city' => 'require|isNotEmpty',
         'country' => 'require|isNotEmpty',
         'detail' => 'require|isNotEmpty',
+        'is_default' => 'require|number'
     ];
 }

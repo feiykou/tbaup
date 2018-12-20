@@ -9,7 +9,7 @@
 namespace app\api\model;
 
 
-class ProductStock
+class ProductStock extends BaseModel
 {
-
+    protected $hidden = ['product_id'];
 }

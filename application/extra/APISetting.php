@@ -1,7 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/10/29
- * Time: 18:13
- */
+
+return [
+    'img_prefix' => 'http://tbaup.cn',
+    'token_expire_in'   =>   7200
+];

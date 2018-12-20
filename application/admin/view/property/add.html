@@ -35,8 +35,15 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">属性类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="type" value="1" title="单选">
-                    <input type="radio" name="type" value="2" title="唯一" checked="">
+                    <input type="radio" name="type" lay-filter="type-filter" value="1" title="单选">
+                    <input type="radio" name="type" lay-filter="type-filter" value="2" title="唯一" checked="">
+                </div>
+            </div>
+            <div class="layui-form-item add-img-class none">
+                <label class="layui-form-label">是否加图片</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="is_add_img" value="1" title="需要">
+                    <input type="radio" name="is_add_img" value="2" title="不需要" checked="">
                 </div>
             </div>
 
@@ -71,6 +78,14 @@
                },
                 content: function(value) {
 
+                }
+            });
+
+            form.on('radio(type-filter)',function(data){
+                if(data.value == 1){
+                    $('.add-img-class').show();
+                }else{
+                    $('.uadd-img-class').hide();
                 }
             });
 

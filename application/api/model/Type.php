@@ -9,7 +9,7 @@
 namespace app\api\model;
 
 
-class Type
+class Type extends BaseModel
 {
 
 }

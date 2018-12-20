@@ -9,7 +9,10 @@
 namespace app\api\model;
 
 
-class Property
+class Property extends BaseModel
 {
+    protected $hidden = [
+        'update_time', 'create_time', 'values', 'type_id', 'type','id'
+    ];
 
 }

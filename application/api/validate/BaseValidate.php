@@ -68,6 +68,19 @@ class BaseValidate extends Validate
         return $newArray;
     }
 
+    protected function checkPropIds($values, $rule='', $data='', $field=''){
+        $mark = true;
+        if(!empty($values)){
+            $arr = explode(',',$values);
+            foreach ($arr as $value){
+                if (!is_numeric($value) || !is_int($value + 0) || ($value + 0) <= 0) {
+                    return false;
+                }
+            }
+        }
+        return $mark;
+    }
+
     protected function isPositiveInteger($value, $rule='', $data='', $field='')
     {
         if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) {

@@ -30,7 +30,7 @@ var feiy_upload = {
             swf: 'uploder/Uploader.swf',
             // 是否要分片处理大文件上传，默认是false
             chunked: true,
-            chunkSize: 1000 * 1024,
+            chunkSize: 3000 * 1024,
             //请求服务器地址
             server: opts.server,
             // runtimeOrder: 'flash',

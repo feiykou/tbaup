@@ -56,14 +56,14 @@ class Base extends Controller
     }
 
     public function uploadImg(){
-//        var_dump($file = Request::instance()->file('file'));die;
         if($_FILES['file']['tmp_name']){
             $file = request()->file('file');
             $info = $file->move('upload/images');
             if($info){
-                $img_url = DS . $info->getSaveName();
+                $img_url = '/' . str_replace('\\','/',$info->getSaveName());
             }
         }
+
         if(!empty($img_url)){
             return $this->result($img_url,'1','上传成功','json');
         }else{

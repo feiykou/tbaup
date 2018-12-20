@@ -8,9 +8,7 @@
 
 namespace app\admin\controller;
 
-use app\admin\validate\CategoryValidate;
-use app\admin\validate\ProductValidate;
-use app\admin\validate\ShopTypeAttr;
+use app\admin\validate\ThemeValidate;
 use catetree\Catetree;
 
 class Theme extends Base
@@ -23,19 +21,15 @@ class Theme extends Base
     }
 
     public function lst(){
-        $join = [
-            ['category c','p.category_id=c.id','LEFT'],
-            ['type t', 'p.type_id=t.id','LEFT'],
-            ['product_stock ps', 'p.id=ps.product_id','LEFT']
-        ];
-        $productRes = db('product')->alias('p')
-            ->field('p.*,c.cate_name,t.name as type_name,SUM(ps.stock_num) gn')
-            ->join($join)
-            ->group('p.id')
-            ->order('p.id DESC')
-            ->paginate(6);
+        $tree=new Catetree();
+        if(request()->isPost()){
+            $data=input('post.');
+            $tree->cateSort($data['sort'],$this->model);
+            $this->success('排序成功！',url('lst'),'',1);
+        }
+        $themeData = $this->model->getAllTheme();
         $this->assign([
-            'productRes'=>$productRes,
+            'themeData' => $themeData
         ]);
         return view('list');
     }
@@ -48,10 +42,11 @@ class Theme extends Base
         }else{
             $RecposRes = [];
         }
-
         // 全部产品
         $productDatas = $this->model->getAllProduct();
-
+        foreach($productDatas as &$products){
+            $products['main_img_url'] = str_replace("\\","/",$products['main_img_url']);
+        }
         $this->assign([
             'productDatas' => $productDatas,
             'recposRes'    => $RecposRes
@@ -63,59 +58,44 @@ class Theme extends Base
         if(intval($id) < 1){
             $this->error("参数不合法");
         }
-        $product_id = intval($id);
+        $theme_id = intval($id);
         // 获取当前产品基本信息
-        $productData = $this->model->find($product_id);
-        // 获取相册
-        $productImgData = db('product_image')->where('product_id','=',$product_id)->select();
-        // 产品推荐位
-        $productRecposRes = db('recpos')->where('type','=',1)->select();
-        // 当前产品相关推荐位
-        $_curProductRecposRes = db('rec_item')->where([
-            'value_id' => $product_id,
-            'value_type' => 1
-        ])->select();
-        $curProductRecposRes = [];
-        foreach ($_curProductRecposRes as $k=>$v){
-            $curProductRecposRes[] = $v['recpos_id'];
-        }
-        // 会员级别数据
-        $mlRes = db('member_level')->field('id,name')->select();
-        // 获取产品类型
-        $typeRes = db('type')->select();
-        // 会员价格
-        $_mbRes = db('member_price')->where('product_id','=',$product_id)->select();
-        $mbArr = [];
-        foreach ($_mbRes as $k=>$v){
-            $mbArr[$v['mlevel_id']] = $v;
+        $themeData = $this->model->find($theme_id);
+
+        // 获取选中的推进位
+        $selRescData = $this->model->getRescData($theme_id);
+        $selRescIds = [];
+        foreach ($selRescData as $v){
+            $selRescIds[] = $v['id'];
         }
 
-        // 查询当前产品类型所有的属性信息
-        $propRes = db('property')->where('type_id','=',$productData['type_id'])->select();
-        // 查询当前产品拥有的产品属性product_prop
-        $_ppropRes = db('product_prop')->where('product_id','=',$productData['id'])->select();
-        $ppropRes = [];
-        foreach ($_ppropRes as $k => $v){
-            $ppropRes[$v['prop_id']][] = $v;
+        // 商品推荐位  2:代表主题
+        $rescBitArr = config('RescBit');
+        if(isset($rescBitArr[2])){
+            $RecposRes = db('recpos')->where('type','=',2)->select();
+        }else{
+            $RecposRes = [];
+        }
+        // 全部产品
+        $productDatas = $this->model->getAllProduct();
+        foreach($productDatas as &$products){
+            $products['main_img_url'] = str_replace("\\","/",$products['main_img_url']);
+        }
+
+        // 获取选中产品
+        $selProduct = $this->model->getSelProduct($theme_id);
+        $selProductData = [];
+        foreach ($selProduct as $v){
+            $selProductData[$v['id']] = $v->pivot;
         }
 
 
-        // 商品分类
-        $Category=new Catetree();
-        $CategoryObj=db('Category');
-        $CategoryRes=$CategoryObj->order('sort DESC')->select();
-        $CategoryRes=$Category->Catetree($CategoryRes);
         $this->assign([
-            'productData' => $productData,
-            'productImgData' => $productImgData,
-            'typeRes' => $typeRes,
-            'mlRes' => $mlRes,
-            'mbArr' => $mbArr,
-            'propRes' => $propRes,
-            'ppropRes' => $ppropRes,
-            'CategoryRes'=>$CategoryRes,
-            'productRecposRes' => $productRecposRes,
-            'curProductRecposRes' => $curProductRecposRes
+            'themeData'      => $themeData,
+            'selRescIds'     => $selRescIds,
+            'selProductData' => $selProductData,
+            'productDatas'   => $productDatas,
+            'recposRes'      => $RecposRes
         ]);
         return view();
     }
@@ -124,7 +104,7 @@ class Theme extends Base
         if(!request()->post()){
             $this->error("请求失败");
         }
-        $validate = (new ProductValidate())->goCheck();
+        $validate = (new ThemeValidate())->goCheck();
 
         if(!$validate['type']){
             $msg = '';
@@ -171,7 +151,7 @@ class Theme extends Base
     }
 
     public function del($id){
-        $result = model('product')->destroy($id);
+        $result = model('theme')->destroy($id);
         // 返回状态码
         if($result){
             $this->result($_SERVER['HTTP_REFERER'], 1, '删除完成');

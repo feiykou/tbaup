@@ -150,7 +150,7 @@ class BannerItem extends Base
             $file = request()->file('file');
             $info = $file->move('upload/videos');
             if($info){
-                $video_url = DS . $info->getSaveName();
+                $video_url = '/' . str_replace('\\','/',$info->getSaveName());
             }
         }
         if(!empty($video_url)){

@@ -98,7 +98,7 @@
                             <div class="layui-input-block">
                                 <select name="" xm-select="product-sel">
                                     {volist name="productDatas" id="data"}
-                                    <option value="id:{$data.id};name:{$data.name};main_img_url:201810242498a12186cc8aa381ebe30a3a3d5506;price:{$data.price}">{$data.name}</option>
+                                    <option value="id:{$data.id};name:{$data.name};main_img_url:{$data.main_img_url};price:{$data.price}">{$data.name}</option>
                                     {/volist}
                                 </select>
                             </div>
@@ -128,11 +128,7 @@
                                         <!--<td align="center"><input type="input" name="sort[1]" value="50" autocomplete="off" class="layui-input"></td>-->
                                         <!--<td align="center"><input type="input" name="position" value="" autocomplete="off" class="layui-input"></td>-->
                                     <!--</tr>-->
-                                    <!--<tr class="sort-tr-wrap">-->
-                                        <!--<td colspan="4" style="border:0;"></td>-->
-                                        <!--<td align="center"><input type="input" name="price" value="" autocomplete="off" class="layui-input"></td>-->
-                                        <!--<td colspan="2" style="border:0;"></td>-->
-                                    <!--</tr>-->
+
                                 </tbody>
                             </table>
                             <div class="larry-table-page clearfix">
@@ -145,7 +141,6 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
                 </div>
@@ -188,29 +183,51 @@
                 return false;
             }
             var html = "<tr>"+
-            "   <td align='center'>"+$obj.id+"</td>"+
-            "    <td align='center'>"+$obj.name+"</td>"+
-            "    <td align='center'>"+$obj.main_img_url+"</td>"+
-            "    <td align='center'>不错哦</td>"+
-            "    <td align='center'>"+$obj.price+"</td>"+
-            "    <td align='center'><input type='input' name='sort[1]' value='50' autocomplete='off' style='padding: 0;' class='layui-input tc'></td>"+
-            "    <td align='center'><input type='input' name='position' value='' autocomplete='off' class='layui-input'></td>"+
+            "   <td align='center' valign='middle'><input type='hidden' name='product_id[]' value='"+$obj.id+"'>"+$obj.id+"</td>"+
+            "    <td align='center' valign='middle'>"+$obj.name+"</td>"+
+            "    <td align='center' valign='middle'><img src='__IMGSRC__"+$obj.main_img_url+"'></td>"+
+            "    <td align='center' valign='middle'>不错哦</td>"+
+            "    <td align='center' valign='middle'>"+$obj.price+"</td>"+
+            "    <td align='center' valign='middle'><input type='input' name='sort[]' value='50' autocomplete='off' style='padding: 0;' class='layui-input tc'></td>"+
+            "    <td align='center' valign='middle'><input type='input' name='position[]' value='' autocomplete='off' class='layui-input'></td>"+
             "    </tr>";
             $("#product-body-id").append(html);
+        }
+        
+        function getTotalPriceTemple(totalPrice) {
+            var html = '<tr class="sort-tr-wrap">'+
+            '    <td colspan="4" style="border:0;"></td>'+
+            '    <td align="center"><input type="input" name="price" value="'+totalPrice+'" autocomplete="off" style="padding: 0;" class="layui-input tc"></td>'+
+            '    <td colspan="2" style="border:0;"></td>'+
+            '    </tr>';
+            $("#product-body-id").append(html);
+        }
+        
+        function resolveStr(val) {
+            var spl1 = val.value.split(';');
+            var valjson = {};
+            var key,value='';
+            spl1.forEach(function(str){
+                key = str.split(':')[0];
+                value = str.split(':')[1] || '';
+                valjson[key] = value;
+            });
+            return valjson;
         }
 
 
         var formSelects = layui.formSelects;
         console.log(formSelects.value('product-sel'));
         formSelects.on('product-sel',function (id, vals, val, isAdd, isDisabled) {
-//            console.log(isAdd);
-//            $("#product-body-id").html('');
-//            vals.forEach(function (val) {
-//                var str = val.value.replace(/'/g,'\"').replace(/\\/g,'\/');
-//                var valueJson = JSON.parse(str);
-//                insertProduct(valueJson);
-//            });
-
+            $("#product-body-id").html('');
+            var valueJson = {};
+            var totalPrice = 0;
+            vals.forEach(function (val) {
+                valueJson = resolveStr(val);
+                totalPrice+=parseFloat(valueJson.price);
+                insertProduct(valueJson);
+            });
+            getTotalPriceTemple(totalPrice.toFixed(2));
         },true);
 
 
@@ -224,15 +241,6 @@
                 element = layui.element,
                 $ = layui.jquery;
 
-            $(".downpanel").on("click",".layui-select-title",function(e){
-                var $select=$(this).parents(".layui-form-select");
-                $(".layui-form-select").not($select).removeClass("layui-form-selected");
-                $select.addClass("layui-form-selected");
-                e.stopPropagation();
-            }).on("click",".layui-form-checkbox",function(e){
-                e.stopPropagation();
-            });
-
 
             layedit.set({
                 uploadImage: {
@@ -244,95 +252,20 @@
             //创建一个编辑器
             var editIndex = layedit.build('LAY_demo_editor');
 
-            window.addrow = function(o){
-                var div=$(o).parent();
-                if($(o).html() == '[+]'){
-                    var newdiv=div.clone();
-                    newdiv.find('a').html('[-]');
-                    div.after(newdiv);
-                }else{
-                    div.remove();
-                }
-                form.render('select');
-            }
-
             //自定义验证规则
             form.verify({
                 name: function(value) {
-                   if (value.length < 2) {
-                       return '标题至少得2个字符啊';
-                   }
-               },
-                content: function(value) {
-
+                    if (value.length < 2) {
+                        return '标题至少得2个字符啊';
+                    }
+                },
+                sort: function (value) {
+                    if(value == []){
+                        return '请选择商品！';
+                    }
                 }
             });
 
-            form.on('select(type_id)',function (data) {
-                var type_id = $(data.elem).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{:url('property/ajaxGetAttr')}",
-                    data:{type_id:type_id},
-                    dataType:"json",
-                    success:function(res){
-                        var html = '';
-                        console.log(res);
-                        res.forEach(function(data){
-                            if(data.type == 1){
-                                html+='<div class="layui-form-item">';
-                                html+='<label class="layui-form-label">'+data.name+'</label>';
-                                html+='<div class="layui-col-md6">';
-                                html+='<div>';
-                                var attrValuesArr = data.values.split(',');
-                                html+='<a href="#" class="btn-add-reduce" onclick="addrow(this);">[+]</a>';
-
-                                html+='<div class="layui-inline" style="width: 160px; margin-left: 6px;">';
-                                html+='<select name="product_prop['+data.id+'][]" lay-filter="ss">';
-                                html+='<option value="">请选择</option>';
-                                for(var i=0; i<attrValuesArr.length; i++){
-                                    html+="<option value='"+attrValuesArr[i]+"'>"+attrValuesArr[i]+"</option>";
-                                }
-                                html+='</select>';
-                                html+='</div>';
-                                html+='<div class="layui-inline">';
-                                html+='<input type="text" name="prop_price[]" autocomplete="off" placeholder="请输入自定义价格" class="layui-input">';
-                                html+='</div>';
-                                html+='</div>';
-                                html+='</div>';
-                                html+='</div>';
-                            }else{
-                                if(data.values != ''){
-                                    html+='<div class="layui-form-item">';
-                                    html+='<label class="layui-form-label">'+data.name+'</label>';
-                                    var attrValuesArr = data.values.split(',');
-                                    html+='<div class="layui-inline" style="width: 160px; margin-left: 6px;">';
-                                    html+='<select name="product_prop['+data.id+']" lay-filter="ss">';
-                                    html+='<option value="">请选择</option>';
-                                    for(var i=0; i<attrValuesArr.length; i++){
-                                        html+="<option value='"+attrValuesArr[i]+"'>"+attrValuesArr[i]+"</option>";
-                                    }
-                                    html+='</select>';
-                                    html+='</div>';
-                                    html+='</div>';
-                                }else{
-                                    html+='<div class="layui-form-item">';
-                                    html+='<label class="layui-form-label">'+data.name+'</label>';
-                                    html+='<div class="layui-col-md2">';
-                                    html+='<input type="text" name="product_prop['+data.id+']"  autocomplete="off" placeholder="请输入自定义属性值" class="layui-input">';
-                                    html+='</div>';
-                                    html+='</div>';
-                                }
-                            }
-
-
-
-                        });
-                        $("#prop_list").html(html);
-                        form.render('select');
-                    }
-                });
-            });
 
 
 
@@ -341,15 +274,16 @@
                 layedit.sync(editIndex);
                 var formDom = data.form;
                 var main_img_lists = $("#uploader .filelist > li");
-                var product_img_lists = $("#productImgs .filelist > li");
+                var head_img_lists = $("#headImg .filelist > li");
                 var main_img_url = setUpdateUrl(main_img_lists);
-                var product_img_url = setUpdateUrl(product_img_lists);
-                var params = "&main_img_url="+main_img_url+'&product_img_url='+product_img_url;
+                var head_img_url = setUpdateUrl(head_img_lists);
+                var params = "&main_img_url="+main_img_url+'&head_img_url='+head_img_url;
                 $.ajax({
                     url: "{:url('save')}",
                     type: "post",
                     data: $(formDom).serialize()+params,
                     success: function(res){
+                        console.log(res);
                         var msgParams = {
                             iconNum: 6,
                             anim: 0

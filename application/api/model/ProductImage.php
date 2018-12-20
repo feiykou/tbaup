@@ -9,7 +9,12 @@
 namespace app\api\model;
 
 
-class ProductImage
+class ProductImage extends BaseModel
 {
 
+    protected $hidden = ['id', 'product_id', 'sort'];
+    public function getImgUrlAttr($value, $data)
+    {
+        return $this->prefixImgUrl($value, $data);
+    }
 }

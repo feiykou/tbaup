@@ -9,7 +9,16 @@
 namespace app\api\model;
 
 
-class ProductProp
+class ProductProp extends BaseModel
 {
-
+    protected $hidden = ['id','prop_id'];
+    public function getImgUrlAttr($value, $data)
+    {
+        return $this->prefixImgUrl($value, $data);
+    }
+    public static function getProductPropByIds($ids){
+        $ids = explode(',',$ids);
+        $result = self::all($ids);
+        return $result;
+    }
 }

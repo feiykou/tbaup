@@ -71,6 +71,7 @@ CREATE TABLE `tb_property` (
   `id` smallint NOT NULL AUTO_INCREMENT COMMENT '商品属性id',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品属性名称',
   `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '商品属性类型,1:单选 2：唯一',
+  `is_add_img` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否添加图片,1:需要 2：不需要',
   `values` varchar(255) NOT NULL DEFAULT '' COMMENT '商品属性值',
   `type_id` smallint NOT NULL DEFAULT 0 COMMENT '所属类型id',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
@@ -88,17 +89,19 @@ DROP TABLE IF EXISTS `tb_product`;
 CREATE TABLE `tb_product` (
   `id` smallint NOT NULL AUTO_INCREMENT COMMENT '产品id',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '产品名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '产品描述',
   `product_code` CHAR (16) NOT NULL DEFAULT '' COMMENT '产品编号',
   `main_img_url` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `market_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
-  `price`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
+  `market_price` VARCHAR(80) NOT NULL DEFAULT '' COMMENT '市场价范围',
+  `price`  VARCHAR(80) NOT NULL DEFAULT '' COMMENT '本店价范围',
   `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',
   `category_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属栏目分类',
   `theme_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属主题',
   `type_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属类型',
-  `description` longtext NOT NULL DEFAULT '' COMMENT '产品描述',
+  `content` longtext NOT NULL DEFAULT '' COMMENT '产品描述',
   `weight` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '重量',
   `unit` varchar(10) NOT NULL DEFAULT 'kg' COMMENT '单位',
+  `stock_total` INT NOT NULL DEFAULT '0' COMMENT '库存总数量',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -159,8 +162,10 @@ DROP TABLE IF EXISTS `tb_product_prop`;
 CREATE TABLE `tb_product_prop` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
   `prop_id` mediumint NOT NULL DEFAULT 0 COMMENT '属性id',
+  `prop_name` varchar(60) NOT NULL DEFAULT '' COMMENT '属性名',
   `prop_value` varchar(60) NOT NULL DEFAULT '' COMMENT '属性值',
   `prop_price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '属性价格',
+  `img_url` varchar(100) NOT NULL DEFAULT '' COMMENT '图片地址',
   `product_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属商品',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
@@ -175,6 +180,8 @@ CREATE TABLE `tb_product_stock` (
   `id` mediumint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `product_id` mediumint NOT NULL DEFAULT 0 COMMENT '所属商品',
   `stock_num` int NOT NULL DEFAULT 0 COMMENT '库存量',
+  `market_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
+  `price`  DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '本店价',
   `product_prop` varchar(20) NOT NULL DEFAULT '' COMMENT '属性值',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品属性表';
@@ -251,6 +258,7 @@ CREATE TABLE `tb_theme` (
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
   `content` longtext NOT NULL DEFAULT '' COMMENT '主题内容',
   `on_sale` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架：1：上架  0：下架',
+  `sort` smallint NOT NULL DEFAULT 50 COMMENT '主题排序',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -269,9 +277,90 @@ CREATE TABLE `tb_theme_product` (
   PRIMARY KEY (`theme_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='主题所包含的商品';
 
+-- ----------------------------
+-- Table structure for order
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_order`;
+CREATE TABLE `tb_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_no` varchar(20) NOT NULL COMMENT '订单号',
+  `user_id` int(11) NOT NULL COMMENT '外键，用户id，注意并不是openid',
+  `total_price` decimal(6,2) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:未支付， 2：已支付，3：已发货 , 4: 已支付，但库存不足',
+  `snap_img` varchar(255) DEFAULT NULL COMMENT '订单快照图片',
+  `snap_name` varchar(80) DEFAULT NULL COMMENT '订单快照名称',
+  `total_count` int(11) NOT NULL DEFAULT '0',
+  `snap_items` text COMMENT '订单其他信息快照（json)',
+  `snap_address` varchar(500) DEFAULT NULL COMMENT '地址快照',
+  `prepay_id` varchar(100) DEFAULT NULL COMMENT '订单微信支付的预订单id（用于发送模板消息）',
+  `delete_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `order_no` (`order_no`),
+  KEY `user_id` (`user_id`),
+  KEY `status` (`status`),
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for order_product
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_order_product`;
+CREATE TABLE `tb_order_product` (
+  `order_id` int(11) NOT NULL COMMENT '联合主键，订单id',
+  `product_id` int(11) NOT NULL COMMENT '联合主键，商品id',
+  `count` int(11) NOT NULL COMMENT '商品数量',
+  `product_prop_ids` varchar(20) NOT NULL DEFAULT '' COMMENT '属性值',
+  `delete_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(50) NOT NULL,
+  `nickName` varchar(50) NOT NULL COMMENT '用户昵称',
+  `auth` tinyint(1) NOT NULL DEFAULT '1' COMMENT '权限，1：普通用户 3：超级管理员',
+  `gender` tinyint(1) NOT NULL COMMENT '性别 0：未知、1：男、2：女',
+  `province` varchar(20) DEFAULT NULL COMMENT '省',
+  `city` varchar(20) DEFAULT NULL COMMENT '市',
+  `country` varchar(20) DEFAULT NULL COMMENT '区',
+  `delete_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '删除时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid` (`openid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user_address
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user_address`;
+CREATE TABLE `tb_user_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL COMMENT '收获人姓名',
+  `mobile` varchar(20) NOT NULL COMMENT '手机号',
+  `province` varchar(20) DEFAULT NULL COMMENT '省',
+  `city` varchar(20) DEFAULT NULL COMMENT '市',
+  `country` varchar(20) DEFAULT NULL COMMENT '区',
+  `detail` varchar(100) DEFAULT NULL COMMENT '详细地址',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1:默认， 0：不是默认',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:正常， 0：删除',
+  `delete_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '删除时间',
+  `user_id` int(11) NOT NULL COMMENT '外键',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`,`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 

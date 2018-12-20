@@ -9,7 +9,17 @@
 namespace app\api\model;
 
 
-class BannerItem
+class BannerItem extends BaseModel
 {
+    protected $hidden = ['id','sort','banner_id','create_time','update_time'];
 
+    public function getImgUrlAttr($value, $data)
+    {
+        return $this->prefixImgUrl($value, $data);
+    }
+
+    public function getVideoUrlAttr($value, $data)
+    {
+        return $this->prefixVideoUrl($value, $data);
+    }
 }

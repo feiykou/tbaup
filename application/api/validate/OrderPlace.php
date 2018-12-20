@@ -12,18 +12,24 @@ namespace app\api\validate;
 
 
 use app\lib\exception\ParameterException;
-use think\Exception;
 
 class OrderPlace extends BaseValidate
 {
     protected $rule = [
+        'addressId' => 'require|isPositiveInteger',
         'products' => 'checkProducts'
+    ];
+
+    protected $message = [
+        'addressId' => '地址不能为空'
     ];
 
     protected $singleRule = [
         'product_id' => 'require|isPositiveInteger',
         'count' => 'require|isPositiveInteger',
+        'product_prop_ids'  => 'checkPropIds'
     ];
+
 
     protected function checkProducts($values)
     {
@@ -39,6 +45,8 @@ class OrderPlace extends BaseValidate
         return true;
     }
 
+
+
     private function checkProduct($value)
     {
         $validate = new BaseValidate($this->singleRule);
@@ -49,4 +57,6 @@ class OrderPlace extends BaseValidate
             ]);
         }
     }
+
+
 }
