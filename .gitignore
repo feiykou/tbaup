@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .idea
 *.log
 sql
 application/database.php
 runtime
+=======
+>>>>>>> b24c66b7791df497a96b5345e0144aaed646c54b

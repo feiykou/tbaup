@@ -1,0 +1,1167 @@
+---------------------------------------------------------------
+[ 2018-09-30T10:34:48+08:00 ] 127.0.0.1 GET /
+[ info ] tbaup.cn/ [运行时间：1.088941s][吞吐率：0.92req/s] [内存消耗：1,332.34kb] [文件加载：45]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'purpose' => 'prefetch',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\admin\controller\Index->index[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Index.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\index\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:34:49+08:00 ] 127.0.0.1 GET /build/css/nprogress.css
+[ info ] tbaup.cn/build/css/nprogress.css [运行时间：0.146034s][吞吐率：6.85req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'nprogress.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/nprogress_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:34:50+08:00 ] 127.0.0.1 GET /build/css/message.css
+[ info ] tbaup.cn/build/css/message.css [运行时间：0.032676s][吞吐率：30.60req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'message.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/message_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:34:50+08:00 ] 127.0.0.1 GET /admin/index/main
+[ info ] tbaup.cn/admin/index/main [运行时间：0.093622s][吞吐率：10.68req/s] [内存消耗：1,320.65kb] [文件加载：44]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'main',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/index/main' => '',
+)
+[ info ] [ RUN ] app\admin\controller\Index->main[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Index.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\index\main.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:34:54+08:00 ] 127.0.0.1 GET /admin/banner_item/lst.html
+[ info ] tbaup.cn/admin/banner_item/lst.html [运行时间：0.644436s][吞吐率：1.55req/s] [内存消耗：2,216.55kb] [文件加载：54]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'lst',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/lst_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->lst[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\list.html [ array (
+  0 => 'tbData',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.020511s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner_item` [ RunTime:0.278233s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner_item` ORDER BY `sort` DESC [ RunTime:0.000886s ]
+---------------------------------------------------------------
+[ 2018-09-30T10:34:56+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.392080s][吞吐率：2.55req/s] [内存消耗：2,087.22kb] [文件加载：51]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'CategoryRes',
+  1 => 'productRecposRes',
+  2 => 'typeArr',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001069s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner_item` [ RunTime:0.010719s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner_item` ORDER BY `sort` DESC [ RunTime:0.000701s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_recpos` [ RunTime:0.054335s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_recpos` WHERE  `type` = 2 [ RunTime:0.124766s ]
+---------------------------------------------------------------
+[ 2018-09-30T10:36:08+08:00 ] 127.0.0.1 GET /build/css/nprogress.css
+[ info ] tbaup.cn/build/css/nprogress.css [运行时间：0.033546s][吞吐率：29.81req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'nprogress.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/nprogress_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:36:08+08:00 ] 127.0.0.1 GET /build/css/message.css
+[ info ] tbaup.cn/build/css/message.css [运行时间：0.031815s][吞吐率：31.43req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'message.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/message_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:36:19+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.043422s][吞吐率：23.03req/s] [内存消耗：1,847.50kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundarygU0ZB57ZLGIV5o6R',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:36:53+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.028264s][吞吐率：35.38req/s] [内存消耗：1,847.52kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryzbUcvqUIkMUABYhc',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:39:10+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.028426s][吞吐率：35.18req/s] [内存消耗：1,847.39kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryyFDXpR5WfdYTB8mV',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T10:49:33+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.131045s][吞吐率：7.63req/s] [内存消耗：2,210.92kb] [文件加载：53]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001984s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.088715s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000487s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:09:58+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.029884s][吞吐率：33.46req/s] [内存消耗：1,846.46kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryoAjSPtWuJzp3pouy',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:27:28+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.030192s][吞吐率：33.12req/s] [内存消耗：1,846.46kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryYufPXG0GKzmvXd4g',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:27:56+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.375759s][吞吐率：2.66req/s] [内存消耗：2,210.92kb] [文件加载：53]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.062394s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.010259s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000829s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:28:01+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.024898s][吞吐率：40.16req/s] [内存消耗：1,846.46kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundary9ICjAoyMF8GCjhIV',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:28:12+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：1.252651s][吞吐率：0.80req/s] [内存消耗：34,623.08kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryMcOBOqJBABOLULiL',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '31618531',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:28:58+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.052824s][吞吐率：18.93req/s] [内存消耗：2,210.92kb] [文件加载：53]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000779s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000364s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:30:44+08:00 ] 127.0.0.1 GET /admin/category/lst.html
+[ info ] tbaup.cn/admin/category/lst.html [运行时间：0.504411s][吞吐率：1.98req/s] [内存消耗：2,220.57kb] [文件加载：54]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'category',
+    2 => 'lst',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/category/lst_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\Category->lst[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Category.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\category\list.html [ array (
+  0 => 'tbData',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010618s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_category` [ RunTime:0.057957s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_category` ORDER BY `sort` DESC [ RunTime:0.000583s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:30:46+08:00 ] 127.0.0.1 GET /admin/property/lst.html
+[ info ] tbaup.cn/admin/property/lst.html [运行时间：0.343940s][吞吐率：2.91req/s] [内存消耗：2,276.90kb] [文件加载：57]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'property',
+    2 => 'lst',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/property/lst_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\Property->lst[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Property.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\property\list.html [ array (
+  0 => 'tbData',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001117s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_property` [ RunTime:0.033175s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tb_property` `p` INNER JOIN `tb_type` `t` ON `p`.`type_id`=`t`.`id` LIMIT 1 [ RunTime:0.024742s ]
+[ sql ] [ SQL ] SELECT `p`.*,t.name as type_name FROM `tb_property` `p` INNER JOIN `tb_type` `t` ON `p`.`type_id`=`t`.`id` ORDER BY `p`.`id` DESC LIMIT 0,6 [ RunTime:0.000477s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:30:47+08:00 ] 127.0.0.1 GET /admin/product/lst.html
+[ info ] tbaup.cn/admin/product/lst.html [运行时间：0.147475s][吞吐率：6.78req/s] [内存消耗：2,333.08kb] [文件加载：57]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'product',
+    2 => 'lst',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/product/lst_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\Product->lst[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Product.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\product\list.html [ array (
+  0 => 'productRes',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001288s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_product` [ RunTime:0.020219s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM ( SELECT count(*) FROM `tb_product` `p` LEFT JOIN `tb_category` `c` ON `p`.`category_id`=`c`.`id` LEFT JOIN `tb_type` `t` ON `p`.`type_id`=`t`.`id` LEFT JOIN `tb_product_stock` `ps` ON `p`.`id`=`ps`.`product_id` GROUP BY `p`.`id` ) `_group_count_` LIMIT 1 [ RunTime:0.008185s ]
+[ sql ] [ SQL ] SELECT p.*,c.cate_name,t.name as type_name,SUM(ps.stock_num) gn FROM `tb_product` `p` LEFT JOIN `tb_category` `c` ON `p`.`category_id`=`c`.`id` LEFT JOIN `tb_type` `t` ON `p`.`type_id`=`t`.`id` LEFT JOIN `tb_product_stock` `ps` ON `p`.`id`=`ps`.`product_id` GROUP BY `p`.`id` ORDER BY `p`.`id` DESC LIMIT 0,6 [ RunTime:0.005254s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:30:48+08:00 ] 127.0.0.1 GET /admin/product/add.html
+[ info ] tbaup.cn/admin/product/add.html [运行时间：0.124130s][吞吐率：8.06req/s] [内存消耗：2,322.88kb] [文件加载：54]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'product',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/product/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/product/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\Product->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Product.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\product\add.html [ array (
+  0 => 'mlRes',
+  1 => 'typeRes',
+  2 => 'CategoryRes',
+  3 => 'productRecposRes',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000880s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_member_level` [ RunTime:0.038151s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `tb_member_level` [ RunTime:0.000602s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_type` [ RunTime:0.007023s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_type` [ RunTime:0.000367s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_recpos` [ RunTime:0.008171s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_recpos` WHERE  `type` = 1 [ RunTime:0.000786s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_category` [ RunTime:0.006802s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_category` ORDER BY `sort` DESC [ RunTime:0.000362s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:31:08+08:00 ] 127.0.0.1 POST /admin/property/ajaxgetattr.html
+[ info ] tbaup.cn/admin/property/ajaxgetattr.html [运行时间：0.043809s][吞吐率：22.83req/s] [内存消耗：1,907.39kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'property',
+    2 => 'ajaxgetattr',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/product/add.html',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '9',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/property/ajaxgetattr_html' => '',
+  'type_id' => '0',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\Property->ajaxGetAttr[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Property.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000830s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_property` [ RunTime:0.006833s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_property` WHERE  `type_id` = 0 [ RunTime:0.001335s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:33:37+08:00 ] 127.0.0.1 GET /
+[ info ] tbaup.cn/ [运行时间：0.333160s][吞吐率：3.00req/s] [内存消耗：1,206.16kb] [文件加载：42]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'purpose' => 'prefetch',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\admin\controller\Index->index[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Index.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\index\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:33:38+08:00 ] 127.0.0.1 GET /build/css/nprogress.css
+[ info ] tbaup.cn/build/css/nprogress.css [运行时间：0.144585s][吞吐率：6.92req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'nprogress.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/nprogress_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:33:39+08:00 ] 127.0.0.1 GET /build/css/message.css
+[ info ] tbaup.cn/build/css/message.css [运行时间：0.029861s][吞吐率：33.49req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'message.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/message_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:33:40+08:00 ] 127.0.0.1 GET /admin/index/main
+[ info ] tbaup.cn/admin/index/main [运行时间：0.093275s][吞吐率：10.72req/s] [内存消耗：1,170.05kb] [文件加载：41]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'main',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/index/main' => '',
+)
+[ info ] [ RUN ] app\admin\controller\Index->main[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\Index.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\index\main.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:33:41+08:00 ] 127.0.0.1 GET /admin/banner_item/lst.html
+[ info ] tbaup.cn/admin/banner_item/lst.html [运行时间：0.126961s][吞吐率：7.88req/s] [内存消耗：2,020.12kb] [文件加载：51]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'lst',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/lst_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->lst[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\list.html [ array (
+  0 => 'tbData',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002107s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner_item` [ RunTime:0.012432s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner_item` ORDER BY `sort` DESC [ RunTime:0.000810s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:33:43+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.065276s][吞吐率：15.32req/s] [内存消耗：2,012.13kb] [文件加载：50]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000731s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.010640s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000914s ]
+---------------------------------------------------------------
+[ 2018-09-30T12:33:55+08:00 ] 127.0.0.1 GET /build/css/nprogress.css
+[ info ] tbaup.cn/build/css/nprogress.css [运行时间：0.032588s][吞吐率：30.69req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'nprogress.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/nprogress_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T12:33:55+08:00 ] 127.0.0.1 GET /build/css/message.css
+[ info ] tbaup.cn/build/css/message.css [运行时间：0.032517s][吞吐率：30.75req/s] [内存消耗：900.77kb] [文件加载：35]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'build',
+    1 => 'css',
+    2 => 'message.css',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/build/css/message_css' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T19:39:35+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.655879s][吞吐率：1.52req/s] [内存消耗：2,210.92kb] [文件加载：53]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002703s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.023617s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000411s ]
+---------------------------------------------------------------
+[ 2018-09-30T19:39:41+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.042638s][吞吐率：23.45req/s] [内存消耗：1,846.46kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundarydyjwzAJbbgivkMWQ',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '3886569',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-09-30T19:40:44+08:00 ] 127.0.0.1 GET /admin/banner_item/add.html
+[ info ] tbaup.cn/admin/banner_item/add.html [运行时间：0.057056s][吞吐率：17.53req/s] [内存消耗：2,210.92kb] [文件加载：53]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/lst.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/add_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->add[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ VIEW ] D:\feiy_soft\PHPTutorial\WWW\tbaup\public/../application/admin\view\banner_item\add.html [ array (
+  0 => 'typeArr',
+  1 => 'bannerBit',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000741s ] mysql:host=127.0.0.1;dbname=tbaup;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tb_banner` [ RunTime:0.012307s ]
+[ sql ] [ SQL ] SELECT * FROM `tb_banner` [ RunTime:0.000560s ]
+---------------------------------------------------------------
+[ 2018-09-30T19:40:48+08:00 ] 127.0.0.1 POST /admin/banner_item/uploadvideo.html
+[ info ] tbaup.cn/admin/banner_item/uploadvideo.html [运行时间：0.036252s][吞吐率：27.58req/s] [内存消耗：1,846.46kb] [文件加载：46]
+[ info ] [ LANG ] D:\feiy_soft\PHPTutorial\WWW\tbaup\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'banner_item',
+    2 => 'uploadvideo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://tbaup.cn/admin/banner_item/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundaryFikYh4y5SQKXPGOJ',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://tbaup.cn',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '9687',
+  'connection' => 'close',
+  'host' => 'tbaup.cn',
+)
+[ info ] [ PARAM ] array (
+  '/admin/banner_item/uploadvideo_html' => '',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\BannerItem->uploadVideo[ D:\feiy_soft\PHPTutorial\WWW\tbaup\application\admin\controller\BannerItem.php ]
+[ info ] [ LOG ] INIT File

@@ -8,8 +8,14 @@
 
 namespace app\admin\controller;
 
+<<<<<<< HEAD
 use app\admin\validate\BannerValidate;
+=======
+use app\admin\validate\CategoryValidate;
+use app\common\taglib\Uploader;
+>>>>>>> b24c66b7791df497a96b5345e0144aaed646c54b
 use catetree\Catetree;
+use think\Request;
 
 class BannerItem extends Base
 {
@@ -144,6 +150,7 @@ class BannerItem extends Base
     }
 
 
+<<<<<<< HEAD
     public function uploadVideo()
     {
         if($_FILES['file']['tmp_name']){
@@ -165,6 +172,12 @@ class BannerItem extends Base
 //            , "data" => $_FILES
 //        ];
 
+=======
+    public function uploadVideo(Request $request){
+
+
+        return input('post.');
+>>>>>>> b24c66b7791df497a96b5345e0144aaed646c54b
     }
 //
 //
